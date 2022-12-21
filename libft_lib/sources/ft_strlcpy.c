@@ -1,30 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub3d.h                                            :+:      :+:    :+:   */
+/*   ft_strlcpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pmeising <pmeising@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/21 15:48:27 by pmeising          #+#    #+#             */
-/*   Updated: 2022/12/21 17:52:50 by pmeising         ###   ########.fr       */
+/*   Created: 2022/05/03 15:30:12 by pmeising          #+#    #+#             */
+/*   Updated: 2022/08/07 09:13:13 by pmeising         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CUB3D_H
-# define CUB3D_H
-# include "stdio.h"
-# include "unistd.h"
-# include "stdlib.h"
-# include "math.h"
-# include <../minilibx-linux/mlx.h>
-# include <../libft_lib/libft.h>
+#include "../libft.h"
 
-typedef struct s_prgrm
+size_t	ft_strlcpy(char *dest, const char *src, size_t size)
 {
-	int		argc;
-	char	*path_to_map;
-	void	*mlx;
-	void	*mlx_win;
-}				t_prgrm;
+	size_t	i;
 
-#endif
+	i = 0;
+	if (size == 0)
+		return (ft_strlen(src));
+	while (src[i] != '\0' && ((i + 1) < (size)))
+	{
+		dest[i] = src[i];
+		i++;
+	}
+	if (size >= 1)
+		dest[i] = '\0';
+	return (ft_strlen(src));
+}

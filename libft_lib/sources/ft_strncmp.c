@@ -1,30 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub3d.h                                            :+:      :+:    :+:   */
+/*   ft_strncmp.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pmeising <pmeising@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/21 15:48:27 by pmeising          #+#    #+#             */
-/*   Updated: 2022/12/21 17:52:50 by pmeising         ###   ########.fr       */
+/*   Created: 2022/05/05 16:36:36 by pmeising          #+#    #+#             */
+/*   Updated: 2022/08/07 09:13:13 by pmeising         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CUB3D_H
-# define CUB3D_H
-# include "stdio.h"
-# include "unistd.h"
-# include "stdlib.h"
-# include "math.h"
-# include <../minilibx-linux/mlx.h>
-# include <../libft_lib/libft.h>
+#include "../libft.h"
 
-typedef struct s_prgrm
+int	ft_strncmp(const char *s1, const char *s2, size_t n)
 {
-	int		argc;
-	char	*path_to_map;
-	void	*mlx;
-	void	*mlx_win;
-}				t_prgrm;
+	size_t			i;
+	unsigned char	*str1;
+	unsigned char	*str2;
 
-#endif
+	str1 = (unsigned char *)s1;
+	str2 = (unsigned char *)s2;
+	i = 0;
+	while (i < n && (str1[i] != '\0' || str2[i] != '\0'))
+	{
+		if (str1[i] != str2[i])
+			return (str1[i] - str2[i]);
+		i++;
+	}
+	return (0);
+}

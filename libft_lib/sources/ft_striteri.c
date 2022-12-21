@@ -1,30 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub3d.h                                            :+:      :+:    :+:   */
+/*   ft_striteri.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pmeising <pmeising@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/21 15:48:27 by pmeising          #+#    #+#             */
-/*   Updated: 2022/12/21 17:52:50 by pmeising         ###   ########.fr       */
+/*   Created: 2022/05/07 12:03:04 by pmeising          #+#    #+#             */
+/*   Updated: 2022/08/07 09:13:13 by pmeising         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CUB3D_H
-# define CUB3D_H
-# include "stdio.h"
-# include "unistd.h"
-# include "stdlib.h"
-# include "math.h"
-# include <../minilibx-linux/mlx.h>
-# include <../libft_lib/libft.h>
+#include "../libft.h"
 
-typedef struct s_prgrm
+void	ft_striteri(char *s, void (*f)(unsigned int, char*))
 {
-	int		argc;
-	char	*path_to_map;
-	void	*mlx;
-	void	*mlx_win;
-}				t_prgrm;
+	unsigned int	i;
 
-#endif
+	if (!s)
+		return ;
+	i = 0;
+	while (s[i] != '\0')
+	{
+		f(i, &s[i]);
+		i++;
+	}
+}

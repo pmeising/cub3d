@@ -1,30 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub3d.h                                            :+:      :+:    :+:   */
+/*   ft_memmove.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pmeising <pmeising@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/21 15:48:27 by pmeising          #+#    #+#             */
-/*   Updated: 2022/12/21 17:52:50 by pmeising         ###   ########.fr       */
+/*   Created: 2022/04/29 22:29:15 by pmeising          #+#    #+#             */
+/*   Updated: 2022/08/07 09:13:13 by pmeising         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CUB3D_H
-# define CUB3D_H
-# include "stdio.h"
-# include "unistd.h"
-# include "stdlib.h"
-# include "math.h"
-# include <../minilibx-linux/mlx.h>
-# include <../libft_lib/libft.h>
+#include "../libft.h"
 
-typedef struct s_prgrm
+void	*ft_memmove(void *dest, const void *src, size_t n)
 {
-	int		argc;
-	char	*path_to_map;
-	void	*mlx;
-	void	*mlx_win;
-}				t_prgrm;
+	size_t	i;
 
-#endif
+	i = 0;
+	if (dest < src)
+		return (ft_memcpy(dest, src, n));
+	else if (dest > src)
+	{	
+		while (n > i)
+		{	
+			n--;
+			((char *)dest)[n] = ((char *)src)[n];
+		}
+	}
+	return (dest);
+}

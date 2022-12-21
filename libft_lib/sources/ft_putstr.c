@@ -1,30 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub3d.h                                            :+:      :+:    :+:   */
+/*   ft_putstr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pmeising <pmeising@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/21 15:48:27 by pmeising          #+#    #+#             */
-/*   Updated: 2022/12/21 17:52:50 by pmeising         ###   ########.fr       */
+/*   Created: 2022/05/23 07:44:39 by pmeising          #+#    #+#             */
+/*   Updated: 2022/08/07 09:34:19 by pmeising         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CUB3D_H
-# define CUB3D_H
-# include "stdio.h"
-# include "unistd.h"
-# include "stdlib.h"
-# include "math.h"
-# include <../minilibx-linux/mlx.h>
-# include <../libft_lib/libft.h>
+#include "../libft.h"
 
-typedef struct s_prgrm
+// Takes a string to print out to the terminal. 
+// Returns the count of characters printed out.
+
+int	ft_putstr(char *s)
 {
-	int		argc;
-	char	*path_to_map;
-	void	*mlx;
-	void	*mlx_win;
-}				t_prgrm;
+	int	i;
+	int	count;
 
-#endif
+	count = 0;
+	if (!s)
+	{
+		write(1, "(null)", 6);
+		count = 6;
+		return (6);
+	}
+	i = 0;
+	while (s[i] != '\0')
+	{
+		write(1, &s[i], 1);
+		i++;
+		count++;
+	}
+	return (count);
+}
