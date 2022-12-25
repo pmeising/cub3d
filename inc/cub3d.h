@@ -6,7 +6,7 @@
 /*   By: pmeising <pmeising@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 15:48:27 by pmeising          #+#    #+#             */
-/*   Updated: 2022/12/21 17:52:50 by pmeising         ###   ########.fr       */
+/*   Updated: 2022/12/25 22:25:43 by pmeising         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,5 +26,10 @@ typedef struct s_prgrm
 	void	*mlx;
 	void	*mlx_win;
 }				t_prgrm;
+
+// hook functions
+void	ft_hooks(t_prgrm *vars);
+int		ft_key_hook(int keycode, t_prgrm *vars);
+int		ft_close_program(t_prgrm *vars);
 
 #endif

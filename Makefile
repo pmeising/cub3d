@@ -6,7 +6,7 @@
 #    By: pmeising <pmeising@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/21 16:41:10 by pmeising          #+#    #+#              #
-#    Updated: 2022/12/21 17:48:48 by pmeising         ###   ########.fr        #
+#    Updated: 2022/12/25 22:28:41 by pmeising         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,6 +43,7 @@ else
 endif
 
 SRC			:=	${SRC_DIR}main.c \
+				${SRC_DIR}ft_hooks.c \
 
 # makefile starts here
 all: $(NAME)
