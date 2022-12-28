@@ -6,17 +6,11 @@
 /*   By: pmeising <pmeising@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/20 19:15:36 by pmeising          #+#    #+#             */
-/*   Updated: 2022/12/25 22:38:11 by pmeising         ###   ########.fr       */
+/*   Updated: 2022/12/25 22:58:25 by pmeising         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
-
-void	ft_exit_program(t_prgrm *vars)
-{
-	printf("Error: %s\n", vars->path_to_map);
-	printf("Exiting program.\n");
-}
 
 void	ft_init(t_prgrm *vars, char **argv, int argc)
 {
@@ -41,7 +35,6 @@ int	ft_close_program(t_prgrm *vars)
 {
 	mlx_destroy_window(vars->mlx, vars->mlx_win);
 	mlx_destroy_display(vars->mlx);
-	write(1, "\n", 1);
 	free (vars);
 	exit(0);
 	return (1);
@@ -75,10 +68,7 @@ int	main(int argc, char	**argv)
 		ft_check(vars, vars->mlx, 1);
 		vars->mlx_win = mlx_new_window(vars->mlx, 960, 540, "cub3D");
 		ft_check(vars, vars->mlx_win, 2);
-		// // ft_put_values(&vars);
-		// // ft_read_from_map(&vars, argv[1]);
-		// // ft_check_map_border(&vars);
-		// // ft_create_image(&vars);
+		// ft_operate(vars);
 		ft_hooks(vars);
 		mlx_key_hook(vars->mlx_win, ft_key_hook, vars);
 		mlx_loop(vars->mlx);
