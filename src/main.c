@@ -6,7 +6,7 @@
 /*   By: pmeising <pmeising@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/20 19:15:36 by pmeising          #+#    #+#             */
-/*   Updated: 2022/12/25 22:58:25 by pmeising         ###   ########.fr       */
+/*   Updated: 2023/01/02 20:00:51 by pmeising         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,21 @@ void	ft_init(t_prgrm *vars, char **argv, int argc)
 	vars->path_to_map = ft_strdup(argv[1]);
 	vars->mlx = NULL;
 	vars->mlx_win = NULL;
+	// vars->map = malloc(sizeof(char *) * 2001);
+	vars->map = (char **)ft_calloc(sizeof(char *), 2001);
+	vars->map[2000] = NULL;
+	vars->map_rows = 0;
 	printf("%s\n", vars->path_to_map);
+}
+
+void ft_free_all(t_prgrm *vars)
+{
+	ft_free(vars->path_to_south);
+	ft_free(vars->path_to_north);
+	ft_free(vars->path_to_east);
+	ft_free(vars->path_to_west);
+	ft_free(vars->floor_colour);
+	ft_free(vars->ceiling_colour);
 }
 
 void	ft_free(void *cont)
@@ -64,6 +78,7 @@ int	main(int argc, char	**argv)
 	if (argc == 2)
 	{
 		ft_init(vars, argv, argc);
+		ft_parsing(vars);
 		vars->mlx = mlx_init();
 		ft_check(vars, vars->mlx, 1);
 		vars->mlx_win = mlx_new_window(vars->mlx, 960, 540, "cub3D");

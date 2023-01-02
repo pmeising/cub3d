@@ -6,7 +6,7 @@
 #    By: pmeising <pmeising@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/17 23:38:18 by pmeising          #+#    #+#              #
-#    Updated: 2022/12/21 17:22:51 by pmeising         ###   ########.fr        #
+#    Updated: 2023/01/02 16:03:45 by pmeising         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,13 +44,13 @@ SRCS	:=	$(SOURCES)ft_atoi.c			\
 			$(SOURCES)ft_strjoin.c		\
 			$(SOURCES)ft_strlcat.c		\
 			$(SOURCES)ft_strlcpy.c		\
-			$(SOURCES)ft_strlen.c			\
+			$(SOURCES)ft_strlen.c		\
 			$(SOURCES)ft_strmapi.c		\
 			$(SOURCES)ft_strncmp.c		\
 			$(SOURCES)ft_strnstr.c		\
 			$(SOURCES)ft_strrchr.c		\
 			$(SOURCES)ft_strtrim.c		\
-			$(SOURCES)ft_substr.c			\
+			$(SOURCES)ft_substr.c		\
 			$(SOURCES)ft_tolower.c		\
 			$(SOURCES)ft_toupper.c		\
 			$(SOURCES)get_next_line.c	\
@@ -61,6 +61,7 @@ SRCS	:=	$(SOURCES)ft_atoi.c			\
 			$(SOURCES)ft_printf.c		\
 			$(SOURCES)ft_putperc.c		\
 			$(SOURCES)ft_putstr.c		\
+			$(SOURCES)ft_is_space.c		\
 
 SRCBONUS := $(SOURCES)ft_lstnew.c			\
 			$(SOURCES)ft_lstadd_front.c	\
