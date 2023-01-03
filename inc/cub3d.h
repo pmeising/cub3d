@@ -6,7 +6,7 @@
 /*   By: pmeising <pmeising@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 15:48:27 by pmeising          #+#    #+#             */
-/*   Updated: 2023/01/02 18:29:58 by pmeising         ###   ########.fr       */
+/*   Updated: 2023/01/03 18:04:06 by pmeising         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,13 @@
 typedef struct s_prgrm
 {
 	int		argc;
+	double	*playa;
+	double	*direction;
+	double	*plane;
+	double	time;
+	double	old_time;
+	int		map_columns;
+	int		map_rows;
 	char	*path_to_map;
 	char	*path_to_north;
 	char	*path_to_south;
@@ -30,8 +37,6 @@ typedef struct s_prgrm
 	char	*floor_colour;
 	char	*ceiling_colour;
 	char	**map;
-	int		map_columns;
-	int		map_rows;
 	void	*mlx;
 	void	*mlx_win;
 }				t_prgrm;
@@ -43,8 +48,16 @@ int		ft_close_program(t_prgrm *vars);
 
 // map read functions
 void	ft_parsing(t_prgrm *vars);
-
+int 	ft_check_map_closed(t_prgrm *vars);
+int		ft_is_closed(t_prgrm *vars);
+int		ft_has_playa(t_prgrm *vars);
+void	ft_is_map_complete(t_prgrm *vars);
 
 // free funcs
 void	ft_free(void *cont);
+void	ft_free_all(t_prgrm *vars);
+int		ft_close_program(t_prgrm *vars);
+
+int	ft_check_first_last(char *str, int count);
+
 #endif

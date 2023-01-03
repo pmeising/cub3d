@@ -6,7 +6,7 @@
 #    By: pmeising <pmeising@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/21 16:41:10 by pmeising          #+#    #+#              #
-#    Updated: 2023/01/02 17:38:37 by pmeising         ###   ########.fr        #
+#    Updated: 2023/01/03 16:37:12 by pmeising         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,7 +45,8 @@ endif
 SRC			:=	${SRC_DIR}main.c \
 				${SRC_DIR}ft_hooks.c \
 				${SRC_DIR}ft_parsing.c \
-
+				${SRC_DIR}ft_free_funcs.c \
+				${SRC_DIR}ft_check_map.c 
 # makefile starts here
 all: $(NAME)
 
