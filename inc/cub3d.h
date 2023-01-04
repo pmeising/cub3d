@@ -6,7 +6,7 @@
 /*   By: pmeising <pmeising@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 15:48:27 by pmeising          #+#    #+#             */
-/*   Updated: 2023/01/04 14:17:48 by pmeising         ###   ########.fr       */
+/*   Updated: 2023/01/04 21:49:38 by pmeising         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,44 @@
 # include "math.h"
 # include <../minilibx-linux/mlx.h>
 # include <../libft_lib/libft.h>
+# define HEIGHT 540
+# define WIDTH 960
+
+typedef struct	s_ray
+{
+	double	*rayDir;
+	double	cameraX;
+	double	*deltaDist;
+	double	*sideDist;
+	double	perpWallDist;
+	int		*map;
+	int		*step;
+	int		hit;
+	int		side;
+}				t_ray;
+
+typedef struct s_img
+{
+	void	*img;
+	// void	*mlx;
+	char	*addy_img;
+	int		bits_per_pixel;
+	int		line_length;
+	int		endian;
+}	t_img;
 
 typedef struct s_prgrm
 {
+	t_ray	*ray;
+	t_img	*img;
+	t_img	*img_2;
 	int		argc;
+	int		window_height;
+	int		window_width;
 	int		player_num;
 	double	*playa;
 	double	*direction;
-	double	*plane;
+	double	*camera_vector;
 	double	time;
 	double	old_time;
 	int		map_columns;
@@ -65,5 +95,7 @@ int		ft_close_program(t_prgrm *vars);
 
 // Raycasting
 void	ft_raycasting(t_prgrm *vars);
+void	ft_init_dir_vec(t_prgrm *vars, char c);
+void	ft_init_vecs(t_prgrm *vars, char c);
 
 #endif

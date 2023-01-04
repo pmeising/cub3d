@@ -6,7 +6,7 @@
 /*   By: pmeising <pmeising@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/03 16:26:53 by pmeising          #+#    #+#             */
-/*   Updated: 2023/01/04 11:02:30 by pmeising         ###   ########.fr       */
+/*   Updated: 2023/01/04 18:39:30 by pmeising         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,4 +59,45 @@ int	ft_check_first_last(char *str, int count)
 		i++;
 	}
 	return (0);
+}
+
+/*
+*	direction: direction vector (wall pos. - playa pos.);
+*	camera_vector: is calculated so that we have a perpendicular vector to the
+*	direction vector. The length of the camera vector is 0.73% the length of the
+*	direction vector, so that we can assure an angle of 66° FOV (i.e. Field of View) of the player.
+*	Two vectors are perpendicular to one another, if the result of their multiplication is 0.
+*	In our case, the direction vector always has one value set to 0.
+*/
+void	ft_init_vecs(t_prgrm *vars, char c)
+{
+	if (c == 'N')
+	{
+		vars->direction[0] = 0;
+		vars->direction[1] = 1;
+		vars->camera_vector[0] = 0.73;
+		vars->camera_vector[1] = 0;
+	}
+	else if (c == 'S')
+	{
+		vars->direction[0] = 0;
+		vars->direction[1] = -1;
+		vars->camera_vector[0] = -0.73;
+		vars->camera_vector[1] = 0;
+	}
+	else if (c == 'W')
+	{
+		vars->direction[0] = -1;
+		vars->direction[1] = 0;
+		vars->camera_vector[0] = 0;
+		vars->camera_vector[1] = -0.73;
+
+	}
+	else if (c == 'E')
+	{
+		vars->direction[0] = 1;
+		vars->direction[1] = 0;
+		vars->camera_vector[0] = 0;
+		vars->camera_vector[1] = +0.73;
+	}
 }

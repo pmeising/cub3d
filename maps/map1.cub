@@ -1,7 +1,7 @@
-NO ./Images/n_wall.xpm
-SO ./Images/s_wall.xpm
-WE ./Images/w_wall.xpm
-EA ./Images/e_wall.xpm
+		NO ./Images/n_wall.xpm
+		SO       ./Images/s_wall.xpm
+		WE ./Images/w_wall.xpm
+		EA ./Images/e_wall.xpm
 
 F 96,96,96
 C 127,177,252

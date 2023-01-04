@@ -6,7 +6,7 @@
 /*   By: pmeising <pmeising@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/20 19:15:36 by pmeising          #+#    #+#             */
-/*   Updated: 2023/01/04 14:17:57 by pmeising         ###   ########.fr       */
+/*   Updated: 2023/01/04 21:44:20 by pmeising         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 void	ft_init(t_prgrm *vars, char **argv, int argc)
 {
 	vars->argc = argc;
+	vars->window_height = 540;
+	vars->window_width = 960;
 	vars->player_num = 0;
 	vars->path_to_map = ft_strdup(argv[1]);
 	vars->mlx = NULL;
@@ -29,9 +31,9 @@ void	ft_init(t_prgrm *vars, char **argv, int argc)
 	vars->direction = malloc(sizeof(double) * 2);
 	vars->direction[0] = 0;
 	vars->direction[1] = 0;
-	vars->plane = malloc(sizeof(double) * 2);
-	vars->plane[0] = 0;
-	vars->plane[1] = 0;
+	vars->camera_vector = malloc(sizeof(double) * 2);
+	vars->camera_vector[0] = 0;
+	vars->camera_vector[1] = 0;
 }
 
 void	ft_check(t_prgrm *vars, void *con, int code)
@@ -61,7 +63,7 @@ int	main(int argc, char	**argv)
 		ft_parsing(vars);
 		vars->mlx = mlx_init();
 		ft_check(vars, vars->mlx, 1);
-		vars->mlx_win = mlx_new_window(vars->mlx, 960, 540, "cub3D");
+		vars->mlx_win = mlx_new_window(vars->mlx, vars->window_width, vars->window_height, "cub3D");
 		ft_check(vars, vars->mlx_win, 2);
 		ft_raycasting(vars);
 		ft_hooks(vars);
