@@ -6,7 +6,7 @@
 /*   By: pmeising <pmeising@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 15:48:27 by pmeising          #+#    #+#             */
-/*   Updated: 2023/01/03 18:04:06 by pmeising         ###   ########.fr       */
+/*   Updated: 2023/01/04 10:58:35 by pmeising         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 typedef struct s_prgrm
 {
 	int		argc;
+	int		player;
 	double	*playa;
 	double	*direction;
 	double	*plane;
@@ -52,12 +53,15 @@ int 	ft_check_map_closed(t_prgrm *vars);
 int		ft_is_closed(t_prgrm *vars);
 int		ft_has_playa(t_prgrm *vars);
 void	ft_is_map_complete(t_prgrm *vars);
+int		ft_check_first_last(char *str, int count);
+int		ft_check_top_bottom(char *str, int count);
 
 // free funcs
 void	ft_free(void *cont);
 void	ft_free_all(t_prgrm *vars);
 int		ft_close_program(t_prgrm *vars);
 
-int	ft_check_first_last(char *str, int count);
+// Raycasting
+void	ft_raycasting(t_prgrm *vars);
 
 #endif

@@ -1,8 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   muel.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: pmeising <pmeising@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/01/04 10:59:50 by pmeising          #+#    #+#             */
+/*   Updated: 2023/01/04 11:00:38 by pmeising         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 // int ft_check_last_pos(char *str)
 // {
 // 	int line_len;
 // 	line_len = (int)ft_strlen(str);
-	
+
 // 	if (str[line_len - 1] != '1' && str[line_len - 1] != '2')
 // 	{
 // 		//printf("pos:%c:", str[line_len - 1]);
@@ -47,7 +59,8 @@
 // 				printf("map not closed in column %d.\n", i);
 // 				return(1);
 // 			}
-// 			if (str[i] == '2' && (str[i + 1] != '1' && str[i + 1] != '2' && str[i + 1] != '\0'))
+// 			if (str[i] == '2' && (str[i + 1] != '1' && str[i + 1] != '2' 
+				// && str[i + 1] != '\0'))
 // 			{
 // 				printf("map not closed in column %d.\n", i);
 // 				return(1);
@@ -68,6 +81,5 @@
 // 	return (0);
 // }
 
-
-get pos xy of player
-raycasting loop: go through every x, start at playa pos,
+// get pos xy of player
+// raycasting loop: go through every x, start at playa pos,

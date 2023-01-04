@@ -6,12 +6,11 @@
 /*   By: pmeising <pmeising@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/25 22:03:43 by pmeising          #+#    #+#             */
-/*   Updated: 2022/12/25 22:57:13 by pmeising         ###   ########.fr       */
+/*   Updated: 2023/01/04 10:59:38 by pmeising         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
-
 
 /*
 *	Interactions on the window can be caught and acted on.
@@ -22,7 +21,6 @@ void	ft_hooks(t_prgrm *vars)
 {
 	mlx_hook(vars->mlx_win, 17, 0, ft_close_program, &vars);
 }
-
 
 /*
 *	Each key is assigned its own keycode. By this we can identify user

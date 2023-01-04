@@ -6,38 +6,11 @@
 /*   By: pmeising <pmeising@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 15:30:28 by pmeising          #+#    #+#             */
-/*   Updated: 2023/01/03 17:23:32 by pmeising         ###   ########.fr       */
+/*   Updated: 2023/01/04 11:02:46 by pmeising         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
-
-/*
-* checks first and last pos in map are valid;
-*/
-int	ft_check_first_last(char *str, int count)
-{
-	int	i;
-	int	len;
-
-	len = (int)ft_strlen(str);
-	i = 0;
-	while (i < len && str[i])
-	{
-		if (str[0] != '1' && str[0] != '2')
-		{
-			printf("Error. Map. Position %d:%d\n", count + 1, i);
-			return (1);
-		}
-		if (str[len - 1] != '1' && str[len - 1] != '2')
-		{
-			printf("Error. Map. Position %d:%d\n", count + 1, len - 1);
-			return (1);
-		}
-		i++;
-	}
-	return (0);
-}
 
 void	ft_buffer_helper(int dif, t_prgrm *vars, int i)
 {
@@ -110,8 +83,9 @@ void	ft_read_map(t_prgrm *vars, char *str)
 * return: 1 = error found line shouldnt start with \n;
 * reads in the paths to the images for directions NOSW;
 */
+// NSOW may not always stand at first -> need to include skip spaces
 int	ft_helper1(t_prgrm *vars, char *str)
-{ // NSOW may not always stand at first
+{
 	if (str[0] == '\n')
 		return (0);
 	if (str[0] == 'N' && str[1] == 'O')
@@ -137,6 +111,7 @@ void	ft_parsing(t_prgrm *vars)
 	char	*str;
 
 	fd = open(vars->path_to_map, O_RDONLY, 0777);
+	printf("fd: %d\n", fd);
 	if (fd == -1)
 		perror("File couldn't be opened.\n");
 	while (1)

@@ -6,33 +6,11 @@
 /*   By: pmeising <pmeising@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/03 16:26:53 by pmeising          #+#    #+#             */
-/*   Updated: 2023/01/03 17:46:07 by pmeising         ###   ########.fr       */
+/*   Updated: 2023/01/04 10:58:04 by pmeising         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
-
-/*
-* checks if the whole row (top/bottom) are closed;
-*/
-int	ft_check_top_bottom(char *str, int count)
-{
-	int	i;
-	int	len;
-
-	len = (int)ft_strlen(str);
-	i = 0;
-	while (i < len && str[i])
-	{
-		if (str[i] != '1' && str[i] != '2')
-		{
-			printf("Error: Map. Position %d:%d\n", count + 1, i);
-			return (1);
-		}
-		i++;
-	}
-	return (0);
-}
 
 int	ft_check_map_closed(t_prgrm *vars)
 {
@@ -91,45 +69,48 @@ int	ft_is_closed(t_prgrm *vars)
 	return (0);
 }
 
-int	ft_has_playa(t_prgrm *vars)
+int	ft_has_playa_2(t_prgrm *vars, char c, int i, int j)
 {
-	int	i;
-	int	j;
-	int	playa;
-
-	i = 0;
-	playa = 0;
-	while (vars->map[i] != NULL)
+	if (c == 'N' || c == 'S' || c == 'E' || c == 'W')
 	{
-		j = 0;
-		while (vars->map[i][j] != '\0')
-		{
-			if (vars->map[i][j] == 'N' || vars->map[i][j] == 'S' \
-				|| vars->map[i][j] == 'E' || vars->map[i][j] == 'W')
-			{
-				vars->playa[0] = j + 1;
-				vars->playa[1] = i + 1;
-				printf("playa: %d, %d\n", vars->playa[0], vars->playa[1]);
-				playa++;
-			}
-			else if (vars->map[i][j] != '0' && vars->map[i][j] != '1' \
-				&& vars->map[i][j] != '2')
-			{
-				printf("Unidentified object found: '%c'\n", vars->map[i][j]);
-				return (1);
-			}
-			j++;
-		}
-		i++;
+		vars->playa[0] = j + 1;
+		vars->playa[1] = i + 1;
+		printf("playa: %f, %f\n", vars->playa[0], vars->playa[1]);
+		vars->player++;
 	}
-	if (playa != 1)
+	else if (c != '0' && c != '1' && c != '2')
 	{
-		printf("\nA DOUBLE AGENT IS TRYING TO OVERTAKE YOU, ABORT MISSION.... I REPEAT, ABORT MISSION!!!\n");
+		printf("Unidentified object found: '%c'\n", vars->map[i][j]);
 		return (1);
 	}
 	return (0);
 }
 
+int	ft_has_playa(t_prgrm *vars)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	while (vars->map[i] != NULL)
+	{
+		j = 0;
+		while (vars->map[i][j] != '\0')
+		{
+			if (ft_has_playa_2(vars, vars->map[i][j], i, j) == 1)
+				return (1);
+			j++;
+		}
+		i++;
+	}
+	if (vars->player != 1)
+	{
+		printf("\nA DOUBLE AGENT IS TRYING TO OVERTAKE YOU, ABORT MISSION.... \
+			I REPEAT, ABORT MISSION!!!\n");
+		return (1);
+	}
+	return (0);
+}
 
 void	ft_is_map_complete(t_prgrm *vars)
 {
