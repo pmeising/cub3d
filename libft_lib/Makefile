@@ -6,7 +6,7 @@
 #    By: pmeising <pmeising@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/17 23:38:18 by pmeising          #+#    #+#              #
-#    Updated: 2023/01/02 16:03:45 by pmeising         ###   ########.fr        #
+#    Updated: 2023/01/04 11:06:49 by pmeising         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -62,6 +62,7 @@ SRCS	:=	$(SOURCES)ft_atoi.c			\
 			$(SOURCES)ft_putperc.c		\
 			$(SOURCES)ft_putstr.c		\
 			$(SOURCES)ft_is_space.c		\
+			$(SOURCES)ft_skip_space.c	\
 
 SRCBONUS := $(SOURCES)ft_lstnew.c			\
 			$(SOURCES)ft_lstadd_front.c	\

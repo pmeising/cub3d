@@ -1,7 +1,7 @@
-NO ./maps/lsd_assets/lsd1.xpm
-SO ./maps/lsd_assets/lsd2.xpm
-WE ./maps/lsd_assets/lsd3.xpm
-EA ./maps/lsd_assets/lsd4.xpm
+NO ./Images/n_wall.xpm
+SO ./Images/s_wall.xpm
+WE ./Images/w_wall.xpm
+EA ./Images/e_wall.xpm
 
 F 245,255,0
 C 255,0,255

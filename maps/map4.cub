@@ -1,0 +1,11 @@
+NO ./Images/n_wall.xpm
+SO ./Images/s_wall.xpm
+WE ./Images/w_wall.xpm
+EA ./Images/e_wall.xpm
+
+F 245,255,0
+C 255,0,255
+
+   111  
+   1N1  
+   111  

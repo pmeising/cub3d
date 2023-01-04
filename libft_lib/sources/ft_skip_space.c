@@ -1,34 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_raycast.c                                       :+:      :+:    :+:   */
+/*   ft_skip_space.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pmeising <pmeising@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/04 11:03:05 by pmeising          #+#    #+#             */
-/*   Updated: 2023/01/04 14:15:00 by pmeising         ###   ########.fr       */
+/*   Created: 2023/01/04 11:07:02 by pmeising          #+#    #+#             */
+/*   Updated: 2023/01/04 11:12:26 by pmeising         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "../libft.h"
 
-void	ft_put_floor(t_prgrm *vars)
+/*
+*	Takes in a char *str and an index int i.
+*	While str[i] == Space, i is increased.
+*	Returns position of next non-space character in string.
+*	If str == NULL, returns -1.
+*/
+int	ft_skip_space(char *str, int i)
 {
-	int	i;
-
-	i = 0;
-	printf("vars: %s\n", vars->path_to_north);
-	printf("vars: %s\n", vars->path_to_south);
-	printf("vars: %s\n", vars->path_to_west);
-	printf("vars: %s\n", vars->path_to_east);
-	while (vars->map[i])
+	if (str)
 	{
-		printf("%s\n", vars->map[i]);
-		i++;
+		while (ft_is_space(str[i]) == 1)
+			i++;
+		return (i);
 	}
-}
-
-void	ft_raycasting(t_prgrm *vars)
-{
-	ft_put_floor(vars);
+	return (-1);
 }

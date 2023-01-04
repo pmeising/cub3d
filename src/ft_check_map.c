@@ -6,7 +6,7 @@
 /*   By: pmeising <pmeising@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/03 16:26:53 by pmeising          #+#    #+#             */
-/*   Updated: 2023/01/04 10:58:04 by pmeising         ###   ########.fr       */
+/*   Updated: 2023/01/04 14:31:27 by pmeising         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,11 +76,11 @@ int	ft_has_playa_2(t_prgrm *vars, char c, int i, int j)
 		vars->playa[0] = j + 1;
 		vars->playa[1] = i + 1;
 		printf("playa: %f, %f\n", vars->playa[0], vars->playa[1]);
-		vars->player++;
+		vars->player_num++;
 	}
 	else if (c != '0' && c != '1' && c != '2')
 	{
-		printf("Unidentified object found: '%c'\n", vars->map[i][j]);
+		printf("Unidentified object found at: %d:%d\n", j, i);
 		return (1);
 	}
 	return (0);
@@ -103,7 +103,8 @@ int	ft_has_playa(t_prgrm *vars)
 		}
 		i++;
 	}
-	if (vars->player != 1)
+	printf("player # : %d\n", vars->player_num);
+	if (vars->player_num != 1)
 	{
 		printf("\nA DOUBLE AGENT IS TRYING TO OVERTAKE YOU, ABORT MISSION.... \
 			I REPEAT, ABORT MISSION!!!\n");

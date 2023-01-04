@@ -1,7 +1,7 @@
-NO ./maps/mc_assets/brick1.xpm
-SO ./maps/mc_assets/brick2.xpm
-WE ./maps/mc_assets/brick3.xpm
-EA ./maps/mc_assets/brick4.xpm
+NO ./Images/n_wall.xpm
+SO ./Images/s_wall.xpm
+WE ./Images/w_wall.xpm
+EA ./Images/e_wall.xpm
 
 C 58,50,45
 F 190,200,195

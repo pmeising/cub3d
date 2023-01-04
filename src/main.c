@@ -6,7 +6,7 @@
 /*   By: pmeising <pmeising@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/20 19:15:36 by pmeising          #+#    #+#             */
-/*   Updated: 2023/01/04 11:03:28 by pmeising         ###   ########.fr       */
+/*   Updated: 2023/01/04 14:17:57 by pmeising         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	ft_init(t_prgrm *vars, char **argv, int argc)
 {
 	vars->argc = argc;
-	vars->player = 0;
+	vars->player_num = 0;
 	vars->path_to_map = ft_strdup(argv[1]);
 	vars->mlx = NULL;
 	vars->mlx_win = NULL;

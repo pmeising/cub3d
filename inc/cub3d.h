@@ -6,7 +6,7 @@
 /*   By: pmeising <pmeising@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 15:48:27 by pmeising          #+#    #+#             */
-/*   Updated: 2023/01/04 10:58:35 by pmeising         ###   ########.fr       */
+/*   Updated: 2023/01/04 14:17:48 by pmeising         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 typedef struct s_prgrm
 {
 	int		argc;
-	int		player;
+	int		player_num;
 	double	*playa;
 	double	*direction;
 	double	*plane;
@@ -55,6 +55,8 @@ int		ft_has_playa(t_prgrm *vars);
 void	ft_is_map_complete(t_prgrm *vars);
 int		ft_check_first_last(char *str, int count);
 int		ft_check_top_bottom(char *str, int count);
+void	ft_buffer_map(t_prgrm *vars);
+void	ft_buffer_helper(int dif, t_prgrm *vars, int i);
 
 // free funcs
 void	ft_free(void *cont);

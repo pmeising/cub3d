@@ -6,55 +6,11 @@
 /*   By: pmeising <pmeising@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 15:30:28 by pmeising          #+#    #+#             */
-/*   Updated: 2023/01/04 11:02:46 by pmeising         ###   ########.fr       */
+/*   Updated: 2023/01/04 14:45:02 by pmeising         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
-
-void	ft_buffer_helper(int dif, t_prgrm *vars, int i)
-{
-	char	*temp;
-	char	*temp_2;
-	int		j;
-
-	dif = vars->map_columns - (int)ft_strlen(vars->map[i]);
-	if (dif > 0)
-	{
-		j = 0;
-		temp = malloc(sizeof(char) * dif);
-		while ((j < dif) && temp[j])
-		{
-			temp[j] = '2';
-			j++;
-		}
-		temp[j] = '\0';
-		temp_2 = ft_strjoin(vars->map[i], temp);
-		ft_free(vars->map[i]);
-		ft_free(temp);
-		vars->map[i] = ft_strdup(temp_2);
-		ft_free(temp_2);
-	}
-}
-
-/*
-* fill up overhang of rows shorter than the longest row
-* fill up with 2's;
-*/
-void	ft_buffer_map(t_prgrm *vars)
-{
-	int		i;
-	int		dif;
-
-	i = 0;
-	dif = 0;
-	while (i < vars->map_rows)
-	{
-		ft_buffer_helper(dif, vars, i);
-		ft_printf("%s\n", vars->map[i]);
-		i++;
-	}
-}
 
 /*
 * fill up the spaces in the beginning with -1;
@@ -79,29 +35,83 @@ void	ft_read_map(t_prgrm *vars, char *str)
 	vars->map_rows++;
 }
 
+void	ft_parsing_4(t_prgrm *vars, char *str)
+{
+	char	*temp;
+	int		i;
+	int		len;
+
+	i = 2;
+	len = ft_strlen(str);
+	temp = NULL;
+	if (ft_strnstr(str, "EA", len) != NULL)
+	{
+		temp = ft_strnstr(str, "EA", len);
+		i = ft_skip_space(temp, i);
+		vars->path_to_east = ft_strdup(&temp[i]);
+	}
+	if (ft_strnstr(str, "F", len) != NULL)
+	{
+		temp = ft_strnstr(str, "F", len);
+		i = ft_skip_space(temp, i);
+		vars->floor_colour = ft_strdup(&temp[i]);
+	}
+	if (ft_strnstr(str, "C", len) != NULL)
+	{
+		temp = ft_strnstr(str, "C", len);
+		i = ft_skip_space(temp, i);
+		vars->ceiling_colour = ft_strdup(&temp[i]);
+	}
+}
+
+void	ft_parsing_3(t_prgrm *vars, char *str)
+{
+	char	*temp;
+	int		i;
+	int		len;
+
+	i = 2;
+	len = ft_strlen(str);
+	if (ft_strnstr(str, "SO", len) != NULL)
+	{
+		temp = ft_strnstr(str, "SO", len);
+		i = ft_skip_space(temp, i);
+		vars->path_to_south = ft_strdup(&temp[i]);
+	}
+	else if (ft_strnstr(str, "WE", len) != NULL)
+	{
+		temp = ft_strnstr(str, "WE", len);
+		i = ft_skip_space(temp, i);
+		vars->path_to_west = ft_strdup(&temp[i]);
+	}
+	else
+		ft_parsing_4(vars, str);
+}
+
 /*
 * return: 1 = error found line shouldnt start with \n;
 * reads in the paths to the images for directions NOSW;
 */
-// NSOW may not always stand at first -> need to include skip spaces
-int	ft_helper1(t_prgrm *vars, char *str)
+int	ft_parsing_2(t_prgrm *vars, char *s)
 {
-	if (str[0] == '\n')
-		return (0);
-	if (str[0] == 'N' && str[1] == 'O')
-		vars->path_to_north = ft_strdup(&str[3]);
-	else if (str[0] == 'S' && str[1] == 'O')
-		vars->path_to_south = ft_strdup(&str[3]);
-	else if (str[0] == 'W' && str[1] == 'E')
-		vars->path_to_west = ft_strdup(&str[3]);
-	else if (str[0] == 'E' && str[1] == 'A')
-		vars->path_to_east = ft_strdup(&str[3]);
-	else if (str[0] == 'F')
-		vars->floor_colour = ft_strdup(&str[2]);
-	else if (str[0] == 'C')
-		vars->ceiling_colour = ft_strdup(&str[2]);
-	if ((ft_is_space(str[0]) == 1) || (ft_isdigit(str[0]) == 1))
-		ft_read_map(vars, str);
+	int		len;
+	int		i;
+	char	*temp;
+
+	i = 2;
+	len = ft_strlen(s);
+	if (ft_strnstr(s, "NO", len) != NULL)
+	{
+		temp = ft_strnstr(s, "NO", len);
+		i = ft_skip_space(temp, i);
+		vars->path_to_north = ft_strdup(&temp[i]);
+	}
+	if (ft_strnstr(s, "SO", len) || ft_strnstr(s, "WE", len) || \
+		ft_strnstr(s, "EA", len) || ft_strnstr(s, "C", len) || \
+		ft_strnstr(s, "F", len))
+		ft_parsing_3(vars, s);
+	else if (ft_strnstr(s, "1", len) != NULL)
+		ft_read_map(vars, s);
 	return (0);
 }
 
@@ -123,7 +133,7 @@ void	ft_parsing(t_prgrm *vars)
 			free(str);
 			break ;
 		}
-		ft_helper1(vars, str);
+		ft_parsing_2(vars, str);
 		ft_free (str);
 	}
 	ft_buffer_map(vars);
