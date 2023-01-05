@@ -6,7 +6,7 @@
 #    By: pmeising <pmeising@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/21 16:41:10 by pmeising          #+#    #+#              #
-#    Updated: 2023/01/04 14:10:56 by pmeising         ###   ########.fr        #
+#    Updated: 2023/01/05 19:27:27 by pmeising         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,9 +37,9 @@ LIBFT		:= libft_lib/libft.a
 OS			:= $(shell uname)
 
 ifeq ($(OS),Darwin)
-	COMPILE = $(CC) $(CFLAGS) $(LIBFT) ${READLINE} $^ -o $@
+	COMPILE = $(CC) $(DEBUG) $(CFLAGS) $(LIBFT) ${READLINE} $^ -o $@
 else
-	COMPILE = $(CC) $(CFLAGS) $(OBJ) $(LIBFT) $(MLX) -L/usr/X11/lib -lXext -lX11 -o $(NAME)
+	COMPILE = $(CC) $(DEBUG) $(CFLAGS) $(OBJ) $(LIBFT) $(MLX) -L/usr/X11/lib -lXext -lX11 -o $(NAME)
 endif
 
 SRC			:=	${SRC_DIR}main.c \
@@ -50,6 +50,8 @@ SRC			:=	${SRC_DIR}main.c \
 				${SRC_DIR}ft_check_map.c \
 				${SRC_DIR}ft_check_map_2.c \
 				${SRC_DIR}ft_raycast.c \
+				${SRC_DIR}ft_rgb_conv.c \
+				
 # makefile starts here
 all: $(NAME)
 
