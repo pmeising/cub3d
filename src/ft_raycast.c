@@ -6,11 +6,22 @@
 /*   By: pmeising <pmeising@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 11:03:05 by pmeising          #+#    #+#             */
-/*   Updated: 2023/01/06 18:39:59 by pmeising         ###   ########.fr       */
+/*   Updated: 2023/01/06 21:03:50 by pmeising         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
+
+// void	ft_helper(t_prgrm *vars, int i)
+// {
+// 	vars->old_direction[0] = vars->direction[0];
+// 	vars->direction[0] = vars->direction[0] * cos(i * SPEED) - vars->direction[1] * sin(i * SPEED);
+// 	vars->direction[1] = vars->old_direction[0] * sin(i * SPEED) - vars->direction[1] * cos(i * SPEED);
+// 	vars->old_camera_vector[0] = vars->camera_vector[0];
+// 	vars->camera_vector[0] = vars->camera_vector[0] * cos(i * SPEED) - vars->camera_vector[1] * sin(i * SPEED);
+// 	vars->camera_vector[1] = vars->old_camera_vector[0] * sin(i * SPEED) + vars->camera_vector[1] * cos(i * SPEED);
+// 	ft_raycast(vars);
+// }
 
 /*
 * own mlx_pixel_put because original too slow;
@@ -25,11 +36,32 @@ void	my_mlx_pixel_put(t_img *img, int x, int y, int color)
 	*(unsigned int *)dest = color;
 }
 
+/*
+* W_RED = south;
+* W_GREEN = north;
+* W_YELLOW = west;
+* W_BLUE =
+*/
+void	ft_put_wall(t_prgrm *vars, t_img *img, int x, int y)
+{
+	if (vars->direction[0] == -1 && vars->ray->side != 0 && vars->ray->cameraX < 0)
+		my_mlx_pixel_put(img, x, y, W_RED / 2); // LEFT
+	else if (vars->direction[0] == -1 && vars->ray->side != 0 && vars->ray->cameraX > 0)
+		my_mlx_pixel_put(img, x, y, W_GREEN); // RIGHT
+	else if (vars->direction[0] == -1 && vars->ray->side == 0)
+		my_mlx_pixel_put(img, x, y, W_YELLOW); // FRONT
+	else
+		my_mlx_pixel_put(img, x, y, 0xFFFFFFFF);
+}
+
 void	ft_put_image(t_prgrm *vars, t_img *img, int x)
 {
 	int	y;
 
 	y = 0;
+	printf("side: %d\n", vars->ray->side);
+	printf("dir: %f:%f\n", vars->direction[0], vars->direction[1]);
+	printf("cameraX: %f\n", vars->ray->cameraX);
 	while (y < vars->ray->pos_start)
 	{
 		my_mlx_pixel_put(img, x, y, vars->ceiling_color);
@@ -37,7 +69,8 @@ void	ft_put_image(t_prgrm *vars, t_img *img, int x)
 	}
 	while(y >= vars->ray->pos_start && y <= vars->ray->pos_end)
 	{
-		my_mlx_pixel_put(img, x, y, 0xFFFFFFFF);
+		// my_mlx_pixel_put(img, x, y, 0xFFFFFFFF);
+		ft_put_wall(vars, img, x, y);
 		y++;
 	}
 	while (y < HEIGHT)
@@ -183,48 +216,66 @@ void	ft_init_ray(t_prgrm *vars)
 	vars->ray->side = 0;
 }
 
+void ft_init_ray_2(t_prgrm *vars, t_img *img, t_img *img_2, t_ray *ray)
+{
+	vars->floor_color = ft_rgb_to_hex(vars->floor_colour);
+	vars->ceiling_color = ft_rgb_to_hex(vars->ceiling_colour);
+	vars->img = img;
+	vars->img_2 = img_2;
+	img->img = mlx_new_image(vars->mlx, vars->window_width, vars->window_height);
+	if (!img->img)
+		printf("mlx_new_img error\n");
+	img_2->img = mlx_new_image(vars->mlx, vars->window_width, vars->window_height);
+		if (!img_2->img)
+		printf("mlx_new_img error\n");
+	img->addy_img = mlx_get_data_addr(img->img, &img->bits_per_pixel, \
+										&img->line_length, &img->endian);
+	img_2->addy_img = mlx_get_data_addr(img_2->img, &img_2->bits_per_pixel, \
+										&img_2->line_length, &img_2->endian);
+	vars->ray = ray;
+	ft_init_ray(vars);
+}
+
+void	ft_raycast(t_prgrm *vars)
+{
+	int	x;
+	t_img	*image;
+
+	x = 0;
+	if (vars->qubit == 0)
+	{
+		image = vars->img; 
+		vars->qubit = 1;
+	}
+	else
+	{
+		image = vars->img_2;
+		vars->qubit = 0;
+	}
+	while (0 >= 0 && x <= WIDTH)
+	{
+		if (x == WIDTH / 2)
+			x++;
+		ft_init_raycast(vars, x);
+		ft_put_image(vars, image, x);
+		x++;
+	}
+	mlx_put_image_to_window(vars->mlx, vars->mlx_win, image->img, 0, 0);
+	
+}
+
 void	ft_raycasting(t_prgrm *vars)
 {
 	t_img	*img;
 	t_img	*img_2;
 	t_ray	*ray;
-	int		x;
-	
+
 	ray = malloc(sizeof(t_ray) * 1);
-	if (!ray)
-		printf("ray malloc error\n");
+	ft_check(vars, ray, 3);
 	img = malloc(sizeof(t_img) * 1);
-	if (!img)
-		printf("img malloc error\n");
+	ft_check(vars, img, 3);
 	img_2 = malloc(sizeof(t_img) * 1);
-	if (!img_2)
-		printf("img_2 malloc error\n");
-
-	vars->floor_color = ft_rgb_to_hex(vars->floor_colour);
-	vars->ceiling_color = ft_rgb_to_hex(vars->ceiling_colour);
-	vars->img = img;
-	vars->img_2 = img_2;
-	vars->ray = ray;
-	ft_init_ray(vars);
-
-	img_2->img = mlx_new_image(vars->mlx, vars->window_width, vars->window_height);
-	img->img = mlx_new_image(vars->mlx, vars->window_width, vars->window_height);
-	if (!img->img)
-		printf("mlx_new_img error\n");
-	img_2->addy_img = mlx_get_data_addr(img_2->img, &img_2->bits_per_pixel, \
-										&img_2->line_length, &img_2->endian);
-	img->addy_img = mlx_get_data_addr(img->img, &img->bits_per_pixel, \
-										&img->line_length, &img->endian);
-	x = 0;
-	while (x >= 0 && x <= WIDTH)
-	{
-		if (x == WIDTH / 2)
-			x++;
-		ft_init_raycast(vars, x);
-		ft_put_image(vars, img, x);
-		// ft_calc_ray(vars);
-		// ft_calc_perp(vars);
-		x++;
-	}
-	mlx_put_image_to_window(vars->mlx, vars->mlx_win, img->img, 0, 0);
+	ft_check(vars, img_2, 3);
+	ft_init_ray_2(vars, img, img_2, ray);
+	ft_raycast(vars);
 }

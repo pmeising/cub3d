@@ -6,7 +6,7 @@
 #    By: pmeising <pmeising@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/21 16:41:10 by pmeising          #+#    #+#              #
-#    Updated: 2023/01/05 19:27:27 by pmeising         ###   ########.fr        #
+#    Updated: 2023/01/06 21:01:03 by pmeising         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,11 +36,6 @@ LIBFT		:= libft_lib/libft.a
 
 OS			:= $(shell uname)
 
-ifeq ($(OS),Darwin)
-	COMPILE = $(CC) $(DEBUG) $(CFLAGS) $(LIBFT) ${READLINE} $^ -o $@
-else
-	COMPILE = $(CC) $(DEBUG) $(CFLAGS) $(OBJ) $(LIBFT) $(MLX) -L/usr/X11/lib -lXext -lX11 -o $(NAME)
-endif
 
 SRC			:=	${SRC_DIR}main.c \
 				${SRC_DIR}ft_hooks.c \
@@ -56,6 +51,12 @@ SRC			:=	${SRC_DIR}main.c \
 all: $(NAME)
 
 OBJ = $(SRC:$(SRC_DIR)%.c=$(OBJ_DIR)%.o)
+
+ifeq ($(OS),Darwin)
+	COMPILE = $(CC) $(DEBUG) $(CFLAGS) $(LIBFT) ${READLINE} $^ -o $@
+else
+	COMPILE = $(CC) $(DEBUG) $(CFLAGS) $(OBJ) $(MLX) $(LIBFT) -L/usr/X11/lib -lXext -lX11 -lpthread -o $(NAME)
+endif
 
 $(MLX):
 			make -C $(MLX_DIR)

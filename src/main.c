@@ -6,7 +6,7 @@
 /*   By: pmeising <pmeising@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/20 19:15:36 by pmeising          #+#    #+#             */
-/*   Updated: 2023/01/04 21:44:20 by pmeising         ###   ########.fr       */
+/*   Updated: 2023/01/06 20:39:02 by pmeising         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,16 @@ void	ft_init(t_prgrm *vars, char **argv, int argc)
 	vars->direction = malloc(sizeof(double) * 2);
 	vars->direction[0] = 0;
 	vars->direction[1] = 0;
+	vars->old_direction = malloc(sizeof(double) * 2);
+	vars->old_direction[0] = 0;
+	vars->old_direction[1] = 0;
 	vars->camera_vector = malloc(sizeof(double) * 2);
 	vars->camera_vector[0] = 0;
 	vars->camera_vector[1] = 0;
+	vars->old_camera_vector = malloc(sizeof(double) * 2);
+	vars->old_camera_vector[0] = 0;
+	vars->old_camera_vector[1] = 0;
+	vars->qubit = 0;
 }
 
 void	ft_check(t_prgrm *vars, void *con, int code)
@@ -50,6 +57,12 @@ void	ft_check(t_prgrm *vars, void *con, int code)
 		printf("Closing: %s\n", vars->path_to_map);
 		exit(0);
 	}
+	else if (!con && code == 3)
+	{
+		perror("Malloc: ");
+		exit(0);
+	}
+	
 }
 
 int	main(int argc, char	**argv)

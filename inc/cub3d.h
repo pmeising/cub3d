@@ -6,7 +6,7 @@
 /*   By: pmeising <pmeising@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 15:48:27 by pmeising          #+#    #+#             */
-/*   Updated: 2023/01/05 18:51:47 by pmeising         ###   ########.fr       */
+/*   Updated: 2023/01/06 21:01:53 by pmeising         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,16 @@
 # include "stdio.h"
 # include "unistd.h"
 # include "stdlib.h"
-# include "math.h"
+# include <math.h>
 # include <../minilibx-linux/mlx.h>
 # include <../libft_lib/libft.h>
 # define HEIGHT 540
 # define WIDTH 960
+# define W_RED		0x00FF0000
+# define W_GREEN	0x0000FF00
+# define W_YELLOW	0x00FFFF00
+# define W_BLUE		0x000000FF
+# define SPEED		0.3
 
 typedef struct	s_ray
 {
@@ -51,13 +56,16 @@ typedef struct s_prgrm
 	t_ray	*ray;
 	t_img	*img;
 	t_img	*img_2;
+	int		qubit;
 	int		argc;
 	int		window_height;
 	int		window_width;
 	int		player_num;
 	double	*playa;
 	double	*direction;
+	double	*old_direction;
 	double	*camera_vector;
+	double	*old_camera_vector;
 	double	time;
 	double	old_time;
 	int		map_columns;
@@ -102,5 +110,10 @@ int				ft_close_program(t_prgrm *vars);
 void			ft_raycasting(t_prgrm *vars);
 void			ft_init_dir_vec(t_prgrm *vars, char c);
 void			ft_init_vecs(t_prgrm *vars, char c);
+void			ft_raycast(t_prgrm *vars);
 
+
+// utils
+void			ft_check(t_prgrm *vars, void *con, int code);
+void	ft_helper(t_prgrm *vars, int i);
 #endif
