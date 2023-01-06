@@ -6,7 +6,7 @@
 /*   By: pmeising <pmeising@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/03 16:26:53 by pmeising          #+#    #+#             */
-/*   Updated: 2023/01/06 18:51:11 by pmeising         ###   ########.fr       */
+/*   Updated: 2023/01/06 19:00:33 by pmeising         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,19 +85,19 @@ void	ft_init_vecs(t_prgrm *vars, char c)
 		vars->camera_vector[0] = -0.66;
 		vars->camera_vector[1] = 0;
 	}
-	else if (c == 'W')
+	else if (c == 'E')
 	{
 		vars->direction[0] = 1;
 		vars->direction[1] = 0;
 		vars->camera_vector[0] = 0;
-		vars->camera_vector[1] = 0.66;
+		vars->camera_vector[1] = -0.66;
 
 	}
-	else if (c == 'E')
+	else if (c == 'W')
 	{
 		vars->direction[0] = -1;
 		vars->direction[1] = 0;
 		vars->camera_vector[0] = 0;
-		vars->camera_vector[1] = -0.66;
+		vars->camera_vector[1] = 0.66;
 	}
 }
