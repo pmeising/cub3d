@@ -6,7 +6,7 @@
 /*   By: pmeising <pmeising@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/03 16:26:53 by pmeising          #+#    #+#             */
-/*   Updated: 2023/01/04 20:01:14 by pmeising         ###   ########.fr       */
+/*   Updated: 2023/01/06 17:25:37 by pmeising         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	ft_check_map_closed(t_prgrm *vars)
 				if (vars->map[i + 1][j] == '2' || vars->map[i - 1][j] == '2' \
 					|| vars->map[i][j + 1] == '2' || vars->map[i][j - 1] == '2')
 				{
-					printf("Unclosed walls at position %d:%d.\n", j + 1, i + 1);
+					printf("Unclosed walls at position %d:%d.\n", i + 1, j);
 					return (1);
 				}
 			}
@@ -69,19 +69,19 @@ int	ft_is_closed(t_prgrm *vars)
 	return (0);
 }
 
-int	ft_has_playa_2(t_prgrm *vars, char c, int i, int j)
+int	ft_has_playa_2(t_prgrm *vars, char c, int y, int x)
 {
 	if (c == 'N' || c == 'S' || c == 'E' || c == 'W')
 	{
-		vars->playa[0] = j + 1;
-		vars->playa[1] = i + 1;
+		vars->playa[0] = x;
+		vars->playa[1] = y * (-1);
 		ft_init_vecs(vars, c);
 		printf("playa: %f, %f\n", vars->playa[0], vars->playa[1]);
 		vars->player_num++;
 	}
 	else if (c != '0' && c != '1' && c != '2')
 	{
-		printf("Unidentified object found at: %d:%d\n", j, i);
+		printf("Unidentified object found at: %d:%d\n", x, y * (-1));
 		return (1);
 	}
 	return (0);
@@ -89,20 +89,20 @@ int	ft_has_playa_2(t_prgrm *vars, char c, int i, int j)
 
 int	ft_has_playa(t_prgrm *vars)
 {
-	int	i;
-	int	j;
+	int	x;
+	int	y;
 
-	i = 0;
-	while (vars->map[i] != NULL)
+	y = 0;
+	while (vars->map[y] != NULL)
 	{
-		j = 0;
-		while (vars->map[i][j] != '\0')
+		x = 0;
+		while (vars->map[y][x] != '\0')
 		{
-			if (ft_has_playa_2(vars, vars->map[i][j], i, j) == 1)
+			if (ft_has_playa_2(vars, vars->map[y][x], y, x) == 1)
 				return (1);
-			j++;
+			x++;
 		}
-		i++;
+		y++;
 	}
 	printf("player # : %d\n", vars->player_num);
 	if (vars->player_num != 1)

@@ -6,7 +6,7 @@
 /*   By: pmeising <pmeising@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 11:03:05 by pmeising          #+#    #+#             */
-/*   Updated: 2023/01/05 19:57:24 by pmeising         ###   ########.fr       */
+/*   Updated: 2023/01/06 18:39:59 by pmeising         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,8 @@ void	ft_calc_line_height(t_prgrm *vars)
 	printf("perpWallDist: %f\n", vars->ray->perpWallDist);
 	if (vars->ray->perpWallDist == 0)
 		line_height = screen_height;
+	else if (vars->ray->perpWallDist > 0 && vars->ray->perpWallDist <= 1)
+		line_height = (int)screen_height;
 	else
 		line_height = (int)(screen_height / vars->ray->perpWallDist);
 	vars->ray->pos_start = -line_height / 2 + screen_height / 2;
@@ -67,6 +69,9 @@ void	ft_calc_line_height(t_prgrm *vars)
 		vars->ray->pos_end = screen_height - 1;
 }
 
+/*
+ * side: which wall was hit
+*/
 void	ft_calc_ray_dist(t_prgrm *vars)
 {
 	int hit;
@@ -76,7 +81,7 @@ void	ft_calc_ray_dist(t_prgrm *vars)
 	{
 		if (vars->ray->sideDist[0] < vars->ray->sideDist[1])
 		{
-			vars->ray->sideDist[0] += vars->ray->deltaDist[0];
+			vars->ray->sideDist[0] = vars->ray->sideDist[0] + vars->ray->deltaDist[0];
 			vars->ray->map[0] += vars->ray->step[0];
 			vars->ray->side = 0;
 		}
@@ -86,8 +91,12 @@ void	ft_calc_ray_dist(t_prgrm *vars)
 			vars->ray->map[1] += vars->ray->step[1];
 			vars->ray->side = 1;
 		}
-		if (vars->map[vars->ray->map[0]][vars->ray->map[1]] > 0)
+		printf("char **map: %c\n", vars->map[(vars->ray->map[1]) * -1][vars->ray->map[0]]);
+		if (vars->map[(vars->ray->map[1]) * -1][vars->ray->map[0]] > '0')
+		{
+			printf("Hit wall at position: %d, %d\n", vars->ray->map[0], vars->ray->map[1]);
 			hit = 1;
+		}
 	}
 	printf("sideDist[0]: %f; deltaDist[0]: %f.\n", vars->ray->sideDist[0], vars->ray->deltaDist[0]);
 	printf("sideDist[1]: %f; deltaDist[1]: %f.\n", vars->ray->sideDist[1], vars->ray->deltaDist[1]);
@@ -109,34 +118,46 @@ void ft_init_raycast(t_prgrm *vars, int x)
 	vars->ray->rayDir[1] = vars->direction[1] + vars->camera_vector[1] * vars->ray->cameraX;
 	vars->ray->map[0] = (int)vars->playa[0];
 	vars->ray->map[1] = (int)vars->playa[1];
+	printf("%d, %d\n", vars->ray->map[0], vars->ray->map[1]);
 
+	// jjj
+	// if (vars->ray->rayDir[0] == 0)
+	// 	vars->ray->rayDir[0] = 10000000;
+	// if (vars->ray->rayDir[1] == 0)
+	// 	vars->ray->rayDir[1] = 10000000;
+		
 	if (vars->ray->rayDir[0] == 0)
-		vars->ray->rayDir[0] = 10000000;
+		vars->ray->deltaDist[0] = 1e30;
+	else
+		vars->ray->deltaDist[0] = fabs(1/vars->ray->rayDir[0]);
 	if (vars->ray->rayDir[1] == 0)
-		vars->ray->rayDir[1] = 10000000;
-	vars->ray->deltaDist[0] = fabs(1/vars->ray->rayDir[0]);
-	vars->ray->deltaDist[1] = fabs(1/vars->ray->rayDir[1]);
-	if (vars->ray->rayDir[0] < 0)
+		vars->ray->deltaDist[0] = 1e30;
+	else
+		vars->ray->deltaDist[1] = fabs(1/vars->ray->rayDir[1]);
+	
+	//jjj
+	if (vars->ray->rayDir[0] < 0) // walk westwards
 	{
 		vars->ray->step[0] = -1;
 		vars->ray->sideDist[0] = (vars->playa[0] - vars->ray->map[0]) * vars->ray->deltaDist[0];
 	}
-	else
+	else // walk eastwards
 	{
 		vars->ray->step[0] = 1;
 		vars->ray->sideDist[0] = (vars->ray->map[0] + 1.0 - vars->playa[0]) * vars->ray->deltaDist[0];
 	}
-	if (vars->ray->rayDir[1] < 0)
+	if (vars->ray->rayDir[1] < 0) // walk downwards
 	{
 		vars->ray->step[1] = -1;
 		vars->ray->sideDist[1] = (vars->playa[1] - vars->ray->map[1]) * vars->ray->deltaDist[1];
 	}
-	else
+	else // walk upwards
 	{
 		vars->ray->step[1] = 1;
 		vars->ray->sideDist[1] = (vars->ray->map[1] + 1.0 - vars->playa[1]) * vars->ray->deltaDist[1];
 	}
 	ft_calc_ray_dist(vars);
+	printf("perpWallDist at x = %d: %f\n", x, vars->ray->perpWallDist);
 	ft_calc_line_height(vars);
 }
 
@@ -170,8 +191,14 @@ void	ft_raycasting(t_prgrm *vars)
 	int		x;
 	
 	ray = malloc(sizeof(t_ray) * 1);
+	if (!ray)
+		printf("ray malloc error\n");
 	img = malloc(sizeof(t_img) * 1);
+	if (!img)
+		printf("img malloc error\n");
 	img_2 = malloc(sizeof(t_img) * 1);
+	if (!img_2)
+		printf("img_2 malloc error\n");
 
 	vars->floor_color = ft_rgb_to_hex(vars->floor_colour);
 	vars->ceiling_color = ft_rgb_to_hex(vars->ceiling_colour);
@@ -179,8 +206,7 @@ void	ft_raycasting(t_prgrm *vars)
 	vars->img_2 = img_2;
 	vars->ray = ray;
 	ft_init_ray(vars);
-	if (!img)
-		printf("img malloc error\n");
+
 	img_2->img = mlx_new_image(vars->mlx, vars->window_width, vars->window_height);
 	img->img = mlx_new_image(vars->mlx, vars->window_width, vars->window_height);
 	if (!img->img)
@@ -189,11 +215,11 @@ void	ft_raycasting(t_prgrm *vars)
 										&img_2->line_length, &img_2->endian);
 	img->addy_img = mlx_get_data_addr(img->img, &img->bits_per_pixel, \
 										&img->line_length, &img->endian);
-	if (!img->addy_img)
-		printf("no img addy error\n");
-	x = 471;
-	while (x > 470 && x < 500)
+	x = 0;
+	while (x >= 0 && x <= WIDTH)
 	{
+		if (x == WIDTH / 2)
+			x++;
 		ft_init_raycast(vars, x);
 		ft_put_image(vars, img, x);
 		// ft_calc_ray(vars);
