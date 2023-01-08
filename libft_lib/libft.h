@@ -6,7 +6,7 @@
 /*   By: pmeising <pmeising@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 18:23:59 by pmeising          #+#    #+#             */
-/*   Updated: 2023/01/06 20:56:58 by pmeising         ###   ########.fr       */
+/*   Updated: 2023/01/08 11:13:35 by pmeising         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 # include <fcntl.h>
 # include <stdio.h>
 # include <stdarg.h>
+# include <math.h>
 
 typedef struct s_list
 {

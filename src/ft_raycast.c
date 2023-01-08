@@ -6,22 +6,22 @@
 /*   By: pmeising <pmeising@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 11:03:05 by pmeising          #+#    #+#             */
-/*   Updated: 2023/01/06 21:03:50 by pmeising         ###   ########.fr       */
+/*   Updated: 2023/01/08 12:26:53 by pmeising         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
 
-// void	ft_helper(t_prgrm *vars, int i)
-// {
-// 	vars->old_direction[0] = vars->direction[0];
-// 	vars->direction[0] = vars->direction[0] * cos(i * SPEED) - vars->direction[1] * sin(i * SPEED);
-// 	vars->direction[1] = vars->old_direction[0] * sin(i * SPEED) - vars->direction[1] * cos(i * SPEED);
-// 	vars->old_camera_vector[0] = vars->camera_vector[0];
-// 	vars->camera_vector[0] = vars->camera_vector[0] * cos(i * SPEED) - vars->camera_vector[1] * sin(i * SPEED);
-// 	vars->camera_vector[1] = vars->old_camera_vector[0] * sin(i * SPEED) + vars->camera_vector[1] * cos(i * SPEED);
-// 	ft_raycast(vars);
-// }
+void	ft_helper_rotate(t_prgrm *vars, int i)
+{
+	vars->old_direction[0] = vars->direction[0];
+	vars->direction[0] = vars->direction[0] * cos(i * SPEED) - vars->direction[1] * sin(i * SPEED);
+	vars->direction[1] = vars->old_direction[0] * sin(i * SPEED) - vars->direction[1] * cos(i * SPEED);
+	vars->old_camera_vector[0] = vars->camera_vector[0];
+	vars->camera_vector[0] = vars->camera_vector[0] * cos(i * SPEED) - vars->camera_vector[1] * sin(i * SPEED);
+	vars->camera_vector[1] = vars->old_camera_vector[0] * sin(i * SPEED) + vars->camera_vector[1] * cos(i * SPEED);
+	ft_raycast(vars);
+}
 
 /*
 * own mlx_pixel_put because original too slow;
@@ -59,9 +59,9 @@ void	ft_put_image(t_prgrm *vars, t_img *img, int x)
 	int	y;
 
 	y = 0;
-	printf("side: %d\n", vars->ray->side);
-	printf("dir: %f:%f\n", vars->direction[0], vars->direction[1]);
-	printf("cameraX: %f\n", vars->ray->cameraX);
+	// printf("side: %d\n", vars->ray->side);
+	// printf("dir: %f:%f\n", vars->direction[0], vars->direction[1]);
+	// printf("cameraX: %f\n", vars->ray->cameraX);
 	while (y < vars->ray->pos_start)
 	{
 		my_mlx_pixel_put(img, x, y, vars->ceiling_color);
@@ -78,7 +78,7 @@ void	ft_put_image(t_prgrm *vars, t_img *img, int x)
 		my_mlx_pixel_put(img, x, y, vars->floor_color);
 		y++;
 	}
-	printf("after my mlx pixel put for x = %d\n", x);
+	// printf("after my mlx pixel put for x = %d\n", x);
 }
 
 void	ft_calc_line_height(t_prgrm *vars)
@@ -87,7 +87,7 @@ void	ft_calc_line_height(t_prgrm *vars)
 	int	screen_height;
 	
 	screen_height = HEIGHT;
-	printf("perpWallDist: %f\n", vars->ray->perpWallDist);
+	// printf("perpWallDist: %f\n", vars->ray->perpWallDist);
 	if (vars->ray->perpWallDist == 0)
 		line_height = screen_height;
 	else if (vars->ray->perpWallDist > 0 && vars->ray->perpWallDist <= 1)
@@ -124,15 +124,15 @@ void	ft_calc_ray_dist(t_prgrm *vars)
 			vars->ray->map[1] += vars->ray->step[1];
 			vars->ray->side = 1;
 		}
-		printf("char **map: %c\n", vars->map[(vars->ray->map[1]) * -1][vars->ray->map[0]]);
+		// printf("char **map: %c\n", vars->map[(vars->ray->map[1]) * -1][vars->ray->map[0]]);
 		if (vars->map[(vars->ray->map[1]) * -1][vars->ray->map[0]] > '0')
 		{
-			printf("Hit wall at position: %d, %d\n", vars->ray->map[0], vars->ray->map[1]);
+			// printf("Hit wall at position: %d, %d\n", vars->ray->map[0], vars->ray->map[1]);
 			hit = 1;
 		}
 	}
-	printf("sideDist[0]: %f; deltaDist[0]: %f.\n", vars->ray->sideDist[0], vars->ray->deltaDist[0]);
-	printf("sideDist[1]: %f; deltaDist[1]: %f.\n", vars->ray->sideDist[1], vars->ray->deltaDist[1]);
+	// printf("sideDist[0]: %f; deltaDist[0]: %f.\n", vars->ray->sideDist[0], vars->ray->deltaDist[0]);
+	// printf("sideDist[1]: %f; deltaDist[1]: %f.\n", vars->ray->sideDist[1], vars->ray->deltaDist[1]);
 	if (vars->ray->side == 0)
 		vars->ray->perpWallDist = (vars->ray->sideDist[0] - vars->ray->deltaDist[0]);
 	else
@@ -151,24 +151,17 @@ void ft_init_raycast(t_prgrm *vars, int x)
 	vars->ray->rayDir[1] = vars->direction[1] + vars->camera_vector[1] * vars->ray->cameraX;
 	vars->ray->map[0] = (int)vars->playa[0];
 	vars->ray->map[1] = (int)vars->playa[1];
-	printf("%d, %d\n", vars->ray->map[0], vars->ray->map[1]);
+	// printf("%d, %d\n", vars->ray->map[0], vars->ray->map[1]);
 
-	// jjj
-	// if (vars->ray->rayDir[0] == 0)
-	// 	vars->ray->rayDir[0] = 10000000;
-	// if (vars->ray->rayDir[1] == 0)
-	// 	vars->ray->rayDir[1] = 10000000;
-		
 	if (vars->ray->rayDir[0] == 0)
-		vars->ray->deltaDist[0] = 1e30;
+		vars->ray->rayDir[0] = 1e30;
 	else
 		vars->ray->deltaDist[0] = fabs(1/vars->ray->rayDir[0]);
 	if (vars->ray->rayDir[1] == 0)
-		vars->ray->deltaDist[0] = 1e30;
+		vars->ray->rayDir[1] = 1e30;
 	else
 		vars->ray->deltaDist[1] = fabs(1/vars->ray->rayDir[1]);
-	
-	//jjj
+
 	if (vars->ray->rayDir[0] < 0) // walk westwards
 	{
 		vars->ray->step[0] = -1;
@@ -190,7 +183,7 @@ void ft_init_raycast(t_prgrm *vars, int x)
 		vars->ray->sideDist[1] = (vars->ray->map[1] + 1.0 - vars->playa[1]) * vars->ray->deltaDist[1];
 	}
 	ft_calc_ray_dist(vars);
-	printf("perpWallDist at x = %d: %f\n", x, vars->ray->perpWallDist);
+	// printf("perpWallDist at x = %d: %f\n", x, vars->ray->perpWallDist);
 	ft_calc_line_height(vars);
 }
 
@@ -208,10 +201,10 @@ void	ft_init_ray(t_prgrm *vars)
 	vars->ray->sideDist = malloc(sizeof(double) * 2);
 	vars->ray->sideDist[0] = 0;
 	vars->ray->sideDist[1] = 0;
-	vars->ray->perpWallDist = 0;
 	vars->ray->step = malloc(sizeof(int) * 2);
 	vars->ray->step[0] = 0;
 	vars->ray->step[1] = 0;
+	vars->ray->perpWallDist = 0;
 	vars->ray->hit = 0;
 	vars->ray->side = 0;
 }
@@ -252,10 +245,8 @@ void	ft_raycast(t_prgrm *vars)
 		image = vars->img_2;
 		vars->qubit = 0;
 	}
-	while (0 >= 0 && x <= WIDTH)
+	while (x >= 0 && x <= WIDTH)
 	{
-		if (x == WIDTH / 2)
-			x++;
 		ft_init_raycast(vars, x);
 		ft_put_image(vars, image, x);
 		x++;

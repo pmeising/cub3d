@@ -6,7 +6,7 @@
 /*   By: pmeising <pmeising@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/05 16:28:33 by pmeising          #+#    #+#             */
-/*   Updated: 2023/01/05 17:56:24 by pmeising         ###   ########.fr       */
+/*   Updated: 2023/01/08 12:11:23 by pmeising         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,5 +52,6 @@ unsigned int	ft_rgb_to_hex(char *color)
 		ft_free(s_color_rgb[i]);
 		i++;
 	}
+	ft_free(s_color_rgb);
 	return (col);
 }

@@ -6,7 +6,7 @@
 /*   By: pmeising <pmeising@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 15:48:27 by pmeising          #+#    #+#             */
-/*   Updated: 2023/01/06 21:01:53 by pmeising         ###   ########.fr       */
+/*   Updated: 2023/01/08 12:10:09 by pmeising         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,9 @@ typedef struct	s_ray
 	double	cameraX;
 	double	*deltaDist;
 	double	*sideDist;
-	double	perpWallDist; // perpendicular wall distance
 	int		*map;
 	int		*step;
+	double	perpWallDist; // perpendicular wall distance
 	int		hit;
 	int		side;
 	int		pos_start;
@@ -44,7 +44,6 @@ typedef struct	s_ray
 typedef struct s_img
 {
 	void	*img;
-	// void	*mlx;
 	char	*addy_img;
 	int		bits_per_pixel;
 	int		line_length;
@@ -115,5 +114,5 @@ void			ft_raycast(t_prgrm *vars);
 
 // utils
 void			ft_check(t_prgrm *vars, void *con, int code);
-void	ft_helper(t_prgrm *vars, int i);
+void			ft_helper_rotate(t_prgrm *vars, int i);
 #endif

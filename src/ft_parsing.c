@@ -6,7 +6,7 @@
 /*   By: pmeising <pmeising@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 15:30:28 by pmeising          #+#    #+#             */
-/*   Updated: 2023/01/04 14:45:02 by pmeising         ###   ########.fr       */
+/*   Updated: 2023/01/08 12:33:59 by pmeising         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,7 +126,6 @@ void	ft_parsing(t_prgrm *vars)
 		perror("File couldn't be opened.\n");
 	while (1)
 	{
-		str = malloc(sizeof(char) * 2000);
 		str = get_next_line(fd);
 		if (str == NULL)
 		{

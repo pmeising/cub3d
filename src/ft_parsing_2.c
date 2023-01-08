@@ -6,7 +6,7 @@
 /*   By: pmeising <pmeising@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 15:30:28 by pmeising          #+#    #+#             */
-/*   Updated: 2023/01/04 14:45:14 by pmeising         ###   ########.fr       */
+/*   Updated: 2023/01/08 12:31:39 by pmeising         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	ft_buffer_helper(int dif, t_prgrm *vars, int i)
 			temp[j] = '2';
 			j++;
 		}
-		temp[dif] = '\0';
+		temp[j - 1] = '\0';
 		temp_2 = ft_strjoin(vars->map[i], temp);
 		ft_free(vars->map[i]);
 		ft_free(temp);
