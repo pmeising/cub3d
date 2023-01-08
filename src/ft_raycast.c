@@ -6,7 +6,7 @@
 /*   By: pmeising <pmeising@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 11:03:05 by pmeising          #+#    #+#             */
-/*   Updated: 2023/01/08 12:26:53 by pmeising         ###   ########.fr       */
+/*   Updated: 2023/01/08 13:04:22 by pmeising         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	ft_helper_rotate(t_prgrm *vars, int i)
 {
 	vars->old_direction[0] = vars->direction[0];
 	vars->direction[0] = vars->direction[0] * cos(i * SPEED) - vars->direction[1] * sin(i * SPEED);
-	vars->direction[1] = vars->old_direction[0] * sin(i * SPEED) - vars->direction[1] * cos(i * SPEED);
+	vars->direction[1] = vars->old_direction[0] * sin(i * SPEED) + vars->direction[1] * cos(i * SPEED);
 	vars->old_camera_vector[0] = vars->camera_vector[0];
 	vars->camera_vector[0] = vars->camera_vector[0] * cos(i * SPEED) - vars->camera_vector[1] * sin(i * SPEED);
 	vars->camera_vector[1] = vars->old_camera_vector[0] * sin(i * SPEED) + vars->camera_vector[1] * cos(i * SPEED);
@@ -69,7 +69,6 @@ void	ft_put_image(t_prgrm *vars, t_img *img, int x)
 	}
 	while(y >= vars->ray->pos_start && y <= vars->ray->pos_end)
 	{
-		// my_mlx_pixel_put(img, x, y, 0xFFFFFFFF);
 		ft_put_wall(vars, img, x, y);
 		y++;
 	}
@@ -237,7 +236,7 @@ void	ft_raycast(t_prgrm *vars)
 	x = 0;
 	if (vars->qubit == 0)
 	{
-		image = vars->img; 
+	image = vars->img;
 		vars->qubit = 1;
 	}
 	else
@@ -251,6 +250,9 @@ void	ft_raycast(t_prgrm *vars)
 		ft_put_image(vars, image, x);
 		x++;
 	}
+	printf("side: %d\n", vars->ray->side);
+	printf("dir: %f:%f\n", vars->direction[0], vars->direction[1]);
+	printf("cameraX: %f\n", vars->ray->cameraX);
 	mlx_put_image_to_window(vars->mlx, vars->mlx_win, image->img, 0, 0);
 	
 }
