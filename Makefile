@@ -6,7 +6,7 @@
 #    By: pmeising <pmeising@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/21 16:41:10 by pmeising          #+#    #+#              #
-#    Updated: 2023/01/08 12:23:46 by pmeising         ###   ########.fr        #
+#    Updated: 2023/01/08 17:09:34 by pmeising         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,6 +46,7 @@ SRC			:=	${SRC_DIR}main.c \
 				${SRC_DIR}ft_check_map_2.c \
 				${SRC_DIR}ft_raycast.c \
 				${SRC_DIR}ft_rgb_conv.c \
+				${SRC_DIR}ft_move.c \
 				
 # makefile starts here
 all: $(NAME)

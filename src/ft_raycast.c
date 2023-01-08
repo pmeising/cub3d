@@ -6,7 +6,7 @@
 /*   By: pmeising <pmeising@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 11:03:05 by pmeising          #+#    #+#             */
-/*   Updated: 2023/01/08 13:04:22 by pmeising         ###   ########.fr       */
+/*   Updated: 2023/01/08 17:30:54 by pmeising         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,27 +31,55 @@ void	my_mlx_pixel_put(t_img *img, int x, int y, int color)
 {
 	char *dest;
 
-	//dest = NULL;
 	dest = img->addy_img + (y * img->line_length + x * (img->bits_per_pixel / 8));
 	*(unsigned int *)dest = color;
 }
 
 /*
-* W_RED = south;
-* W_GREEN = north;
-* W_YELLOW = west;
-* W_BLUE =
+*	W_RED = south;
+* 	W_GREEN = north;
+*	W_YELLOW = west;
+* 	W_BLUE = east;
+*	N{0, 1}
+*	S{0,-1}
+*	W{-1,0}
+*	E{1, 0}
 */
 void	ft_put_wall(t_prgrm *vars, t_img *img, int x, int y)
 {
-	if (vars->direction[0] == -1 && vars->ray->side != 0 && vars->ray->cameraX < 0)
-		my_mlx_pixel_put(img, x, y, W_RED / 2); // LEFT
-	else if (vars->direction[0] == -1 && vars->ray->side != 0 && vars->ray->cameraX > 0)
-		my_mlx_pixel_put(img, x, y, W_GREEN); // RIGHT
-	else if (vars->direction[0] == -1 && vars->ray->side == 0)
-		my_mlx_pixel_put(img, x, y, W_YELLOW); // FRONT
+	// if (vars->direction[0] < 0 && vars->ray->side != 0 && vars->ray->cameraX < 0)
+	// 	my_mlx_pixel_put(img, x, y, W_RED / 2); // LEFT
+	// else if (vars->direction[0] < 0 && vars->ray->side != 0 && vars->ray->cameraX > 0)
+	// 	my_mlx_pixel_put(img, x, y, W_GREEN); // RIGHT
+	// else if (vars->direction[0] == -1 && vars->ray->side == 0)
+	// 	my_mlx_pixel_put(img, x, y, W_YELLOW); // FRONT
+	// else
+	// 	my_mlx_pixel_put(img, x, y, 0xFFFFFFFF);
+	/*
+	if ((vars->direction[0] <= 0 && vars->direction[0] >= -1) && )
+	
+	*/
+	if ((vars->ray->rayDir[0] <= 0 && vars->direction[0] >= -1) && (vars->ray->rayDir[1] <= 1 && vars->direction[1] >= 0) && vars->ray->side == 0) // 1st quadrant 1st side
+		my_mlx_pixel_put(img, x, y, W_BLUE);
+	else if ((vars->ray->rayDir[0] <= 0 && vars->direction[0] >= -1) && (vars->ray->rayDir[1] >= 0 && vars->direction[1] <= 1) && vars->ray->side == 1) // 1st quadrant 2nd side
+		my_mlx_pixel_put(img, x, y, W_GREEN);
+	else if ((vars->ray->rayDir[0] >= 0 && vars->direction[0] <= 1) && (vars->ray->rayDir[1] >= 0 && vars->direction[1] <= 1) && vars->ray->side == 1) // 2nd quadrant 1st side
+		my_mlx_pixel_put(img, x, y, W_GREEN);
+	else if ((vars->ray->rayDir[0] >= 0 && vars->direction[0] <= 1) && (vars->ray->rayDir[1] >= 0 && vars->direction[1] <= 1) && vars->ray->side == 0) // 2nd quadrant 2nd side
+		my_mlx_pixel_put(img, x, y, W_RED / 2);
+	else if ((vars->ray->rayDir[0] >= 0 && vars->direction[0] <= 1) && (vars->ray->rayDir[1] >= -1 && vars->direction[1] <= 0) && vars->ray->side == 0) // 3rd quadrant 1st side
+		my_mlx_pixel_put(img, x, y, W_RED / 2);
+	else if ((vars->ray->rayDir[0] >= 0 && vars->direction[0] <= 1) && (vars->ray->rayDir[1] >= -1 && vars->direction[1] <= 0) && vars->ray->side == 1) // 3rd quadrant 2nd side
+		my_mlx_pixel_put(img, x, y, W_YELLOW);
+	else if ((vars->ray->rayDir[0] >= -1 && vars->direction[0] <= 0) && (vars->ray->rayDir[1] >= -1 && vars->direction[1] <= 0) && vars->ray->side == 0) // 4th quadrant 1st side
+		my_mlx_pixel_put(img, x, y, W_YELLOW);
+	else if ((vars->ray->rayDir[0] >= -1 && vars->direction[0] <= 0) && (vars->ray->rayDir[1] >= -1 && vars->direction[1] <= 0) && vars->ray->side == 1) // 4th quadrant 2nd side
+		my_mlx_pixel_put(img, x, y, W_BLUE);
 	else
+	{
+		// printf("side: %d, ray_dir: %f, %f\n", vars->ray->side, vars->ray->rayDir[0], vars->ray->rayDir[1]);
 		my_mlx_pixel_put(img, x, y, 0xFFFFFFFF);
+	}
 }
 
 void	ft_put_image(t_prgrm *vars, t_img *img, int x)

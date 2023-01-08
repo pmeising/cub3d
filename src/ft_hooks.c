@@ -6,7 +6,7 @@
 /*   By: pmeising <pmeising@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/25 22:03:43 by pmeising          #+#    #+#             */
-/*   Updated: 2023/01/08 12:57:09 by pmeising         ###   ########.fr       */
+/*   Updated: 2023/01/08 17:13:39 by pmeising         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,14 @@ void	ft_hooks(t_prgrm *vars)
 *	Keys we need for this project:
 *	W, A, S, D, 'right arrow key', 'left arrow key', ESC.
 *	Bonus: Link the mouse movement to the adjustment of the POV
+*	65361/65363: left/right;
 */
 int	ft_key_hook(int keycode, t_prgrm *vars)
 {
 	int	i;
+	int keykot;
 
+	keykot = 0;
 	i = 1;
 	printf("keycode: %d\n", keycode);
 	if (keycode == 65307)
@@ -41,15 +44,9 @@ int	ft_key_hook(int keycode, t_prgrm *vars)
 	{
 		if (keycode == 65363)
 			i = -1;
-		printf("Rotating.\n");
 		ft_helper_rotate(vars, i);
-		// vars->old_direction[0] = vars->direction[0];
-		// vars->direction[0] = vars->direction[0] * cos(i * SPEED) - vars->direction[1] * sin(i * SPEED);
-		// vars->direction[1] = vars->old_direction[0] * sin(i * SPEED) - vars->direction[1] * cos(i * SPEED);
-		// vars->old_camera_vector[0] = vars->camera_vector[0];
-		// vars->camera_vector[0] = vars->camera_vector[0] * cos(i * SPEED) - vars->camera_vector[1] * sin(i * SPEED);
-		// vars->camera_vector[1] = vars->old_camera_vector[0] * sin(i * SPEED) + vars->camera_vector[1] * cos(i * SPEED);
-		// ft_raycast(vars);
 	}
-	return (keycode);
+	keykot = ft_movement(keycode, vars);
+	return (keykot);
+	// return (keycode);
 }

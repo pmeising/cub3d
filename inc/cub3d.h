@@ -6,7 +6,7 @@
 /*   By: pmeising <pmeising@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 15:48:27 by pmeising          #+#    #+#             */
-/*   Updated: 2023/01/08 12:10:09 by pmeising         ###   ########.fr       */
+/*   Updated: 2023/01/08 17:09:10 by pmeising         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,4 +115,6 @@ void			ft_raycast(t_prgrm *vars);
 // utils
 void			ft_check(t_prgrm *vars, void *con, int code);
 void			ft_helper_rotate(t_prgrm *vars, int i);
+
+int				ft_movement(int keycode, t_prgrm *vars);
 #endif
