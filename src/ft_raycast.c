@@ -6,7 +6,7 @@
 /*   By: pmeising <pmeising@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 11:03:05 by pmeising          #+#    #+#             */
-/*   Updated: 2023/01/09 17:22:20 by pmeising         ###   ########.fr       */
+/*   Updated: 2023/01/09 17:35:12 by pmeising         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,7 +152,7 @@ void	ft_calc_ray_dist(t_prgrm *vars)
 			vars->ray->side = 1;
 		}
 		// printf("char **map: %c\n", vars->map[(vars->ray->map[1]) * -1][vars->ray->map[0]]);
-		if (vars->map[(int)(vars->ray->map[1]) * -1][(int)(vars->ray->map[0] + 0.5)] == '1')
+		if (vars->map[(int)(vars->ray->map[1]) * -1][(int)(vars->ray->map[0])] == '1')
 		{
 			// printf("Hit wall at position: %d, %d\n", vars->ray->map[0], vars->ray->map[1]);
 			hit = 1;
