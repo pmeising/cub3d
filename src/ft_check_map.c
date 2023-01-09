@@ -6,7 +6,7 @@
 /*   By: pmeising <pmeising@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/03 16:26:53 by pmeising          #+#    #+#             */
-/*   Updated: 2023/01/06 17:25:37 by pmeising         ###   ########.fr       */
+/*   Updated: 2023/01/09 17:17:59 by pmeising         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,8 +73,8 @@ int	ft_has_playa_2(t_prgrm *vars, char c, int y, int x)
 {
 	if (c == 'N' || c == 'S' || c == 'E' || c == 'W')
 	{
-		vars->playa[0] = x;
-		vars->playa[1] = y * (-1);
+		vars->playa[0] = x /*+ 0.5*/;
+		vars->playa[1] = (y) * (-1);
 		ft_init_vecs(vars, c);
 		printf("playa: %f, %f\n", vars->playa[0], vars->playa[1]);
 		vars->player_num++;

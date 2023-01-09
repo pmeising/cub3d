@@ -6,7 +6,7 @@
 /*   By: pmeising <pmeising@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 11:03:05 by pmeising          #+#    #+#             */
-/*   Updated: 2023/01/08 17:30:54 by pmeising         ###   ########.fr       */
+/*   Updated: 2023/01/09 17:22:20 by pmeising         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,9 +72,9 @@ void	ft_put_wall(t_prgrm *vars, t_img *img, int x, int y)
 	else if ((vars->ray->rayDir[0] >= 0 && vars->direction[0] <= 1) && (vars->ray->rayDir[1] >= -1 && vars->direction[1] <= 0) && vars->ray->side == 1) // 3rd quadrant 2nd side
 		my_mlx_pixel_put(img, x, y, W_YELLOW);
 	else if ((vars->ray->rayDir[0] >= -1 && vars->direction[0] <= 0) && (vars->ray->rayDir[1] >= -1 && vars->direction[1] <= 0) && vars->ray->side == 0) // 4th quadrant 1st side
-		my_mlx_pixel_put(img, x, y, W_YELLOW);
-	else if ((vars->ray->rayDir[0] >= -1 && vars->direction[0] <= 0) && (vars->ray->rayDir[1] >= -1 && vars->direction[1] <= 0) && vars->ray->side == 1) // 4th quadrant 2nd side
 		my_mlx_pixel_put(img, x, y, W_BLUE);
+	else if ((vars->ray->rayDir[0] >= -1 && vars->direction[0] <= 0) && (vars->ray->rayDir[1] >= -1 && vars->direction[1] <= 0) && vars->ray->side == 1) // 4th quadrant 2nd side
+		my_mlx_pixel_put(img, x, y,W_YELLOW);
 	else
 	{
 		// printf("side: %d, ray_dir: %f, %f\n", vars->ray->side, vars->ray->rayDir[0], vars->ray->rayDir[1]);
@@ -152,7 +152,7 @@ void	ft_calc_ray_dist(t_prgrm *vars)
 			vars->ray->side = 1;
 		}
 		// printf("char **map: %c\n", vars->map[(vars->ray->map[1]) * -1][vars->ray->map[0]]);
-		if (vars->map[(vars->ray->map[1]) * -1][vars->ray->map[0]] > '0')
+		if (vars->map[(int)(vars->ray->map[1]) * -1][(int)(vars->ray->map[0] + 0.5)] == '1')
 		{
 			// printf("Hit wall at position: %d, %d\n", vars->ray->map[0], vars->ray->map[1]);
 			hit = 1;
@@ -222,6 +222,8 @@ void	ft_init_ray(t_prgrm *vars)
 	vars->ray->map = malloc(sizeof(int) * 2);
 	vars->ray->map[0] = 0;
 	vars->ray->map[1] = 0;
+	// vars->ray->map[0] = (int)vars->playa[0];
+	// vars->ray->map[1] = (int)vars->playa[1];
 	vars->ray->deltaDist = malloc(sizeof(double) * 2);
 	vars->ray->deltaDist[0] = 0;
 	vars->ray->deltaDist[1] = 0;
@@ -234,6 +236,8 @@ void	ft_init_ray(t_prgrm *vars)
 	vars->ray->perpWallDist = 0;
 	vars->ray->hit = 0;
 	vars->ray->side = 0;
+	vars->ray->map[0] = (int)vars->playa[0];
+	vars->ray->map[1] = (int)vars->playa[1];
 }
 
 void ft_init_ray_2(t_prgrm *vars, t_img *img, t_img *img_2, t_ray *ray)
@@ -264,7 +268,7 @@ void	ft_raycast(t_prgrm *vars)
 	x = 0;
 	if (vars->qubit == 0)
 	{
-	image = vars->img;
+		image = vars->img;
 		vars->qubit = 1;
 	}
 	else
@@ -272,15 +276,16 @@ void	ft_raycast(t_prgrm *vars)
 		image = vars->img_2;
 		vars->qubit = 0;
 	}
+	// x = 50;
 	while (x >= 0 && x <= WIDTH)
 	{
 		ft_init_raycast(vars, x);
 		ft_put_image(vars, image, x);
 		x++;
 	}
-	printf("side: %d\n", vars->ray->side);
-	printf("dir: %f:%f\n", vars->direction[0], vars->direction[1]);
-	printf("cameraX: %f\n", vars->ray->cameraX);
+	// printf("side: %d\n", vars->ray->side);
+	// printf("dir: %f:%f\n", vars->direction[0], vars->direction[1]);
+	// printf("cameraX: %f\n", vars->ray->cameraX);
 	mlx_put_image_to_window(vars->mlx, vars->mlx_win, image->img, 0, 0);
 	
 }
