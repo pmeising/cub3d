@@ -6,7 +6,7 @@
 /*   By: pmeising <pmeising@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 11:03:05 by pmeising          #+#    #+#             */
-/*   Updated: 2023/01/09 17:35:12 by pmeising         ###   ########.fr       */
+/*   Updated: 2023/01/10 17:17:49 by pmeising         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void	ft_put_wall(t_prgrm *vars, t_img *img, int x, int y)
 	
 	*/
 	if ((vars->ray->rayDir[0] <= 0 && vars->direction[0] >= -1) && (vars->ray->rayDir[1] <= 1 && vars->direction[1] >= 0) && vars->ray->side == 0) // 1st quadrant 1st side
-		my_mlx_pixel_put(img, x, y, W_BLUE);
+		my_mlx_pixel_put(img, x, y, W_BLUE / 2);
 	else if ((vars->ray->rayDir[0] <= 0 && vars->direction[0] >= -1) && (vars->ray->rayDir[1] >= 0 && vars->direction[1] <= 1) && vars->ray->side == 1) // 1st quadrant 2nd side
 		my_mlx_pixel_put(img, x, y, W_GREEN);
 	else if ((vars->ray->rayDir[0] >= 0 && vars->direction[0] <= 1) && (vars->ray->rayDir[1] >= 0 && vars->direction[1] <= 1) && vars->ray->side == 1) // 2nd quadrant 1st side
@@ -72,7 +72,7 @@ void	ft_put_wall(t_prgrm *vars, t_img *img, int x, int y)
 	else if ((vars->ray->rayDir[0] >= 0 && vars->direction[0] <= 1) && (vars->ray->rayDir[1] >= -1 && vars->direction[1] <= 0) && vars->ray->side == 1) // 3rd quadrant 2nd side
 		my_mlx_pixel_put(img, x, y, W_YELLOW);
 	else if ((vars->ray->rayDir[0] >= -1 && vars->direction[0] <= 0) && (vars->ray->rayDir[1] >= -1 && vars->direction[1] <= 0) && vars->ray->side == 0) // 4th quadrant 1st side
-		my_mlx_pixel_put(img, x, y, W_BLUE);
+		my_mlx_pixel_put(img, x, y, W_BLUE / 2);
 	else if ((vars->ray->rayDir[0] >= -1 && vars->direction[0] <= 0) && (vars->ray->rayDir[1] >= -1 && vars->direction[1] <= 0) && vars->ray->side == 1) // 4th quadrant 2nd side
 		my_mlx_pixel_put(img, x, y,W_YELLOW);
 	else
@@ -90,17 +90,17 @@ void	ft_put_image(t_prgrm *vars, t_img *img, int x)
 	// printf("side: %d\n", vars->ray->side);
 	// printf("dir: %f:%f\n", vars->direction[0], vars->direction[1]);
 	// printf("cameraX: %f\n", vars->ray->cameraX);
-	while (y < vars->ray->pos_start)
+	while (y < vars->ray->pos_start && y <= HEIGHT)
 	{
 		my_mlx_pixel_put(img, x, y, vars->ceiling_color);
 		y++;
 	}
-	while(y >= vars->ray->pos_start && y <= vars->ray->pos_end)
+	while(y >= vars->ray->pos_start && y <= vars->ray->pos_end && y <= HEIGHT)
 	{
 		ft_put_wall(vars, img, x, y);
 		y++;
 	}
-	while (y < HEIGHT)
+	while (y <= HEIGHT)
 	{
 		my_mlx_pixel_put(img, x, y, vars->floor_color);
 		y++;
@@ -130,7 +130,7 @@ void	ft_calc_line_height(t_prgrm *vars)
 }
 
 /*
- * side: which wall was hit
+*	side: which wall was hit
 */
 void	ft_calc_ray_dist(t_prgrm *vars)
 {
@@ -151,7 +151,13 @@ void	ft_calc_ray_dist(t_prgrm *vars)
 			vars->ray->map[1] += vars->ray->step[1];
 			vars->ray->side = 1;
 		}
+		// printf("(vars->ray->map[1]: %d, [vars->ray->map[0]: %d\n", vars->ray->map[1], vars->ray->map[0]);
 		// printf("char **map: %c\n", vars->map[(vars->ray->map[1]) * -1][vars->ray->map[0]]);
+		// if (vars->ray->map[1] > 0)
+		// {
+		// 	vars->ray->map[1] = 0;
+		// 	hit = 1;
+		// }
 		if (vars->map[(int)(vars->ray->map[1]) * -1][(int)(vars->ray->map[0])] == '1')
 		{
 			// printf("Hit wall at position: %d, %d\n", vars->ray->map[0], vars->ray->map[1]);
