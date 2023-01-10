@@ -6,7 +6,7 @@
 /*   By: pmeising <pmeising@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/20 19:15:36 by pmeising          #+#    #+#             */
-/*   Updated: 2023/01/06 20:39:02 by pmeising         ###   ########.fr       */
+/*   Updated: 2023/01/10 21:45:49 by pmeising         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,9 +61,20 @@ void	ft_check(t_prgrm *vars, void *con, int code)
 	{
 		perror("Malloc: ");
 		exit(0);
-	}
-	
+	}	
 }
+
+// void	print_map(t_prgrm *vars)
+// {
+// 	int	i;
+
+// 	i = 0;
+// 	while (vars->map[i])
+// 	{
+// 		printf("%s", vars->map[i]);
+// 		i++;
+// 	}
+// }
 
 int	main(int argc, char	**argv)
 {

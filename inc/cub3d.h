@@ -6,7 +6,7 @@
 /*   By: pmeising <pmeising@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 15:48:27 by pmeising          #+#    #+#             */
-/*   Updated: 2023/01/08 17:09:10 by pmeising         ###   ########.fr       */
+/*   Updated: 2023/01/10 21:45:56 by pmeising         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 # define W_GREEN	0x0000FF00
 # define W_YELLOW	0x00FFFF00
 # define W_BLUE		0x000000FF
-# define SPEED		0.3
+# define SPEED		0.4
 
 typedef struct	s_ray
 {
@@ -115,6 +115,6 @@ void			ft_raycast(t_prgrm *vars);
 // utils
 void			ft_check(t_prgrm *vars, void *con, int code);
 void			ft_helper_rotate(t_prgrm *vars, int i);
-
+void			print_map(t_prgrm *vars);
 int				ft_movement(int keycode, t_prgrm *vars);
 #endif

@@ -6,11 +6,23 @@
 /*   By: pmeising <pmeising@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 11:03:05 by pmeising          #+#    #+#             */
-/*   Updated: 2023/01/10 17:17:49 by pmeising         ###   ########.fr       */
+/*   Updated: 2023/01/10 21:43:21 by pmeising         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
+
+void	print_map(t_prgrm *vars)
+{
+	int	i;
+
+	i = 0;
+	while (vars->map[i])
+	{
+		printf("%s\n", vars->map[i]);
+		i++;
+	}
+}
 
 void	ft_helper_rotate(t_prgrm *vars, int i)
 {
@@ -272,6 +284,7 @@ void	ft_raycast(t_prgrm *vars)
 	t_img	*image;
 
 	x = 0;
+	// print_map(vars);
 	if (vars->qubit == 0)
 	{
 		image = vars->img;
@@ -296,6 +309,8 @@ void	ft_raycast(t_prgrm *vars)
 	
 }
 
+
+
 void	ft_raycasting(t_prgrm *vars)
 {
 	t_img	*img;
@@ -308,6 +323,6 @@ void	ft_raycasting(t_prgrm *vars)
 	ft_check(vars, img, 3);
 	img_2 = malloc(sizeof(t_img) * 1);
 	ft_check(vars, img_2, 3);
+	// print_map(vars);
 	ft_init_ray_2(vars, img, img_2, ray);
-	ft_raycast(vars);
 }
