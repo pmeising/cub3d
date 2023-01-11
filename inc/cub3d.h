@@ -6,7 +6,7 @@
 /*   By: pmeising <pmeising@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 15:48:27 by pmeising          #+#    #+#             */
-/*   Updated: 2023/01/10 21:45:56 by pmeising         ###   ########.fr       */
+/*   Updated: 2023/01/11 20:12:21 by pmeising         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@
 # include <math.h>
 # include <../minilibx-linux/mlx.h>
 # include <../libft_lib/libft.h>
-# define HEIGHT 540
-# define WIDTH 960
+# define HEIGHT		540
+# define WIDTH		960
 # define W_RED		0x00FF0000
 # define W_GREEN	0x0000FF00
 # define W_YELLOW	0x00FFFF00
@@ -45,6 +45,8 @@ typedef struct s_img
 {
 	void	*img;
 	char	*addy_img;
+	int		height[1];
+	int		width[1];
 	int		bits_per_pixel;
 	int		line_length;
 	int		endian;
@@ -55,6 +57,10 @@ typedef struct s_prgrm
 	t_ray	*ray;
 	t_img	*img;
 	t_img	*img_2;
+	t_img	*img_wall_north;
+	t_img	*img_wall_south;
+	t_img	*img_wall_east;
+	t_img	*img_wall_west;
 	int		qubit;
 	int		argc;
 	int		window_height;

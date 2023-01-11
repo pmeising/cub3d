@@ -6,7 +6,7 @@
 /*   By: pmeising <pmeising@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 11:03:05 by pmeising          #+#    #+#             */
-/*   Updated: 2023/01/10 21:43:21 by pmeising         ###   ########.fr       */
+/*   Updated: 2023/01/11 20:11:34 by pmeising         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -163,21 +163,9 @@ void	ft_calc_ray_dist(t_prgrm *vars)
 			vars->ray->map[1] += vars->ray->step[1];
 			vars->ray->side = 1;
 		}
-		// printf("(vars->ray->map[1]: %d, [vars->ray->map[0]: %d\n", vars->ray->map[1], vars->ray->map[0]);
-		// printf("char **map: %c\n", vars->map[(vars->ray->map[1]) * -1][vars->ray->map[0]]);
-		// if (vars->ray->map[1] > 0)
-		// {
-		// 	vars->ray->map[1] = 0;
-		// 	hit = 1;
-		// }
-		if (vars->map[(int)(vars->ray->map[1]) * -1][(int)(vars->ray->map[0])] == '1')
-		{
-			// printf("Hit wall at position: %d, %d\n", vars->ray->map[0], vars->ray->map[1]);
+		if (vars->map[(int)(vars->ray->map[1])][(int)(vars->ray->map[0])] == '1')
 			hit = 1;
-		}
 	}
-	// printf("sideDist[0]: %f; deltaDist[0]: %f.\n", vars->ray->sideDist[0], vars->ray->deltaDist[0]);
-	// printf("sideDist[1]: %f; deltaDist[1]: %f.\n", vars->ray->sideDist[1], vars->ray->deltaDist[1]);
 	if (vars->ray->side == 0)
 		vars->ray->perpWallDist = (vars->ray->sideDist[0] - vars->ray->deltaDist[0]);
 	else
@@ -196,7 +184,7 @@ void ft_init_raycast(t_prgrm *vars, int x)
 	vars->ray->rayDir[1] = vars->direction[1] + vars->camera_vector[1] * vars->ray->cameraX;
 	vars->ray->map[0] = (int)vars->playa[0];
 	vars->ray->map[1] = (int)vars->playa[1];
-	// printf("%d, %d\n", vars->ray->map[0], vars->ray->map[1]);
+	// printf("%f, %f\n", vars->ray->map[0], vars->ray->map[1]);
 
 	if (vars->ray->rayDir[0] == 0)
 		vars->ray->rayDir[0] = 1e30;
@@ -309,14 +297,32 @@ void	ft_raycast(t_prgrm *vars)
 	
 }
 
-
+void ft_init_img(t_prgrm *vars)
+{
+	vars->img_wall_north = malloc(sizeof(t_img) * 1);
+	ft_check(vars, vars->img_wall_north, 3);
+	vars->img_wall_north->height[0] = 0;
+	vars->img_wall_north->width[0] = 0;
+	vars->img_wall_south = malloc(sizeof(t_img) * 1);
+	ft_check(vars, vars->img_wall_south, 3);
+	vars->img_wall_east = malloc(sizeof(t_img) * 1);
+	ft_check(vars, vars->img_wall_east, 3);
+	vars->img_wall_west = malloc(sizeof(t_img) * 1);
+	ft_check(vars, vars->img_wall_west, 3);
+	vars->img_wall_north->img = mlx_xpm_file_to_image(vars->mlx, "./images/wall_1.xpm", vars->img_wall_north->width, vars->img_wall_north->height);
+	vars->img_wall_south->img = mlx_xpm_file_to_image(vars->mlx, "./images/wall_1.xpm", vars->img_wall_south->width, vars->img_wall_south->height);
+	vars->img_wall_east->img = mlx_xpm_file_to_image(vars->mlx, "./images/wall_1.xpm", vars->img_wall_east->width, vars->img_wall_east->height);
+	vars->img_wall_west->img = mlx_xpm_file_to_image(vars->mlx, "./images/wall_1.xpm", vars->img_wall_west->width, vars->img_wall_west->height);
+	printf("height: %d width: %d\n", *vars->img_wall_north->height, *vars->img_wall_north->width);
+}
 
 void	ft_raycasting(t_prgrm *vars)
 {
 	t_img	*img;
 	t_img	*img_2;
 	t_ray	*ray;
-
+	
+	// ft_init_img(vars);
 	ray = malloc(sizeof(t_ray) * 1);
 	ft_check(vars, ray, 3);
 	img = malloc(sizeof(t_img) * 1);

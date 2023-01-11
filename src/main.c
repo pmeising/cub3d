@@ -6,7 +6,7 @@
 /*   By: pmeising <pmeising@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/20 19:15:36 by pmeising          #+#    #+#             */
-/*   Updated: 2023/01/10 21:45:49 by pmeising         ###   ########.fr       */
+/*   Updated: 2023/01/11 19:03:15 by pmeising         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,7 @@ int	main(int argc, char	**argv)
 		vars->mlx_win = mlx_new_window(vars->mlx, vars->window_width, vars->window_height, "cub3D");
 		ft_check(vars, vars->mlx_win, 2);
 		ft_raycasting(vars);
+		ft_raycast(vars);
 		ft_hooks(vars);
 		mlx_key_hook(vars->mlx_win, ft_key_hook, vars);
 		mlx_loop(vars->mlx);

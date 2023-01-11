@@ -6,7 +6,7 @@
 /*   By: pmeising <pmeising@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/08 17:21:53 by pmeising          #+#    #+#             */
-/*   Updated: 2023/01/10 21:44:36 by pmeising         ###   ########.fr       */
+/*   Updated: 2023/01/11 20:14:08 by pmeising         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,66 +20,64 @@
 */
 int ft_movement(int keycode, t_prgrm *vars)
 { // check x and y minimal/maximal wert !! first part w-e second part n-s
-	if (keycode == 119)
+	// printf("before: playa: %f:%f.\n would be: %f:%f\nIcon: %c\n", vars->playa[0], vars->playa[1], vars->playa[0] + vars->direction[0] * SPEED, vars->playa[1] + vars->direction[1] * SPEED, vars->map[(int)(vars->playa[1])][(int)vars->playa[0]]);
+	if (keycode == 119)// W
 	{
-		// Move along the x achsis:
-		printf("playa: %f:%f.\n would be: %f:%f\nIcon: %c\n", vars->playa[0], vars->playa[1], vars->playa[0] + vars->direction[0] * SPEED, vars->playa[1] + vars->direction[1] * SPEED, vars->map[-1 * (int)(vars->playa[1])][(int)vars->playa[0]]);
-		if (vars->direction[0] > 0)
+		if (vars->direction[0] > 0) // EAST
 		{
-			if (vars->map[-1 * (int)vars->playa[1]][(int)(vars->playa[0] + (vars->direction[0] * SPEED))] == '0')
-				vars->playa[0] = vars->playa[0] + (vars->direction[0] * SPEED);
+			if (vars->map[(int)vars->playa[1]][(int)(vars->playa[0] + (vars->direction[0] * (double)SPEED))] == '0')
+				vars->playa[0] = vars->playa[0] + (vars->direction[0] * (double)SPEED);
 		}
-		else if (vars->direction[0] < 0)
+		else if (vars->direction[0] < 0) // WEST
 		{
-			if ((int)(vars->playa[0] + (vars->direction[0] * SPEED)) > 0)
+			if ((int)(vars->playa[0] + (vars->direction[0] * (double)SPEED)) > 0)
 			{
-				if (vars->map[-1 * (int)vars->playa[1]][(int)(vars->playa[0] + (vars->direction[0] * SPEED))] == '0')
-					vars->playa[0] = vars->playa[0] + (vars->direction[0] * SPEED);	
+				if (vars->map[(int)vars->playa[1]][(int)(vars->playa[0] + (vars->direction[0] * (double)SPEED))] == '0')
+					vars->playa[0] = vars->playa[0] + (vars->direction[0] * (double)SPEED);	
 			}
 			else
-				if (vars->map[-1 * (int)vars->playa[1]][(int)(vars->playa[0] + (vars->direction[0] * SPEED))] == '0')
-					vars->playa[0] = vars->playa[0] + (vars->direction[0] * SPEED);
+				if (vars->map[(int)vars->playa[1]][(int)(vars->playa[0] + (vars->direction[0] * (double)SPEED))] == '0')
+					vars->playa[0] = vars->playa[0] + (vars->direction[0] * (double)SPEED);
 		}
 		// Move along the y achsis:
 		if (vars->direction[1] < 0)
 		{
-			if (vars->map[(int)(1.25 + -1 * (vars->playa[1] + (vars->direction[1] * SPEED)))][(int)vars->playa[0]] == '0')
+			if (vars->map[(int)((vars->playa[1] + (vars->direction[1] * SPEED)))][(int)vars->playa[0]] == '0')
 				vars->playa[1] = vars->playa[1] + (vars->direction[1] * SPEED);
 		}
 		else if (vars->direction[1] > 0)
 		{
-			if (vars->map[(int)(-1 * (vars->playa[1] + (vars->direction[1] * SPEED)))][(int)vars->playa[0]] == '0')
+			if (vars->map[(int)((vars->playa[1] + (vars->direction[1] * SPEED)))][(int)vars->playa[0]] == '0')
 				vars->playa[1] = vars->playa[1] + (vars->direction[1] * SPEED);
 		}
 	}
 	else if (keycode == 115)
 	{
-		// Move along the x achsis:
-		if (-vars->direction[0] > 0)
+		if (-vars->direction[0] > 0) // EAST
 		{
-			if (vars->map[-1 * (int)vars->playa[1]][1 + (int)(vars->playa[0] + (-vars->direction[0] * SPEED))] == '0')
-				vars->playa[0] = vars->playa[0] + (-vars->direction[0] * SPEED);
+			if (vars->map[(int)vars->playa[1]][(int)(vars->playa[0] + (-vars->direction[0] * (double)SPEED))] == '0')
+				vars->playa[0] = vars->playa[0] + (-vars->direction[0] * (double)SPEED);
 		}
-		else if (-vars->direction[0] < 0)
+		else if (-vars->direction[0] < 0) // WEST
 		{
-			if ((int)(vars->playa[0] + (-vars->direction[0] * SPEED)) > 0)
+			if ((int)(vars->playa[0] + (-vars->direction[0] * (double)SPEED)) > 0)
 			{
-				if (vars->map[-1 * (int)vars->playa[1]][-1 + (int)(vars->playa[0] + (-vars->direction[0] * SPEED))] == '0')
-					vars->playa[0] = vars->playa[0] + (-vars->direction[0] * SPEED);	
+				if (vars->map[(int)vars->playa[1]][(int)(vars->playa[0] + (-vars->direction[0] * (double)SPEED))] == '0')
+					vars->playa[0] = vars->playa[0] + (-vars->direction[0] * (double)SPEED);	
 			}
 			else
-				if (vars->map[-1 * (int)vars->playa[1]][(int)(vars->playa[0] + (-vars->direction[0] * SPEED))] == '0')
-					vars->playa[0] = vars->playa[0] + (-vars->direction[0] * SPEED);
+				if (vars->map[(int)vars->playa[1]][(int)(vars->playa[0] + (-vars->direction[0] * (double)SPEED))] == '0')
+					vars->playa[0] = vars->playa[0] + (-vars->direction[0] * (double)SPEED);
 		}
 		// Move along the y achsis:
 		if (-vars->direction[1] < 0)
 		{
-			if (vars->map[2 + (int)(-1 * (vars->playa[1] + (-vars->direction[1] * SPEED)))][(int)vars->playa[0]] == '0')
+			if (vars->map[(int)((vars->playa[1] + (-vars->direction[1] * SPEED)))][(int)vars->playa[0]] == '0')
 				vars->playa[1] = vars->playa[1] + (-vars->direction[1] * SPEED);
 		}
-		else if (vars->direction[1] > 0)
+		else if (-vars->direction[1] > 0)
 		{
-			if (vars->map[(int)(-1 * (vars->playa[1] + (-vars->direction[1] * SPEED)))][(int)vars->playa[0]] == '0')
+			if (vars->map[(int)((vars->playa[1] + (-vars->direction[1] * SPEED)))][(int)vars->playa[0]] == '0')
 				vars->playa[1] = vars->playa[1] + (-vars->direction[1] * SPEED);
 		}
 	}
