@@ -6,7 +6,7 @@
 /*   By: pmeising <pmeising@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 11:03:05 by pmeising          #+#    #+#             */
-/*   Updated: 2023/01/12 14:03:43 by pmeising         ###   ########.fr       */
+/*   Updated: 2023/01/12 20:46:57 by pmeising         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,13 +35,98 @@ void	my_mlx_pixel_put(t_img *img, int x, int y, int color)
 	*(unsigned int *)dest = color;
 }
 
+	// unsigned int	color;
+	// // int				tex_y;
+	// int				height;
+
+	// height = vars->ray->pos_end - vars->ray->pos_start;
+	// color = *(int *)(vars->img_wall_north->addy_img + (int)(height % 64 * (img->bits_per_pixel / 8)));
+	// // printf("color: %d\n", color);
+	// my_mlx_pixel_put(img, x, y, color);
+
+void ft_resize_tex_south(t_prgrm *vars, t_img *img, int x, int y)
+{
+	char	*tex_addr;
+	int		height;
+	t_img	*wall;
+	int		color;
+
+	height = vars->ray->pos_end - vars->ray->pos_start;
+	wall = vars->img_wall_south;
+	tex_addr = NULL;
+	tex_addr = wall->addy_img + ((int)(vars->ray->texY) % 64 * height + vars->ray->texX % 64 * (wall->bits_per_pixel / 8));
+	color = *(int *)tex_addr;
+	my_mlx_pixel_put(img, x, y, color);
+	vars->ray->texY = vars->ray->texY + vars->ray->tex_y_step;
+}
+
+void ft_resize_door(t_prgrm *vars, t_img *img, int x, int y)
+{
+	char	*tex_addr;
+	int		height;
+	t_img	*wall;
+	int		color;
+
+	height = vars->ray->pos_end - vars->ray->pos_start;
+	wall = vars->img_wall_door;
+	tex_addr = NULL;
+	tex_addr = wall->addy_img + ((int)(vars->ray->texY) % 274 * height + vars->ray->texX % 274 * (wall->bits_per_pixel / 8));
+	color = *(int *)tex_addr;
+	my_mlx_pixel_put(img, x, y, color);
+	vars->ray->texY = vars->ray->texY + vars->ray->tex_y_step;
+}
+
+void ft_resize_tex_east(t_prgrm *vars, t_img *img, int x, int y)
+{
+	char	*tex_addr;
+	int		height;
+	t_img	*wall;
+	int		color;
+
+	height = vars->ray->pos_end - vars->ray->pos_start;
+	wall = vars->img_wall_east;
+	tex_addr = NULL;
+	tex_addr = wall->addy_img + ((int)(vars->ray->texY) % 64 * height + vars->ray->texX % 64 * (wall->bits_per_pixel / 8));
+	color = *(int *)tex_addr;
+	my_mlx_pixel_put(img, x, y, color);
+	vars->ray->texY = vars->ray->texY + vars->ray->tex_y_step;
+}
+
+void ft_resize_tex_west(t_prgrm *vars, t_img *img, int x, int y)
+{
+	char	*tex_addr;
+	int		height;
+	t_img	*wall;
+	int		color;
+
+	height = vars->ray->pos_end - vars->ray->pos_start;
+	wall = vars->img_wall_west;
+	tex_addr = NULL;
+	tex_addr = wall->addy_img + ((int)(vars->ray->texY) % 64 * height + vars->ray->texX % 64 * (wall->bits_per_pixel / 8));
+	color = *(int *)tex_addr;
+	my_mlx_pixel_put(img, x, y, color);
+	vars->ray->texY = vars->ray->texY + vars->ray->tex_y_step;
+}
+
+/*
+* x: width of screen, y: height of screen
+* 
+*
+*/
 void	ft_resize_tex_north(t_prgrm *vars, t_img *img, int x, int y)
 {
-	unsigned int	color;
+	char	*tex_addr;
+	int		height;
+	t_img	*wall;
+	int		color;
 
-	color = *(int *)(vars->img_wall_north->addy_img + (int)(y * (img->line_length % 64)) + (int)(x % 64 * (img->bits_per_pixel / 8)));
-	// printf("color: %d\n", color);
+	height = vars->ray->pos_end - vars->ray->pos_start;
+	wall = vars->img_wall_north;
+	tex_addr = NULL;
+	tex_addr = wall->addy_img + ((int)(vars->ray->texY) % 64 * height + vars->ray->texX % 64 * (wall->bits_per_pixel / 8));
+	color = *(int *)tex_addr;
 	my_mlx_pixel_put(img, x, y, color);
+	vars->ray->texY = vars->ray->texY + vars->ray->tex_y_step;
 }
 
 /*
@@ -65,28 +150,74 @@ void	ft_put_wall(t_prgrm *vars, t_img *img, int x, int y)
 		ft_resize_tex_north(vars, img, x, y);
 		// my_mlx_pixel_put(img, x, y, W_BLUE / 2); // NORTH
 	else if (vars->ray->rayDir[0] >= 0 && vars->ray->rayDir[1] >= 0 && vars->ray->side == 1)
-		my_mlx_pixel_put(img, x, y, W_GREEN / 2); // SOUTH
+		ft_resize_tex_south(vars, img, x, y);
+		// my_mlx_pixel_put(img, x, y, W_GREEN / 2); // SOUTH
 	else if (vars->ray->rayDir[0] <= 0 && vars->ray->rayDir[1] >= 0 && vars->ray->side == 1)
-		my_mlx_pixel_put(img, x, y, W_GREEN / 2); // SOUTH
+		ft_resize_tex_south(vars, img, x, y);
+		// my_mlx_pixel_put(img, x, y, W_GREEN / 2); // SOUTH
 	else if (vars->ray->rayDir[0] <= 0 && vars->ray->rayDir[1] <= 0 && vars->ray->side == 0)
-		my_mlx_pixel_put(img, x, y, W_YELLOW / 2); // WEST
+		ft_resize_tex_west(vars, img, x, y);
+		// my_mlx_pixel_put(img, x, y, W_YELLOW / 2); // WEST
 	else if (vars->ray->rayDir[0] <= 0 && vars->ray->rayDir[1] >= 0 && vars->ray->side == 0)
-		my_mlx_pixel_put(img, x, y, W_YELLOW / 2); // WEST
+		ft_resize_tex_west(vars, img, x, y);
+		// my_mlx_pixel_put(img, x, y, W_YELLOW / 2); // WEST
 	else if (vars->ray->rayDir[0] >= 0 && vars->ray->rayDir[1] <= 0 && vars->ray->side == 0)
-		my_mlx_pixel_put(img, x, y, W_RED / 2); // EAST
+		ft_resize_tex_east(vars, img, x, y);
+		// my_mlx_pixel_put(img, x, y, W_RED / 2); // EAST
 	else if (vars->ray->rayDir[0] >= 0 && vars->ray->rayDir[1] >= 0 && vars->ray->side == 0)
-		my_mlx_pixel_put(img, x, y, W_RED / 2); // EAST
+		ft_resize_tex_east(vars, img, x, y);
+		// my_mlx_pixel_put(img, x, y, W_RED / 2); // EAST
 	else
 	{
 		my_mlx_pixel_put(img, x, y, 0xFFFFFFFF);
 	}
 }
 
+void	find_texture_coord(t_prgrm *vars, int height)
+{
+	if (vars->ray->side == 0)
+		vars->ray->WallX = vars->playa[1] + vars->ray->perpWallDist * \
+			vars->ray->rayDir[1];
+	else
+		vars->ray->WallX = vars->playa[0] + vars->ray->perpWallDist * \
+			vars->ray->rayDir[0];
+	vars->ray->WallX -= floor(vars->ray->WallX);
+	vars->ray->texX = (int)(vars->ray->WallX * (double)64/*wall_tex->width*/);
+	if ((vars->ray->side == 0 && vars->ray->rayDir[0] > 0) || \
+		(vars->ray->side == 1 && vars->ray->rayDir[1] < 0))
+		vars->ray->texX = 64 - vars->ray->texX;
+	vars->ray->tex_y_step = 64/*wall_tex->height*/ / (double)height;
+	vars->ray->texY = 0;
+	if (height > HEIGHT)
+		vars->ray->texY = (height - HEIGHT) * \
+			vars->ray->tex_y_step / 2;
+}
+
+// if (vars->ray->side == 0)
+	// 	wallX = vars->playa[1] + vars->ray->perpWallDist * vars->ray->rayDir[1];
+	// else
+	// 	wallX = vars->playa[0] + vars->ray->perpWallDist * vars->ray->rayDir[0];
+	// wallX -= floor((wallX));
+
+	// vars->ray->texX = (int)(wallX * (double)64);
+	// if (vars->ray->side == 0 && vars->ray->rayDir[0] > 0)
+	// 	vars->ray->texX = 64 - vars->ray->texX;
+	// else if (vars->ray->side == 1 && vars->ray->rayDir[1] < 0)
+	// 	vars->ray->texX = 64 - vars->ray->texX;
+	// step = 64 / (double)height;
+	// double texPos;
+	// texPos = (vars->ray->pos_start - HEIGHT /*height*/ / 2 + height / 2) * step;
+	//int m;
+	// m = vars->ray->pos_start;
+	
 void	ft_put_image(t_prgrm *vars, t_img *img, int x)
 {
+	int		height;
 	int	y;
 
+	height = vars->ray->pos_end - vars->ray->pos_start;
 	y = 0;
+	find_texture_coord(vars, height);
 	while (y < vars->ray->pos_start && y <= HEIGHT)
 	{
 		my_mlx_pixel_put(img, x, y, vars->ceiling_color);
@@ -103,6 +234,21 @@ void	ft_put_image(t_prgrm *vars, t_img *img, int x)
 		y++;
 	}
 }
+	// --------------------
+// 	if (vars->ray->side == 0)
+// 		wallX = vars->playa[1] + vars->ray->perpWallDist * vars->ray->rayDir[1];
+// 	else
+// 		wallX = vars->playa[0] + vars->ray->perpWallDist * vars->ray->rayDir[0];
+// 	wallX -= floor((wallX));
+// 	vars->ray->texX = (int)(wallX * (double)img->width[0]);
+	
+// 	if (vars->ray->side == 0 && vars->ray->rayDir[0] > 0)
+// 		vars->ray->texX = img->width[0] - vars->ray->texX - 1;
+// 	if (vars->ray->side == 1 && vars->ray->rayDir[1] < 0)
+// 		vars->ray->texX = img->width[0] - vars->ray->texX - 1;
+// 	step = (double)img->height[0] / (double)height; // lineheight;
+	
+// }
 
 void	ft_calc_line_height(t_prgrm *vars)
 {
@@ -294,13 +440,14 @@ void ft_init_img(t_prgrm *vars)
 	vars->img_wall_west = malloc(sizeof(t_img) * 1);
 	ft_check(vars, vars->img_wall_west, 3);
 	vars->img_wall_north->img = mlx_xpm_file_to_image(vars->mlx, "./images/wall_1.xpm", vars->img_wall_north->width, vars->img_wall_north->height);
-	vars->img_wall_south->img = mlx_xpm_file_to_image(vars->mlx, "./images/wall_1.xpm", vars->img_wall_south->width, vars->img_wall_south->height);
-	vars->img_wall_east->img = mlx_xpm_file_to_image(vars->mlx, "./images/wall_1.xpm", vars->img_wall_east->width, vars->img_wall_east->height);
-	vars->img_wall_west->img = mlx_xpm_file_to_image(vars->mlx, "./images/wall_1.xpm", vars->img_wall_west->width, vars->img_wall_west->height);
+	vars->img_wall_south->img = mlx_xpm_file_to_image(vars->mlx, "./images/wall_2.xpm", vars->img_wall_south->width, vars->img_wall_south->height);
+	vars->img_wall_east->img = mlx_xpm_file_to_image(vars->mlx, "./images/wall_3.xpm", vars->img_wall_east->width, vars->img_wall_east->height);
+	vars->img_wall_west->img = mlx_xpm_file_to_image(vars->mlx, "./images/wall_4.xpm", vars->img_wall_west->width, vars->img_wall_west->height);
 	vars->img_wall_north->addy_img = mlx_get_data_addr(vars->img_wall_north->img ,&vars->img_wall_north->bits_per_pixel, &vars->img_wall_north->line_length, &vars->img_wall_north->endian);
 	vars->img_wall_south->addy_img = mlx_get_data_addr(vars->img_wall_south->img ,&vars->img_wall_south->bits_per_pixel, &vars->img_wall_south->line_length, &vars->img_wall_south->endian);
 	vars->img_wall_west->addy_img = mlx_get_data_addr(vars->img_wall_west->img ,&vars->img_wall_west->bits_per_pixel, &vars->img_wall_west->line_length, &vars->img_wall_west->endian);
 	vars->img_wall_east->addy_img = mlx_get_data_addr(vars->img_wall_east->img ,&vars->img_wall_east->bits_per_pixel, &vars->img_wall_east->line_length, &vars->img_wall_east->endian);
+	printf("%p\n", vars->img_wall_north->addy_img);
 }
 
 void	ft_raycasting(t_prgrm *vars)

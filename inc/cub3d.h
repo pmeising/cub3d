@@ -6,7 +6,7 @@
 /*   By: pmeising <pmeising@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 15:48:27 by pmeising          #+#    #+#             */
-/*   Updated: 2023/01/11 20:12:21 by pmeising         ###   ########.fr       */
+/*   Updated: 2023/01/12 20:22:51 by pmeising         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,10 @@ typedef struct	s_ray
 	int		side;
 	int		pos_start;
 	int		pos_end;
+	int		texX;
+	int		texY;
+	double	WallX;
+	double	tex_y_step;
 }				t_ray;
 
 typedef struct s_img
@@ -61,6 +65,7 @@ typedef struct s_prgrm
 	t_img	*img_wall_south;
 	t_img	*img_wall_east;
 	t_img	*img_wall_west;
+	t_img	*img_wall_door;
 	int		qubit;
 	int		argc;
 	int		window_height;
