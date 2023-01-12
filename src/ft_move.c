@@ -6,7 +6,7 @@
 /*   By: pmeising <pmeising@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/08 17:21:53 by pmeising          #+#    #+#             */
-/*   Updated: 2023/01/12 11:20:26 by pmeising         ###   ########.fr       */
+/*   Updated: 2023/01/12 14:14:27 by pmeising         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,29 +37,29 @@ int ft_movement(int keycode, t_prgrm *vars)
 	{
 		if (vars->direction[0] > 0) // EAST
 		{
-			if (vars->map[(int)vars->playa[1]][(int)(vars->playa[0] + (vars->direction[0] * (double)SPEED))] == '0')
+			if (vars->map[(int)vars->playa[1]][(int)(vars->playa[0] + (vars->direction[0] * (double)SPEED))] == '0' || vars->map[(int)vars->playa[1]][(int)(vars->playa[0] + (vars->direction[0] * (double)SPEED))] == 'O') // O not 0 O stands for 'Open door'
 				vars->playa[0] = vars->playa[0] + (vars->direction[0] * (double)SPEED);
 		}
 		else if (vars->direction[0] < 0) // WEST
 		{
 			if ((int)(vars->playa[0] + (vars->direction[0] * (double)SPEED)) > 0)
 			{
-				if (vars->map[(int)vars->playa[1]][(int)(vars->playa[0] + (vars->direction[0] * (double)SPEED))] == '0')
+				if (vars->map[(int)vars->playa[1]][(int)(vars->playa[0] + (vars->direction[0] * (double)SPEED))] == '0' || vars->map[(int)vars->playa[1]][(int)(vars->playa[0] + (vars->direction[0] * (double)SPEED))] == 'O')
 					vars->playa[0] = vars->playa[0] + (vars->direction[0] * (double)SPEED);	
 			}
 			else
-				if (vars->map[(int)vars->playa[1]][(int)(vars->playa[0] + (vars->direction[0] * (double)SPEED))] == '0')
+				if (vars->map[(int)vars->playa[1]][(int)(vars->playa[0] + (vars->direction[0] * (double)SPEED))] == '0' || vars->map[(int)vars->playa[1]][(int)(vars->playa[0] + (vars->direction[0] * (double)SPEED))] == 'O')
 					vars->playa[0] = vars->playa[0] + (vars->direction[0] * (double)SPEED);
 		}
 		// Move along the y achsis:
 		if (vars->direction[1] < 0)
 		{
-			if (vars->map[(int)((vars->playa[1] + (vars->direction[1] * SPEED)))][(int)vars->playa[0]] == '0')
+			if (vars->map[(int)((vars->playa[1] + (vars->direction[1] * SPEED)))][(int)vars->playa[0]] == '0' || vars->map[(int)((vars->playa[1] + (vars->direction[1] * SPEED)))][(int)vars->playa[0]] == 'O')
 				vars->playa[1] = vars->playa[1] + (vars->direction[1] * SPEED);
 		}
 		else if (vars->direction[1] > 0)
 		{
-			if (vars->map[(int)((vars->playa[1] + (vars->direction[1] * SPEED)))][(int)vars->playa[0]] == '0')
+			if (vars->map[(int)((vars->playa[1] + (vars->direction[1] * SPEED)))][(int)vars->playa[0]] == '0' || vars->map[(int)((vars->playa[1] + (vars->direction[1] * SPEED)))][(int)vars->playa[0]] == 'O')
 				vars->playa[1] = vars->playa[1] + (vars->direction[1] * SPEED);
 		}
 	}
@@ -67,29 +67,29 @@ int ft_movement(int keycode, t_prgrm *vars)
 	{
 		if (-vars->direction[0] > 0) // EAST
 		{
-			if (vars->map[(int)vars->playa[1]][(int)(vars->playa[0] + (-vars->direction[0] * (double)SPEED))] == '0')
+			if (vars->map[(int)vars->playa[1]][(int)(vars->playa[0] + (-vars->direction[0] * (double)SPEED))] == '0' || vars->map[(int)vars->playa[1]][(int)(vars->playa[0] + (-vars->direction[0] * (double)SPEED))] == 'O')
 				vars->playa[0] = vars->playa[0] + (-vars->direction[0] * (double)SPEED);
 		}
 		else if (-vars->direction[0] < 0) // WEST
 		{
 			if ((int)(vars->playa[0] + (-vars->direction[0] * (double)SPEED)) > 0)
 			{
-				if (vars->map[(int)vars->playa[1]][(int)(vars->playa[0] + (-vars->direction[0] * (double)SPEED))] == '0')
+				if (vars->map[(int)vars->playa[1]][(int)(vars->playa[0] + (-vars->direction[0] * (double)SPEED))] == '0' || vars->map[(int)vars->playa[1]][(int)(vars->playa[0] + (-vars->direction[0] * (double)SPEED))] == 'O')
 					vars->playa[0] = vars->playa[0] + (-vars->direction[0] * (double)SPEED);	
 			}
 			else
-				if (vars->map[(int)vars->playa[1]][(int)(vars->playa[0] + (-vars->direction[0] * (double)SPEED))] == '0')
+				if (vars->map[(int)vars->playa[1]][(int)(vars->playa[0] + (-vars->direction[0] * (double)SPEED))] == '0' || vars->map[(int)vars->playa[1]][(int)(vars->playa[0] + (-vars->direction[0] * (double)SPEED))] == 'O')
 					vars->playa[0] = vars->playa[0] + (-vars->direction[0] * (double)SPEED);
 		}
 		// Move along the y achsis:
 		if (-vars->direction[1] < 0)
 		{
-			if (vars->map[(int)((vars->playa[1] + (-vars->direction[1] * SPEED)))][(int)vars->playa[0]] == '0')
+			if (vars->map[(int)((vars->playa[1] + (-vars->direction[1] * SPEED)))][(int)vars->playa[0]] == '0' || vars->map[(int)((vars->playa[1] + (-vars->direction[1] * SPEED)))][(int)vars->playa[0]] == 'O')
 				vars->playa[1] = vars->playa[1] + (-vars->direction[1] * SPEED);
 		}
 		else if (-vars->direction[1] > 0)
 		{
-			if (vars->map[(int)((vars->playa[1] + (-vars->direction[1] * SPEED)))][(int)vars->playa[0]] == '0')
+			if (vars->map[(int)((vars->playa[1] + (-vars->direction[1] * SPEED)))][(int)vars->playa[0]] == '0' || vars->map[(int)((vars->playa[1] + (-vars->direction[1] * SPEED)))][(int)vars->playa[0]] == 'O')
 				vars->playa[1] = vars->playa[1] + (-vars->direction[1] * SPEED);
 		}
 	}
@@ -110,6 +110,21 @@ int ft_movement(int keycode, t_prgrm *vars)
 		double prev_cam_vec_x = vars->camera_vector[0];
 		vars->camera_vector[0] = vars->camera_vector[0] * cos(-SPEED) - vars->camera_vector[1] * sin(-SPEED);
 		vars->camera_vector[1] = prev_cam_vec_x * sin(-SPEED) + vars->camera_vector[1] * cos(-SPEED);
+	}
+	else if (keycode == 32) // SPACEBAR
+	{
+		if (vars->map[(int)(vars->playa[1] + vars->direction[1] * (double)SPEED)][(int)(vars->playa[0] + vars->direction[1] * (double)SPEED)] == 'D')
+		{
+			vars->map[(int)(vars->playa[1] + vars->direction[1] * (double)SPEED)][(int)(vars->playa[0] + vars->direction[1] * (double)SPEED)] = 'O';
+			vars->map[(int)(vars->playa[1] + vars->direction[1] * (double)SPEED)][1 + (int)(vars->playa[0] + vars->direction[1] * (double)SPEED)] = 'd';
+			printf("Opened door.\n");
+		}
+		else if (vars->map[(int)(vars->playa[1] + vars->direction[1] * (double)SPEED)][(int)(vars->playa[0] + vars->direction[1] * (double)SPEED)] == 'd')
+		{
+			vars->map[(int)(vars->playa[1] + vars->direction[1] * (double)SPEED)][(int)(vars->playa[0] + vars->direction[1] * (double)SPEED)] = '1';
+			vars->map[(int)(vars->playa[1] + vars->direction[1] * (double)SPEED)][-1 + (int)(vars->playa[0] + vars->direction[1] * (double)SPEED)] = 'D';
+			printf("Closed door.\n");
+		}
 	}
 	ft_raycast(vars);
 	return (keycode);

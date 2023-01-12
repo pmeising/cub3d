@@ -6,7 +6,7 @@
 /*   By: pmeising <pmeising@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/03 16:26:53 by pmeising          #+#    #+#             */
-/*   Updated: 2023/01/11 18:56:50 by pmeising         ###   ########.fr       */
+/*   Updated: 2023/01/12 13:44:20 by pmeising         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ int	ft_has_playa_2(t_prgrm *vars, char c, int y, int x)
 		printf("playa: x:%f, y:%f\n", vars->playa[0], vars->playa[1]);
 		vars->player_num++;
 	}
-	else if (c != '0' && c != '1' && c != '2')
+	else if (c != '0' && c != '1' && c != '2' && c != 'D')
 	{
 		printf("Unidentified object found at: x:%d:y:%d\n", x, y);
 		return (1);

@@ -6,23 +6,11 @@
 /*   By: pmeising <pmeising@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 11:03:05 by pmeising          #+#    #+#             */
-/*   Updated: 2023/01/12 12:00:20 by pmeising         ###   ########.fr       */
+/*   Updated: 2023/01/12 14:03:43 by pmeising         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
-
-void	print_map(t_prgrm *vars)
-{
-	int	i;
-
-	i = 0;
-	while (vars->map[i])
-	{
-		printf("%s\n", vars->map[i]);
-		i++;
-	}
-}
 
 void	ft_helper_rotate(t_prgrm *vars, int i)
 {
@@ -49,12 +37,11 @@ void	my_mlx_pixel_put(t_img *img, int x, int y, int color)
 
 void	ft_resize_tex_north(t_prgrm *vars, t_img *img, int x, int y)
 {
-	char	*dest;
-	int		color;
+	unsigned int	color;
 
-	dest = img->addy_img + (y * img->line_length + x * (img->bits_per_pixel / 8));
-	color = *(vars->img_wall_north->addy_img + (y * img->line_length) + x * (img->bits_per_pixel / 8));
-	*(unsigned int *)dest = color;
+	color = *(int *)(vars->img_wall_north->addy_img + (int)(y * (img->line_length % 64)) + (int)(x % 64 * (img->bits_per_pixel / 8)));
+	// printf("color: %d\n", color);
+	my_mlx_pixel_put(img, x, y, color);
 }
 
 /*
@@ -69,10 +56,14 @@ void	ft_resize_tex_north(t_prgrm *vars, t_img *img, int x, int y)
 */
 void	ft_put_wall(t_prgrm *vars, t_img *img, int x, int y)
 {
-	if (vars->ray->step[0] <= 0 && vars->ray->rayDir[1] <= 0 && vars->ray->side == 1)
-		my_mlx_pixel_put(img, x, y, W_BLUE / 2); // NORTH
+	if (vars->map[(int)(vars->ray->map[1])][(int)(vars->ray->map[0])] == 'D' || vars->map[(int)(vars->ray->map[1])][(int)(vars->ray->map[0])] == 'd')
+		my_mlx_pixel_put(img, x, y, W_RED); // DOOR
+	else if (vars->ray->rayDir[0] <= 0 && vars->ray->rayDir[1] <= 0 && vars->ray->side == 1)
+		ft_resize_tex_north(vars, img, x, y);
+		// my_mlx_pixel_put(img, x, y, W_BLUE / 2); // NORTH
 	else if (vars->ray->rayDir[0] >= 0 && vars->ray->rayDir[1] <= 0 && vars->ray->side == 1)
-		my_mlx_pixel_put(img, x, y, W_BLUE / 2); // NORTH
+		ft_resize_tex_north(vars, img, x, y);
+		// my_mlx_pixel_put(img, x, y, W_BLUE / 2); // NORTH
 	else if (vars->ray->rayDir[0] >= 0 && vars->ray->rayDir[1] >= 0 && vars->ray->side == 1)
 		my_mlx_pixel_put(img, x, y, W_GREEN / 2); // SOUTH
 	else if (vars->ray->rayDir[0] <= 0 && vars->ray->rayDir[1] >= 0 && vars->ray->side == 1)
@@ -156,7 +147,7 @@ void	ft_calc_ray_dist(t_prgrm *vars)
 			vars->ray->map[1] += vars->ray->step[1];
 			vars->ray->side = 1;
 		}
-		if (vars->map[(int)(vars->ray->map[1])][(int)(vars->ray->map[0])] == '1')
+		if (vars->map[(int)(vars->ray->map[1])][(int)(vars->ray->map[0])] == '1' || vars->map[(int)(vars->ray->map[1])][(int)(vars->ray->map[0])] == 'D' || vars->map[(int)(vars->ray->map[1])][(int)(vars->ray->map[0])] == 'd')
 			hit = 1;
 	}
 	if (vars->ray->side == 0)
@@ -276,7 +267,7 @@ void	ft_raycast(t_prgrm *vars)
 		image = vars->img_2;
 		vars->qubit = 0;
 	}
-	// x = 50;
+	// x = 500;
 	while (x >= 0 && x <= WIDTH)
 	{
 		ft_init_raycast(vars, x);
@@ -307,7 +298,9 @@ void ft_init_img(t_prgrm *vars)
 	vars->img_wall_east->img = mlx_xpm_file_to_image(vars->mlx, "./images/wall_1.xpm", vars->img_wall_east->width, vars->img_wall_east->height);
 	vars->img_wall_west->img = mlx_xpm_file_to_image(vars->mlx, "./images/wall_1.xpm", vars->img_wall_west->width, vars->img_wall_west->height);
 	vars->img_wall_north->addy_img = mlx_get_data_addr(vars->img_wall_north->img ,&vars->img_wall_north->bits_per_pixel, &vars->img_wall_north->line_length, &vars->img_wall_north->endian);
-	printf("height: %d width: %d\n", *vars->img_wall_north->height, *vars->img_wall_north->width);
+	vars->img_wall_south->addy_img = mlx_get_data_addr(vars->img_wall_south->img ,&vars->img_wall_south->bits_per_pixel, &vars->img_wall_south->line_length, &vars->img_wall_south->endian);
+	vars->img_wall_west->addy_img = mlx_get_data_addr(vars->img_wall_west->img ,&vars->img_wall_west->bits_per_pixel, &vars->img_wall_west->line_length, &vars->img_wall_west->endian);
+	vars->img_wall_east->addy_img = mlx_get_data_addr(vars->img_wall_east->img ,&vars->img_wall_east->bits_per_pixel, &vars->img_wall_east->line_length, &vars->img_wall_east->endian);
 }
 
 void	ft_raycasting(t_prgrm *vars)
