@@ -6,13 +6,25 @@
 /*   By: pmeising <pmeising@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/08 17:21:53 by pmeising          #+#    #+#             */
-/*   Updated: 2023/01/11 20:22:37 by pmeising         ###   ########.fr       */
+/*   Updated: 2023/01/12 11:20:26 by pmeising         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
 
+// void	ft_move_smooth(t_prgrm *vars, int dir)
+// {
+// 	double	smooth;
 
+// 	smooth = 0.2;
+// 	while (smooth <= 1)
+// 	{
+// 		vars->playa[dir] = vars->playa[dir] + (vars->direction[dir] * (double)(SPEED * smooth));
+// 		ft_raycast(vars);
+// 		usleep(1000);
+// 		smooth = smooth + 0.2;
+// 	}
+// }
 
 /*
 * W:119 ; A:97 ; S:115 ; D:100

@@ -6,7 +6,7 @@
 /*   By: pmeising <pmeising@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/03 16:24:59 by pmeising          #+#    #+#             */
-/*   Updated: 2023/01/08 12:33:27 by pmeising         ###   ########.fr       */
+/*   Updated: 2023/01/12 10:17:56 by pmeising         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,14 @@ void	ft_free_all(t_prgrm *vars)
 	ft_free(vars->img);
 	mlx_destroy_image(vars->mlx, vars->img_2->img);
 	ft_free(vars->img_2);
+	mlx_destroy_image(vars->mlx, vars->img_wall_north->img);
+	ft_free(vars->img_wall_north);
+	mlx_destroy_image(vars->mlx, vars->img_wall_south->img);
+	ft_free(vars->img_wall_south);
+	mlx_destroy_image(vars->mlx, vars->img_wall_east->img);
+	ft_free(vars->img_wall_east);
+	mlx_destroy_image(vars->mlx, vars->img_wall_west->img);
+	ft_free(vars->img_wall_west);
 
 	// freeing ray struct	
 	ft_free(vars->ray->rayDir);

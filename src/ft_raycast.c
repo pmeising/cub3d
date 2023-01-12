@@ -6,7 +6,7 @@
 /*   By: pmeising <pmeising@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 11:03:05 by pmeising          #+#    #+#             */
-/*   Updated: 2023/01/11 20:43:46 by pmeising         ###   ########.fr       */
+/*   Updated: 2023/01/12 12:00:20 by pmeising         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,10 +58,10 @@ void	ft_resize_tex_north(t_prgrm *vars, t_img *img, int x, int y)
 }
 
 /*
-*	W_RED = south;
-* 	W_GREEN = north;
-*	W_YELLOW = west;
-* 	W_BLUE = east;
+*	W_RED = EAST;
+* 	W_GREEN = SOUTH;
+*	W_YELLOW = WEST;
+* 	W_BLUE = NORTH;
 *	N{0, 1}
 *	S{0,-1}
 *	W{-1,0}
@@ -69,27 +69,24 @@ void	ft_resize_tex_north(t_prgrm *vars, t_img *img, int x, int y)
 */
 void	ft_put_wall(t_prgrm *vars, t_img *img, int x, int y)
 {
-	if ((vars->ray->rayDir[0] <= 0 && vars->direction[0] >= -1) && (vars->ray->rayDir[1] <= 1 && vars->direction[1] >= 0) && vars->ray->side == 0) // 1st quadrant 1st side
-		my_mlx_pixel_put(img, x, y, W_BLUE / 2);
-	else if ((vars->ray->rayDir[0] <= 0 && vars->direction[0] >= -1) && (vars->ray->rayDir[1] >= 0 && vars->direction[1] <= 1) && vars->ray->side == 1) // 1st quadrant 2nd side
-		ft_resize_tex_north(vars, img, x, y); // NORTH
-		// my_mlx_pixel_put(img, x, y, W_GREEN);
-	else if ((vars->ray->rayDir[0] >= 0 && vars->direction[0] <= 1) && (vars->ray->rayDir[1] >= 0 && vars->direction[1] <= 1) && vars->ray->side == 1) // 2nd quadrant 1st side
-		ft_resize_tex_north(vars, img, x, y); // NORTH
-		// my_mlx_pixel_put(img, x, y, W_GREEN);
-	else if ((vars->ray->rayDir[0] >= 0 && vars->direction[0] <= 1) && (vars->ray->rayDir[1] >= 0 && vars->direction[1] <= 1) && vars->ray->side == 0) // 2nd quadrant 2nd side
-		my_mlx_pixel_put(img, x, y, W_RED / 2);
-	else if ((vars->ray->rayDir[0] >= 0 && vars->direction[0] <= 1) && (vars->ray->rayDir[1] >= -1 && vars->direction[1] <= 0) && vars->ray->side == 0) // 3rd quadrant 1st side
-		my_mlx_pixel_put(img, x, y, W_RED / 2);
-	else if ((vars->ray->rayDir[0] >= 0 && vars->direction[0] <= 1) && (vars->ray->rayDir[1] >= -1 && vars->direction[1] <= 0) && vars->ray->side == 1) // 3rd quadrant 2nd side
-		my_mlx_pixel_put(img, x, y, W_YELLOW / 2);
-	else if ((vars->ray->rayDir[0] >= -1 && vars->direction[0] <= 0) && (vars->ray->rayDir[1] >= -1 && vars->direction[1] <= 0) && vars->ray->side == 0) // 4th quadrant 1st side
-		my_mlx_pixel_put(img, x, y, W_BLUE / 2);
-	else if ((vars->ray->rayDir[0] >= -1 && vars->direction[0] <= 0) && (vars->ray->rayDir[1] >= -1 && vars->direction[1] <= 0) && vars->ray->side == 1) // 4th quadrant 2nd side
-		my_mlx_pixel_put(img, x, y, W_YELLOW / 2);
+	if (vars->ray->step[0] <= 0 && vars->ray->rayDir[1] <= 0 && vars->ray->side == 1)
+		my_mlx_pixel_put(img, x, y, W_BLUE / 2); // NORTH
+	else if (vars->ray->rayDir[0] >= 0 && vars->ray->rayDir[1] <= 0 && vars->ray->side == 1)
+		my_mlx_pixel_put(img, x, y, W_BLUE / 2); // NORTH
+	else if (vars->ray->rayDir[0] >= 0 && vars->ray->rayDir[1] >= 0 && vars->ray->side == 1)
+		my_mlx_pixel_put(img, x, y, W_GREEN / 2); // SOUTH
+	else if (vars->ray->rayDir[0] <= 0 && vars->ray->rayDir[1] >= 0 && vars->ray->side == 1)
+		my_mlx_pixel_put(img, x, y, W_GREEN / 2); // SOUTH
+	else if (vars->ray->rayDir[0] <= 0 && vars->ray->rayDir[1] <= 0 && vars->ray->side == 0)
+		my_mlx_pixel_put(img, x, y, W_YELLOW / 2); // WEST
+	else if (vars->ray->rayDir[0] <= 0 && vars->ray->rayDir[1] >= 0 && vars->ray->side == 0)
+		my_mlx_pixel_put(img, x, y, W_YELLOW / 2); // WEST
+	else if (vars->ray->rayDir[0] >= 0 && vars->ray->rayDir[1] <= 0 && vars->ray->side == 0)
+		my_mlx_pixel_put(img, x, y, W_RED / 2); // EAST
+	else if (vars->ray->rayDir[0] >= 0 && vars->ray->rayDir[1] >= 0 && vars->ray->side == 0)
+		my_mlx_pixel_put(img, x, y, W_RED / 2); // EAST
 	else
 	{
-		// printf("side: %d, ray_dir: %f, %f\n", vars->ray->side, vars->ray->rayDir[0], vars->ray->rayDir[1]);
 		my_mlx_pixel_put(img, x, y, 0xFFFFFFFF);
 	}
 }
@@ -99,9 +96,6 @@ void	ft_put_image(t_prgrm *vars, t_img *img, int x)
 	int	y;
 
 	y = 0;
-	// printf("side: %d\n", vars->ray->side);
-	// printf("dir: %f:%f\n", vars->direction[0], vars->direction[1]);
-	// printf("cameraX: %f\n", vars->ray->cameraX);
 	while (y < vars->ray->pos_start && y <= HEIGHT)
 	{
 		my_mlx_pixel_put(img, x, y, vars->ceiling_color);
@@ -117,7 +111,6 @@ void	ft_put_image(t_prgrm *vars, t_img *img, int x)
 		my_mlx_pixel_put(img, x, y, vars->floor_color);
 		y++;
 	}
-	// printf("after my mlx pixel put for x = %d\n", x);
 }
 
 void	ft_calc_line_height(t_prgrm *vars)
