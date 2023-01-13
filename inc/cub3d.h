@@ -6,7 +6,7 @@
 /*   By: pmeising <pmeising@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 15:48:27 by pmeising          #+#    #+#             */
-/*   Updated: 2023/01/12 20:22:51 by pmeising         ###   ########.fr       */
+/*   Updated: 2023/01/13 20:50:22 by pmeising         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,8 +72,8 @@ typedef struct s_prgrm
 	int		window_width;
 	int		player_num;
 	double	*playa;
-	double	*direction;
-	double	*old_direction;
+	double	*dir;
+	double	*old_dir;
 	double	*camera_vector;
 	double	*old_camera_vector;
 	double	time;
@@ -121,7 +121,24 @@ void			ft_raycasting(t_prgrm *vars);
 void			ft_init_dir_vec(t_prgrm *vars, char c);
 void			ft_init_vecs(t_prgrm *vars, char c);
 void			ft_raycast(t_prgrm *vars);
-
+void			ft_init_img(t_prgrm *vars);
+void			ft_init_img_2(t_prgrm *vars);
+void			ft_init_ray(t_prgrm *vars, t_img *img, t_img *img_2, t_ray *ray);
+void			ft_init_ray_2(t_prgrm *vars);
+void			find_texture_coord(t_prgrm *vars, int height);
+void			ft_put_wall(t_prgrm *vars, t_img *img, int x, int y);
+void			my_mlx_pixel_put(t_img *img, int x, int y, int color);
+void			ft_helper_rotate(t_prgrm *vars, int i);
+void			ft_put_image(t_prgrm *vars, t_img *img, int x);
+void			ft_calc_ray_dist(t_prgrm *vars);
+void			ft_calc_line_height(t_prgrm *vars);
+void			ft_init_raycast(t_prgrm *vars, int x);
+void			ft_init_raycast_2(t_prgrm *vars);
+void			ft_resize_tex_south(t_prgrm *vars, t_img *img, int x, int y);
+void			ft_resize_tex_north(t_prgrm *vars, t_img *img, int x, int y);
+void			ft_resize_tex_west(t_prgrm *vars, t_img *img, int x, int y);
+void			ft_resize_tex_east(t_prgrm *vars, t_img *img, int x, int y);
+void			ft_resize_door(t_prgrm *vars, t_img *img, int x, int y);
 
 // utils
 void			ft_check(t_prgrm *vars, void *con, int code);

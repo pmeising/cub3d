@@ -6,7 +6,7 @@
 #    By: pmeising <pmeising@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/21 16:41:10 by pmeising          #+#    #+#              #
-#    Updated: 2023/01/08 17:09:34 by pmeising         ###   ########.fr        #
+#    Updated: 2023/01/13 20:53:18 by pmeising         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,7 +36,6 @@ LIBFT		:= libft_lib/libft.a
 
 OS			:= $(shell uname)
 
-
 SRC			:=	${SRC_DIR}main.c \
 				${SRC_DIR}ft_hooks.c \
 				${SRC_DIR}ft_parsing.c \
@@ -45,6 +44,9 @@ SRC			:=	${SRC_DIR}main.c \
 				${SRC_DIR}ft_check_map.c \
 				${SRC_DIR}ft_check_map_2.c \
 				${SRC_DIR}ft_raycast.c \
+				${SRC_DIR}ft_raycast_2.c \
+				${SRC_DIR}ft_raycast_3.c \
+				${SRC_DIR}ft_raycast_4.c \
 				${SRC_DIR}ft_rgb_conv.c \
 				${SRC_DIR}ft_move.c \
 				
