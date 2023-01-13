@@ -6,7 +6,7 @@
 /*   By: pmeising <pmeising@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 11:03:05 by pmeising          #+#    #+#             */
-/*   Updated: 2023/01/12 20:46:57 by pmeising         ###   ########.fr       */
+/*   Updated: 2023/01/13 14:09:39 by pmeising         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,6 +125,7 @@ void	ft_resize_tex_north(t_prgrm *vars, t_img *img, int x, int y)
 	tex_addr = NULL;
 	tex_addr = wall->addy_img + ((int)(vars->ray->texY) % 64 * height + vars->ray->texX % 64 * (wall->bits_per_pixel / 8));
 	color = *(int *)tex_addr;
+	// printf("%d at y: %d\n", color, y);
 	my_mlx_pixel_put(img, x, y, color);
 	vars->ray->texY = vars->ray->texY + vars->ray->tex_y_step;
 }
@@ -141,6 +142,7 @@ void	ft_resize_tex_north(t_prgrm *vars, t_img *img, int x, int y)
 */
 void	ft_put_wall(t_prgrm *vars, t_img *img, int x, int y)
 {
+	// printf("y: %d\n", y);
 	if (vars->map[(int)(vars->ray->map[1])][(int)(vars->ray->map[0])] == 'D' || vars->map[(int)(vars->ray->map[1])][(int)(vars->ray->map[0])] == 'd')
 		my_mlx_pixel_put(img, x, y, W_RED); // DOOR
 	else if (vars->ray->rayDir[0] <= 0 && vars->ray->rayDir[1] <= 0 && vars->ray->side == 1)
@@ -223,11 +225,13 @@ void	ft_put_image(t_prgrm *vars, t_img *img, int x)
 		my_mlx_pixel_put(img, x, y, vars->ceiling_color);
 		y++;
 	}
+	// printf("built sky x: %d. y: %d\n", x, y);
 	while(y >= vars->ray->pos_start && y <= vars->ray->pos_end && y <= HEIGHT)
 	{
 		ft_put_wall(vars, img, x, y);
 		y++;
 	}
+	// printf("built wall. x: %d. y: %d\n", x, y);
 	while (y <= HEIGHT)
 	{
 		my_mlx_pixel_put(img, x, y, vars->floor_color);

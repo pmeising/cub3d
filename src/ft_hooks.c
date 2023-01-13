@@ -6,7 +6,7 @@
 /*   By: pmeising <pmeising@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/25 22:03:43 by pmeising          #+#    #+#             */
-/*   Updated: 2023/01/12 20:48:24 by pmeising         ###   ########.fr       */
+/*   Updated: 2023/01/13 14:14:53 by pmeising         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,10 @@ void	ft_hooks(t_prgrm *vars)
 int	ft_key_hook(int keycode, t_prgrm *vars)
 {
 	int	i;
-	int keykot;
+	int	keykot;
 
 	keykot = 0;
 	i = 1;
-	// printf("keycode: %d\n", keycode);
 	if (keycode == 65307)
 		ft_close_program(vars);
 	else if (keycode == 65361 || keycode == 65363)
@@ -48,5 +47,4 @@ int	ft_key_hook(int keycode, t_prgrm *vars)
 	}
 	keykot = ft_movement(keycode, vars);
 	return (keykot);
-	// return (keycode);
 }

@@ -6,11 +6,19 @@
 /*   By: pmeising <pmeising@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/20 19:15:36 by pmeising          #+#    #+#             */
-/*   Updated: 2023/01/11 19:03:15 by pmeising         ###   ########.fr       */
+/*   Updated: 2023/01/13 14:09:15 by pmeising         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
+
+void	ft_init_2(t_prgrm *vars)
+{
+	vars->old_camera_vector = malloc(sizeof(double) * 2);
+	vars->old_camera_vector[0] = 0;
+	vars->old_camera_vector[1] = 0;
+	vars->qubit = 0;
+}
 
 void	ft_init(t_prgrm *vars, char **argv, int argc)
 {
@@ -37,10 +45,7 @@ void	ft_init(t_prgrm *vars, char **argv, int argc)
 	vars->camera_vector = malloc(sizeof(double) * 2);
 	vars->camera_vector[0] = 0;
 	vars->camera_vector[1] = 0;
-	vars->old_camera_vector = malloc(sizeof(double) * 2);
-	vars->old_camera_vector[0] = 0;
-	vars->old_camera_vector[1] = 0;
-	vars->qubit = 0;
+	ft_init_2(vars);
 }
 
 void	ft_check(t_prgrm *vars, void *con, int code)
@@ -64,18 +69,6 @@ void	ft_check(t_prgrm *vars, void *con, int code)
 	}	
 }
 
-// void	print_map(t_prgrm *vars)
-// {
-// 	int	i;
-
-// 	i = 0;
-// 	while (vars->map[i])
-// 	{
-// 		printf("%s", vars->map[i]);
-// 		i++;
-// 	}
-// }
-
 int	main(int argc, char	**argv)
 {
 	t_prgrm	*vars;
@@ -87,7 +80,8 @@ int	main(int argc, char	**argv)
 		ft_parsing(vars);
 		vars->mlx = mlx_init();
 		ft_check(vars, vars->mlx, 1);
-		vars->mlx_win = mlx_new_window(vars->mlx, vars->window_width, vars->window_height, "cub3D");
+		vars->mlx_win = mlx_new_window(vars->mlx, vars->window_width, \
+			vars->window_height, "cub3D");
 		ft_check(vars, vars->mlx_win, 2);
 		ft_raycasting(vars);
 		ft_raycast(vars);

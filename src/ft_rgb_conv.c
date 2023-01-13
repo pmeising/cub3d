@@ -6,11 +6,24 @@
 /*   By: pmeising <pmeising@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/05 16:28:33 by pmeising          #+#    #+#             */
-/*   Updated: 2023/01/08 12:11:23 by pmeising         ###   ########.fr       */
+/*   Updated: 2023/01/13 14:13:49 by pmeising         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
+
+void	ft_unset(char **s_color_rgb)
+{
+	int	i;
+
+	i = 0;
+	while (s_color_rgb[i] && i < 3)
+	{
+		ft_free(s_color_rgb[i]);
+		i++;
+	}
+	ft_free(s_color_rgb);
+}
 
 /*
 * bitshift operation of the rgb values 
@@ -46,12 +59,6 @@ unsigned int	ft_rgb_to_hex(char *color)
 		i++;
 	}
 	col = ft_convert(0, color_rgb[0], color_rgb[1], color_rgb[2]);
-	i = 0;
-	while (s_color_rgb[i] && i < 3)
-	{
-		ft_free(s_color_rgb[i]);
-		i++;
-	}
-	ft_free(s_color_rgb);
+	ft_unset(s_color_rgb);
 	return (col);
 }

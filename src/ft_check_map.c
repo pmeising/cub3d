@@ -6,7 +6,7 @@
 /*   By: pmeising <pmeising@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/03 16:26:53 by pmeising          #+#    #+#             */
-/*   Updated: 2023/01/12 13:44:20 by pmeising         ###   ########.fr       */
+/*   Updated: 2023/01/13 14:18:04 by pmeising         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ int	ft_has_playa_2(t_prgrm *vars, char c, int y, int x)
 	if (c == 'N' || c == 'S' || c == 'E' || c == 'W')
 	{
 		vars->playa[0] = (double)x - (double)0.5;
-		vars->playa[1] = (double)(y)+ (double)0.5;
+		vars->playa[1] = (double)(y) + (double)0.5;
 		ft_init_vecs(vars, c);
 		vars->map[y][x] = '0';
 		printf("playa: x:%f, y:%f\n", vars->playa[0], vars->playa[1]);
@@ -115,18 +115,6 @@ int	ft_has_playa(t_prgrm *vars)
 	return (0);
 }
 
-// void	print_map(t_prgrm *vars)
-// {
-// 	int	i;
-
-// 	i = 0;
-// 	while (vars->map[i])
-// 	{
-// 		printf("%s", vars->map[i]);
-// 		i++;
-// 	}
-// }
-
 void	ft_is_map_complete(t_prgrm *vars)
 {
 	if (ft_has_playa(vars) == 1)
@@ -136,5 +124,4 @@ void	ft_is_map_complete(t_prgrm *vars)
 		printf("Map invalid, unclosed walls.\n");
 		exit(EXIT_FAILURE);
 	}
-	// print_map(vars);
 }

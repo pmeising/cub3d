@@ -6,18 +6,37 @@
 /*   By: pmeising <pmeising@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/03 16:24:59 by pmeising          #+#    #+#             */
-/*   Updated: 2023/01/12 10:17:56 by pmeising         ###   ########.fr       */
+/*   Updated: 2023/01/13 14:17:00 by pmeising         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
+
+void	ft_free_all_2(t_prgrm *vars)
+{
+	mlx_destroy_image(vars->mlx, vars->img_2->img);
+	ft_free(vars->img_2);
+	mlx_destroy_image(vars->mlx, vars->img_wall_north->img);
+	ft_free(vars->img_wall_north);
+	mlx_destroy_image(vars->mlx, vars->img_wall_south->img);
+	ft_free(vars->img_wall_south);
+	mlx_destroy_image(vars->mlx, vars->img_wall_east->img);
+	ft_free(vars->img_wall_east);
+	mlx_destroy_image(vars->mlx, vars->img_wall_west->img);
+	ft_free(vars->img_wall_west);
+	ft_free(vars->ray->rayDir);
+	ft_free(vars->ray->map);
+	ft_free(vars->ray->deltaDist);
+	ft_free(vars->ray->sideDist);
+	ft_free(vars->ray->step);
+	ft_free(vars->ray);
+}
 
 void	ft_free_all(t_prgrm *vars)
 {
 	int	i;
 
 	i = 0;
-	//freeing the vars struct direct mallocs
 	ft_free(vars->playa);
 	ft_free(vars->direction);
 	ft_free(vars->old_direction);
@@ -36,29 +55,9 @@ void	ft_free_all(t_prgrm *vars)
 		i++;
 	}
 	ft_free(vars->map);
-	
-	// freeing the img structs
 	mlx_destroy_image(vars->mlx, vars->img->img);
 	ft_free(vars->img);
-	mlx_destroy_image(vars->mlx, vars->img_2->img);
-	ft_free(vars->img_2);
-	mlx_destroy_image(vars->mlx, vars->img_wall_north->img);
-	ft_free(vars->img_wall_north);
-	mlx_destroy_image(vars->mlx, vars->img_wall_south->img);
-	ft_free(vars->img_wall_south);
-	mlx_destroy_image(vars->mlx, vars->img_wall_east->img);
-	ft_free(vars->img_wall_east);
-	mlx_destroy_image(vars->mlx, vars->img_wall_west->img);
-	ft_free(vars->img_wall_west);
-
-	// freeing ray struct	
-	ft_free(vars->ray->rayDir);
-	ft_free(vars->ray->map);
-	ft_free(vars->ray->deltaDist);
-	ft_free(vars->ray->sideDist);
-	ft_free(vars->ray->step);
-	ft_free(vars->ray);
-	
+	ft_free_all_2(vars);
 }
 
 void	ft_free(void *cont)
