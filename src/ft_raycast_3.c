@@ -6,7 +6,7 @@
 /*   By: pmeising <pmeising@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 20:34:40 by pmeising          #+#    #+#             */
-/*   Updated: 2023/01/14 17:33:31 by pmeising         ###   ########.fr       */
+/*   Updated: 2023/01/14 17:59:32 by pmeising         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,16 +19,17 @@ void	ft_put_image(t_prgrm *vars, t_img *img, int x)
 
 	y = 0;
 	find_texture_coord(vars, vars->ray->line_height);
-	tex_pos = (double)((double)vars->ray->pos_start - (double)HEIGHT / 2 + (double)vars->ray->line_height / 2) * (double)vars->ray->tex_y_step;
+	tex_pos = (double)((double)vars->ray->pos_start - (double)HEIGHT / 2 + \
+	((double)vars->ray->line_height / 2) * (double)vars->ray->tex_y_step);
 	while (y < vars->ray->pos_start && y <= HEIGHT)
 	{
 		my_mlx_pixel_put(img, x, y, vars->ceiling_color);
 		y++;
 	}
-	vars->ray->texY = (int)tex_pos & (64 - 1);
+	vars->ray->texy = (int)tex_pos & (64 - 1);
 	while (y >= vars->ray->pos_start && y <= vars->ray->pos_end && y <= HEIGHT)
 	{
-		vars->ray->texY = (int)tex_pos & (64 - 1);
+		vars->ray->texy = (int)tex_pos & (64 - 1);
 		tex_pos += vars->ray->tex_y_step;
 		ft_put_wall(vars, img, x, y);
 		y++;
@@ -84,20 +85,20 @@ void	ft_put_wall(t_prgrm *vars, t_img *img, int x, int y)
 	== 'D' || vars->map[(int)(vars->ray->map[1])][(int)(vars->ray->map[0])] \
 	== 'd')
 		ft_resize_door(vars, img, x, y);
-	else if ((vars->ray->rayDir[0] <= 0 && vars->ray->rayDir[1] <= 0 && \
-	vars->ray->side == 1) || (vars->ray->rayDir[0] >= 0 && vars->ray->rayDir[1] \
+	else if ((vars->ray->raydir[0] <= 0 && vars->ray->raydir[1] <= 0 && \
+	vars->ray->side == 1) || (vars->ray->raydir[0] >= 0 && vars->ray->raydir[1] \
 	<= 0 && vars->ray->side == 1))
 		ft_resize_tex_north(vars, img, x, y);
-	else if ((vars->ray->rayDir[0] >= 0 && vars->ray->rayDir[1] >= 0 && \
-	vars->ray->side == 1) || (vars->ray->rayDir[0] <= 0 && vars->ray->rayDir[1] \
+	else if ((vars->ray->raydir[0] >= 0 && vars->ray->raydir[1] >= 0 && \
+	vars->ray->side == 1) || (vars->ray->raydir[0] <= 0 && vars->ray->raydir[1] \
 	>= 0 && vars->ray->side == 1))
 		ft_resize_tex_south(vars, img, x, y);
-	else if ((vars->ray->rayDir[0] <= 0 && vars->ray->rayDir[1] <= 0 && \
-	vars->ray->side == 0) || (vars->ray->rayDir[0] <= 0 && vars->ray->rayDir[1] \
+	else if ((vars->ray->raydir[0] <= 0 && vars->ray->raydir[1] <= 0 && \
+	vars->ray->side == 0) || (vars->ray->raydir[0] <= 0 && vars->ray->raydir[1] \
 	>= 0 && vars->ray->side == 0))
 		ft_resize_tex_west(vars, img, x, y);
-	else if ((vars->ray->rayDir[0] >= 0 && vars->ray->rayDir[1] <= 0 && \
-	vars->ray->side == 0) || (vars->ray->rayDir[0] >= 0 && vars->ray->rayDir[1] \
+	else if ((vars->ray->raydir[0] >= 0 && vars->ray->raydir[1] <= 0 && \
+	vars->ray->side == 0) || (vars->ray->raydir[0] >= 0 && vars->ray->raydir[1] \
 	>= 0 && vars->ray->side == 0))
 		ft_resize_tex_east(vars, img, x, y);
 	else
@@ -107,16 +108,17 @@ void	ft_put_wall(t_prgrm *vars, t_img *img, int x, int y)
 void	find_texture_coord(t_prgrm *vars, int height)
 {
 	if (vars->ray->side == 0)
-		vars->ray->WallX = vars->playa[1] + vars->ray->perpWallDist * \
-			vars->ray->rayDir[1];
+		vars->ray->wallx = vars->playa[1] + vars->ray->perpwalldist * \
+			vars->ray->raydir[1];
 	else
-		vars->ray->WallX = vars->playa[0] + vars->ray->perpWallDist * \
-			vars->ray->rayDir[0];
-	vars->ray->WallX -= floor(vars->ray->WallX);
-	vars->ray->texX = (int)(vars->ray->WallX * (double)64);
-	if ((vars->ray->side == 0 && vars->ray->rayDir[0] > 0) || \
-		(vars->ray->side == 1 && vars->ray->rayDir[1] < 0))
-		vars->ray->texX = 64 - vars->ray->texX - 1;
-	vars->ray->tex_y_step = 1.0 * vars->img_wall_north->height[0] / vars->ray->line_height;
+		vars->ray->wallx = vars->playa[0] + vars->ray->perpwalldist * \
+			vars->ray->raydir[0];
+	vars->ray->wallx -= floor(vars->ray->wallx);
+	vars->ray->texx = (int)(vars->ray->wallx * (double)64);
+	if ((vars->ray->side == 0 && vars->ray->raydir[0] > 0) || \
+		(vars->ray->side == 1 && vars->ray->raydir[1] < 0))
+		vars->ray->texx = 64 - vars->ray->texx - 1;
+	vars->ray->tex_y_step = 1.0 * vars->img_wall_north->height[0] / \
+	vars->ray->line_height;
 	(void)height;
 }

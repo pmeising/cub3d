@@ -6,7 +6,7 @@
 /*   By: pmeising <pmeising@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 20:29:57 by pmeising          #+#    #+#             */
-/*   Updated: 2023/01/14 17:28:04 by pmeising         ###   ########.fr       */
+/*   Updated: 2023/01/14 18:01:06 by pmeising         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,58 +14,58 @@
 
 void	ft_init_raycast_2(t_prgrm *vars)
 {
-	if (vars->ray->rayDir[0] < 0)
+	if (vars->ray->raydir[0] < 0)
 	{
 		vars->ray->step[0] = -1;
-		vars->ray->sideDist[0] = (vars->playa[0] - vars->ray->map[0]) \
-		* vars->ray->deltaDist[0];
+		vars->ray->sidedist[0] = (vars->playa[0] - vars->ray->map[0]) \
+		* vars->ray->deltadist[0];
 	}
 	else
 	{
 		vars->ray->step[0] = 1;
-		vars->ray->sideDist[0] = (vars->ray->map[0] + 1.0 - vars->playa[0]) \
-		* vars->ray->deltaDist[0];
+		vars->ray->sidedist[0] = (vars->ray->map[0] + 1.0 - vars->playa[0]) \
+		* vars->ray->deltadist[0];
 	}
-	if (vars->ray->rayDir[1] < 0)
+	if (vars->ray->raydir[1] < 0)
 	{
 		vars->ray->step[1] = -1;
-		vars->ray->sideDist[1] = (vars->playa[1] - vars->ray->map[1]) \
-		* vars->ray->deltaDist[1];
+		vars->ray->sidedist[1] = (vars->playa[1] - vars->ray->map[1]) \
+		* vars->ray->deltadist[1];
 	}
 	else
 	{
 		vars->ray->step[1] = 1;
-		vars->ray->sideDist[1] = (vars->ray->map[1] + 1.0 - vars->playa[1]) \
-		* vars->ray->deltaDist[1];
+		vars->ray->sidedist[1] = (vars->ray->map[1] + 1.0 - vars->playa[1]) \
+		* vars->ray->deltadist[1];
 	}
 }
 
 /*
-* 	cameraX: x-coordinate on camera plane represented by
+* 	camerax: x-coordinate on camera plane represented by
 * 	current x-coordinate of screen - walks from x = -1 to x = 1
-* 	rayDirX/rayDiry: coordinates of the ray;
-*	if (vars->ray->rayDir[0] < 0) <- walk westwards
+* 	raydirX/raydiry: coordinates of the ray;
+*	if (vars->ray->raydir[0] < 0) <- walk westwards
 *	else <- walk easwards
-*	if (vars->ray->rayDir[1] < 0) <- walk downwards
+*	if (vars->ray->raydir[1] < 0) <- walk downwards
 *	else <- walk upwards
 */
 void	ft_init_raycast(t_prgrm *vars, int x)
 {
-	vars->ray->cameraX = 2 * x / (double)WIDTH - 1;
-	vars->ray->rayDir[0] = vars->dir[0] + vars->camera_vector[0] \
-	* vars->ray->cameraX;
-	vars->ray->rayDir[1] = vars->dir[1] + vars->camera_vector[1] \
-	* vars->ray->cameraX;
+	vars->ray->camerax = 2 * x / (double)WIDTH - 1;
+	vars->ray->raydir[0] = vars->dir[0] + vars->camera_vector[0] \
+	* vars->ray->camerax;
+	vars->ray->raydir[1] = vars->dir[1] + vars->camera_vector[1] \
+	* vars->ray->camerax;
 	vars->ray->map[0] = (int)vars->playa[0];
 	vars->ray->map[1] = (int)vars->playa[1];
-	if (vars->ray->rayDir[0] == 0)
-		vars->ray->rayDir[0] = 1e30;
+	if (vars->ray->raydir[0] == 0)
+		vars->ray->raydir[0] = 1e30;
 	else
-		vars->ray->deltaDist[0] = fabs(1 / vars->ray->rayDir[0]);
-	if (vars->ray->rayDir[1] == 0)
-		vars->ray->rayDir[1] = 1e30;
+		vars->ray->deltadist[0] = fabs(1 / vars->ray->raydir[0]);
+	if (vars->ray->raydir[1] == 0)
+		vars->ray->raydir[1] = 1e30;
 	else
-		vars->ray->deltaDist[1] = fabs(1 / vars->ray->rayDir[1]);
+		vars->ray->deltadist[1] = fabs(1 / vars->ray->raydir[1]);
 	ft_init_raycast_2(vars);
 	ft_calc_ray_dist(vars);
 	ft_calc_line_height(vars);
@@ -77,12 +77,12 @@ void	ft_calc_line_height(t_prgrm *vars)
 	int	screen_height;
 
 	screen_height = HEIGHT;
-	if (vars->ray->perpWallDist == 0)
+	if (vars->ray->perpwalldist == 0)
 		line_height = screen_height;
-	else if (vars->ray->perpWallDist > 0 && vars->ray->perpWallDist <= 1)
+	else if (vars->ray->perpwalldist > 0 && vars->ray->perpwalldist <= 1)
 		line_height = (int)screen_height;
 	else
-		line_height = (int)(screen_height / vars->ray->perpWallDist);
+		line_height = (int)(screen_height / vars->ray->perpwalldist);
 	vars->ray->pos_start = -line_height / 2 + screen_height / 2;
 	if (vars->ray->pos_start < 0)
 		vars->ray->pos_start = 0;
@@ -102,16 +102,16 @@ void	ft_calc_ray_dist(t_prgrm *vars)
 	hit = 0;
 	while (hit == 0)
 	{
-		if (vars->ray->sideDist[0] < vars->ray->sideDist[1])
+		if (vars->ray->sidedist[0] < vars->ray->sidedist[1])
 		{
-			vars->ray->sideDist[0] = vars->ray->sideDist[0] \
-			+ vars->ray->deltaDist[0];
+			vars->ray->sidedist[0] = vars->ray->sidedist[0] \
+			+ vars->ray->deltadist[0];
 			vars->ray->map[0] += vars->ray->step[0];
 			vars->ray->side = 0;
 		}
 		else
 		{
-			vars->ray->sideDist[1] += vars->ray->deltaDist[1];
+			vars->ray->sidedist[1] += vars->ray->deltadist[1];
 			vars->ray->map[1] += vars->ray->step[1];
 			vars->ray->side = 1;
 		}

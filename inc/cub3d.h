@@ -6,7 +6,7 @@
 /*   By: pmeising <pmeising@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 15:48:27 by pmeising          #+#    #+#             */
-/*   Updated: 2023/01/14 16:01:18 by pmeising         ###   ########.fr       */
+/*   Updated: 2023/01/14 17:59:58 by pmeising         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,23 +26,23 @@
 # define W_BLUE		0x000000FF
 # define SPEED		0.4
 
-typedef struct	s_ray
+typedef struct s_ray
 {
-	double	*rayDir;
+	double	*raydir;
 	int		line_height;
-	double	cameraX;
-	double	*deltaDist;
-	double	*sideDist;
+	double	camerax;
+	double	*deltadist;
+	double	*sidedist;
 	int		*map;
 	int		*step;
-	double	perpWallDist; // perpendicular wall distance
+	double	perpwalldist;
 	int		hit;
 	int		side;
 	int		pos_start;
 	int		pos_end;
-	int		texX;
-	int		texY;
-	double	WallX;
+	int		texx;
+	int		texy;
+	double	wallx;
 	double	tex_y_step;
 }				t_ray;
 
@@ -59,39 +59,39 @@ typedef struct s_img
 
 typedef struct s_prgrm
 {
-	t_ray	*ray;
-	t_img	*img;
-	t_img	*img_2;
-	t_img	*img_wall_north;
-	t_img	*img_wall_south;
-	t_img	*img_wall_east;
-	t_img	*img_wall_west;
-	t_img	*img_wall_door;
-	int		qubit;
-	int		argc;
-	int		window_height;
-	int		window_width;
-	int		player_num;
-	int		map_error;
-	double	*playa;
-	double	*dir;
-	double	*old_dir;
-	double	*camera_vector;
-	double	*old_camera_vector;
-	double	time;
-	double	old_time;
-	int		map_columns;
-	int		map_rows;
-	char	*path_to_map;
-	char	*path_to_north;
-	char	*path_to_south;
-	char	*path_to_west;
-	char	*path_to_east;
-	char	*floor_colour;
-	char	*ceiling_colour;
-	char	**map;
-	void	*mlx;
-	void	*mlx_win;
+	t_ray			*ray;
+	t_img			*img;
+	t_img			*img_2;
+	t_img			*img_wall_north;
+	t_img			*img_wall_south;
+	t_img			*img_wall_east;
+	t_img			*img_wall_west;
+	t_img			*img_wall_door;
+	int				qubit;
+	int				argc;
+	int				window_height;
+	int				window_width;
+	int				player_num;
+	int				map_error;
+	double			*playa;
+	double			*dir;
+	double			*old_dir;
+	double			*camera_vector;
+	double			*old_camera_vector;
+	double			time;
+	double			old_time;
+	int				map_columns;
+	int				map_rows;
+	char			*path_to_map;
+	char			*path_to_north;
+	char			*path_to_south;
+	char			*path_to_west;
+	char			*path_to_east;
+	char			*floor_colour;
+	char			*ceiling_colour;
+	char			**map;
+	void			*mlx;
+	void			*mlx_win;
 	unsigned int	floor_color;
 	unsigned int	ceiling_color;
 }				t_prgrm;
@@ -103,7 +103,7 @@ int				ft_close_program(t_prgrm *vars);
 
 // map read functions
 void			ft_parsing(t_prgrm *vars);
-int 			ft_check_map_closed(t_prgrm *vars);
+int				ft_check_map_closed(t_prgrm *vars);
 int				ft_is_closed(t_prgrm *vars);
 int				ft_has_playa(t_prgrm *vars);
 void			ft_is_map_complete(t_prgrm *vars);
@@ -125,7 +125,8 @@ void			ft_init_vecs(t_prgrm *vars, char c);
 void			ft_raycast(t_prgrm *vars);
 void			ft_init_img(t_prgrm *vars);
 void			ft_init_img_2(t_prgrm *vars);
-void			ft_init_ray(t_prgrm *vars, t_img *img, t_img *img_2, t_ray *ray);
+void			ft_init_ray(t_prgrm *vars, t_img *img, \
+t_img *img_2, t_ray *ray);
 void			ft_init_ray_2(t_prgrm *vars);
 void			find_texture_coord(t_prgrm *vars, int height);
 void			ft_put_wall(t_prgrm *vars, t_img *img, int x, int y);

@@ -6,7 +6,7 @@
 /*   By: pmeising <pmeising@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/03 16:24:59 by pmeising          #+#    #+#             */
-/*   Updated: 2023/01/14 17:47:08 by pmeising         ###   ########.fr       */
+/*   Updated: 2023/01/14 17:52:10 by pmeising         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,10 @@
 
 void	ft_free_all_2(t_prgrm *vars)
 {
+	ft_free(vars->path_to_west);
+	ft_free(vars->path_to_east);
+	ft_free(vars->floor_colour);
+	ft_free(vars->ceiling_colour);
 	mlx_destroy_image(vars->mlx, vars->img_2->img);
 	ft_free(vars->img_2);
 	mlx_destroy_image(vars->mlx, vars->img_wall_north->img);
@@ -47,10 +51,6 @@ void	ft_free_all(t_prgrm *vars)
 	ft_free(vars->path_to_map);
 	ft_free(vars->path_to_north);
 	ft_free(vars->path_to_south);
-	ft_free(vars->path_to_west);
-	ft_free(vars->path_to_east);
-	ft_free(vars->floor_colour);
-	ft_free(vars->ceiling_colour);
 	while (vars->map[i] != NULL)
 	{
 		ft_free (vars->map[i]);

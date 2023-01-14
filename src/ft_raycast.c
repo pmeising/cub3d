@@ -6,7 +6,7 @@
 /*   By: pmeising <pmeising@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 11:03:05 by pmeising          #+#    #+#             */
-/*   Updated: 2023/01/14 17:44:55 by pmeising         ###   ########.fr       */
+/*   Updated: 2023/01/14 18:04:28 by pmeising         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,22 +14,22 @@
 
 void	ft_init_ray_2(t_prgrm *vars)
 {
-	vars->ray->rayDir = malloc(sizeof(double) * 2);
-	vars->ray->rayDir[0] = 0;
-	vars->ray->rayDir[1] = 1;
+	vars->ray->raydir = malloc(sizeof(double) * 2);
+	vars->ray->raydir[0] = 0;
+	vars->ray->raydir[1] = 1;
 	vars->ray->map = malloc(sizeof(int) * 2);
 	vars->ray->map[0] = 0;
 	vars->ray->map[1] = 0;
-	vars->ray->deltaDist = malloc(sizeof(double) * 2);
-	vars->ray->deltaDist[0] = 0;
-	vars->ray->deltaDist[1] = 0;
-	vars->ray->sideDist = malloc(sizeof(double) * 2);
-	vars->ray->sideDist[0] = 0;
-	vars->ray->sideDist[1] = 0;
+	vars->ray->deltadist = malloc(sizeof(double) * 2);
+	vars->ray->deltadist[0] = 0;
+	vars->ray->deltadist[1] = 0;
+	vars->ray->sidedist = malloc(sizeof(double) * 2);
+	vars->ray->sidedist[0] = 0;
+	vars->ray->sidedist[1] = 0;
 	vars->ray->step = malloc(sizeof(int) * 2);
 	vars->ray->step[0] = 0;
 	vars->ray->step[1] = 0;
-	vars->ray->perpWallDist = 0;
+	vars->ray->perpwalldist = 0;
 	vars->ray->hit = 0;
 	vars->ray->side = 0;
 	vars->ray->map[0] = (int)vars->playa[0];
@@ -60,6 +60,9 @@ void	ft_init_ray(t_prgrm *vars, t_img *img, t_img *img_2, t_ray *ray)
 
 void	ft_init_img_2(t_prgrm *vars)
 {
+	vars->img_wall_door->img = mlx_xpm_file_to_image(vars->mlx, \
+	"./images/scifi_64.xpm", vars->img_wall_door->width, \
+	vars->img_wall_door->height);
 	vars->img_wall_north->addy_img = mlx_get_data_addr(\
 	vars->img_wall_north->img, &vars->img_wall_north->bits_per_pixel, \
 	&vars->img_wall_north->line_length, &vars->img_wall_north->endian);
@@ -101,9 +104,6 @@ void	ft_init_img(t_prgrm *vars)
 	vars->img_wall_west->img = mlx_xpm_file_to_image(vars->mlx, \
 	"./images/wall_4.xpm", vars->img_wall_west->width, \
 	vars->img_wall_west->height);
-	vars->img_wall_door->img = mlx_xpm_file_to_image(vars->mlx, \
-	"./images/scifi_64.xpm", vars->img_wall_door->width, \
-	vars->img_wall_door->height);
 	ft_init_img_2(vars);
 }
 
