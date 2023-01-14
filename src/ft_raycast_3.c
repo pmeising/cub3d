@@ -6,7 +6,7 @@
 /*   By: pmeising <pmeising@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 20:34:40 by pmeising          #+#    #+#             */
-/*   Updated: 2023/01/14 17:21:45 by pmeising         ###   ########.fr       */
+/*   Updated: 2023/01/14 17:33:31 by pmeising         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ void	ft_put_wall(t_prgrm *vars, t_img *img, int x, int y)
 	if (vars->map[(int)(vars->ray->map[1])][(int)(vars->ray->map[0])] \
 	== 'D' || vars->map[(int)(vars->ray->map[1])][(int)(vars->ray->map[0])] \
 	== 'd')
-		my_mlx_pixel_put(img, x, y, W_RED);
+		ft_resize_door(vars, img, x, y);
 	else if ((vars->ray->rayDir[0] <= 0 && vars->ray->rayDir[1] <= 0 && \
 	vars->ray->side == 1) || (vars->ray->rayDir[0] >= 0 && vars->ray->rayDir[1] \
 	<= 0 && vars->ray->side == 1))

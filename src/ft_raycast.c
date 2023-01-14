@@ -6,7 +6,7 @@
 /*   By: pmeising <pmeising@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 11:03:05 by pmeising          #+#    #+#             */
-/*   Updated: 2023/01/14 17:08:33 by pmeising         ###   ########.fr       */
+/*   Updated: 2023/01/14 17:44:55 by pmeising         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,20 +72,23 @@ void	ft_init_img_2(t_prgrm *vars)
 	vars->img_wall_east->addy_img = mlx_get_data_addr(\
 	vars->img_wall_east->img, &vars->img_wall_east->bits_per_pixel, \
 	&vars->img_wall_east->line_length, &vars->img_wall_east->endian);
+	vars->img_wall_door->addy_img = mlx_get_data_addr(\
+	vars->img_wall_door->img, &vars->img_wall_door->bits_per_pixel, \
+	&vars->img_wall_door->line_length, &vars->img_wall_door->endian);
 }
 
 void	ft_init_img(t_prgrm *vars)
 {
 	vars->img_wall_north = malloc(sizeof(t_img) * 1);
 	ft_check(vars, vars->img_wall_north, 3);
-	vars->img_wall_north->height[0] = 0;
-	vars->img_wall_north->width[0] = 0;
 	vars->img_wall_south = malloc(sizeof(t_img) * 1);
 	ft_check(vars, vars->img_wall_south, 3);
 	vars->img_wall_east = malloc(sizeof(t_img) * 1);
 	ft_check(vars, vars->img_wall_east, 3);
 	vars->img_wall_west = malloc(sizeof(t_img) * 1);
 	ft_check(vars, vars->img_wall_west, 3);
+	vars->img_wall_door = malloc(sizeof(t_img) * 1);
+	ft_check(vars, vars->img_wall_door, 3);
 	vars->img_wall_north->img = mlx_xpm_file_to_image(vars->mlx, \
 	"./images/wall_1.xpm", vars->img_wall_north->width, \
 	vars->img_wall_north->height);
@@ -98,6 +101,9 @@ void	ft_init_img(t_prgrm *vars)
 	vars->img_wall_west->img = mlx_xpm_file_to_image(vars->mlx, \
 	"./images/wall_4.xpm", vars->img_wall_west->width, \
 	vars->img_wall_west->height);
+	vars->img_wall_door->img = mlx_xpm_file_to_image(vars->mlx, \
+	"./images/scifi_64.xpm", vars->img_wall_door->width, \
+	vars->img_wall_door->height);
 	ft_init_img_2(vars);
 }
 
