@@ -6,7 +6,7 @@
 /*   By: pmeising <pmeising@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/20 19:15:36 by pmeising          #+#    #+#             */
-/*   Updated: 2023/01/13 14:09:15 by pmeising         ###   ########.fr       */
+/*   Updated: 2023/01/14 10:59:14 by pmeising         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ void	ft_init_2(t_prgrm *vars)
 	vars->old_camera_vector[0] = 0;
 	vars->old_camera_vector[1] = 0;
 	vars->qubit = 0;
+	vars->map_error = 0;
 }
 
 void	ft_init(t_prgrm *vars, char **argv, int argc)
@@ -36,12 +37,12 @@ void	ft_init(t_prgrm *vars, char **argv, int argc)
 	vars->playa = malloc(sizeof(double) * 2);
 	vars->playa[0] = 0;
 	vars->playa[1] = 0;
-	vars->direction = malloc(sizeof(double) * 2);
-	vars->direction[0] = 0;
-	vars->direction[1] = 0;
-	vars->old_direction = malloc(sizeof(double) * 2);
-	vars->old_direction[0] = 0;
-	vars->old_direction[1] = 0;
+	vars->dir = malloc(sizeof(double) * 2);
+	vars->dir[0] = 0;
+	vars->dir[1] = 0;
+	vars->old_dir = malloc(sizeof(double) * 2);
+	vars->old_dir[0] = 0;
+	vars->old_dir[1] = 0;
 	vars->camera_vector = malloc(sizeof(double) * 2);
 	vars->camera_vector[0] = 0;
 	vars->camera_vector[1] = 0;
@@ -54,18 +55,18 @@ void	ft_check(t_prgrm *vars, void *con, int code)
 	{
 		perror("Error\nConnection to graphics unit failed.\n");
 		printf("Closing: %s\n", vars->path_to_map);
-		exit(0);
+		ft_close_program(vars);
 	}
 	else if (con == NULL && code == 2)
 	{
 		perror("Error\nCreation of window failed.\n");
 		printf("Closing: %s\n", vars->path_to_map);
-		exit(0);
+		ft_close_program(vars);
 	}
 	else if (!con && code == 3)
 	{
 		perror("Malloc: ");
-		exit(0);
+		ft_close_program(vars);
 	}	
 }
 

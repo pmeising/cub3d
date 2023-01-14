@@ -6,7 +6,7 @@
 /*   By: pmeising <pmeising@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/03 16:24:59 by pmeising          #+#    #+#             */
-/*   Updated: 2023/01/13 14:17:00 by pmeising         ###   ########.fr       */
+/*   Updated: 2023/01/14 10:54:50 by pmeising         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,8 @@ void	ft_free_all(t_prgrm *vars)
 
 	i = 0;
 	ft_free(vars->playa);
-	ft_free(vars->direction);
-	ft_free(vars->old_direction);
+	ft_free(vars->dir);
+	ft_free(vars->old_dir);
 	ft_free(vars->camera_vector);
 	ft_free(vars->old_camera_vector);
 	ft_free(vars->path_to_map);
@@ -55,9 +55,12 @@ void	ft_free_all(t_prgrm *vars)
 		i++;
 	}
 	ft_free(vars->map);
-	mlx_destroy_image(vars->mlx, vars->img->img);
-	ft_free(vars->img);
-	ft_free_all_2(vars);
+	if (vars->map_error == 0)
+	{
+		mlx_destroy_image(vars->mlx, vars->img->img);
+		ft_free(vars->img);
+		ft_free_all_2(vars);
+	}
 }
 
 void	ft_free(void *cont)
@@ -72,9 +75,12 @@ void	ft_free(void *cont)
 int	ft_close_program(t_prgrm *vars)
 {
 	ft_free_all(vars);
-	mlx_destroy_window(vars->mlx, vars->mlx_win);
-	mlx_destroy_display(vars->mlx);
-	ft_free(vars->mlx);
+	if (vars->map_error == 0)
+	{
+		mlx_destroy_window(vars->mlx, vars->mlx_win);
+		mlx_destroy_display(vars->mlx);
+		ft_free(vars->mlx);
+	}
 	free (vars);
 	exit(0);
 	return (1);

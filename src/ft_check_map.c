@@ -6,7 +6,7 @@
 /*   By: pmeising <pmeising@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/03 16:26:53 by pmeising          #+#    #+#             */
-/*   Updated: 2023/01/13 14:18:04 by pmeising         ###   ########.fr       */
+/*   Updated: 2023/01/14 10:58:03 by pmeising         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,6 @@ int	ft_is_closed(t_prgrm *vars)
 	}
 	if (ft_check_map_closed(vars) == 1)
 		return (1);
-	printf("map is closed.\n");
 	return (0);
 }
 
@@ -77,7 +76,6 @@ int	ft_has_playa_2(t_prgrm *vars, char c, int y, int x)
 		vars->playa[1] = (double)(y) + (double)0.5;
 		ft_init_vecs(vars, c);
 		vars->map[y][x] = '0';
-		printf("playa: x:%f, y:%f\n", vars->playa[0], vars->playa[1]);
 		vars->player_num++;
 	}
 	else if (c != '0' && c != '1' && c != '2' && c != 'D')
@@ -105,7 +103,6 @@ int	ft_has_playa(t_prgrm *vars)
 		}
 		y++;
 	}
-	printf("player # : %d\n", vars->player_num);
 	if (vars->player_num != 1)
 	{
 		printf("\nA DOUBLE AGENT IS TRYING TO OVERTAKE YOU, ABORT MISSION.... \
@@ -117,11 +114,9 @@ int	ft_has_playa(t_prgrm *vars)
 
 void	ft_is_map_complete(t_prgrm *vars)
 {
-	if (ft_has_playa(vars) == 1)
-		exit(EXIT_FAILURE);
-	if (ft_is_closed(vars) == 1)
+	if (ft_has_playa(vars) == 1 || ft_is_closed(vars) == 1)
 	{
-		printf("Map invalid, unclosed walls.\n");
-		exit(EXIT_FAILURE);
+		vars->map_error = 1;
+		ft_close_program(vars);
 	}
 }

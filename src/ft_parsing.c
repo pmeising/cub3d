@@ -6,7 +6,7 @@
 /*   By: pmeising <pmeising@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 15:30:28 by pmeising          #+#    #+#             */
-/*   Updated: 2023/01/08 12:33:59 by pmeising         ###   ########.fr       */
+/*   Updated: 2023/01/14 11:00:17 by pmeising         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,7 +121,6 @@ void	ft_parsing(t_prgrm *vars)
 	char	*str;
 
 	fd = open(vars->path_to_map, O_RDONLY, 0777);
-	printf("fd: %d\n", fd);
 	if (fd == -1)
 		perror("File couldn't be opened.\n");
 	while (1)

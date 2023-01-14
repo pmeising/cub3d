@@ -6,7 +6,7 @@
 #    By: pmeising <pmeising@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/21 16:41:10 by pmeising          #+#    #+#              #
-#    Updated: 2023/01/13 20:53:18 by pmeising         ###   ########.fr        #
+#    Updated: 2023/01/14 09:31:37 by pmeising         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -47,6 +47,7 @@ SRC			:=	${SRC_DIR}main.c \
 				${SRC_DIR}ft_raycast_2.c \
 				${SRC_DIR}ft_raycast_3.c \
 				${SRC_DIR}ft_raycast_4.c \
+				${SRC_DIR}ft_raycast_5.c \
 				${SRC_DIR}ft_rgb_conv.c \
 				${SRC_DIR}ft_move.c \
 				

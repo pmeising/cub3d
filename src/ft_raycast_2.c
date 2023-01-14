@@ -6,7 +6,7 @@
 /*   By: pmeising <pmeising@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 20:29:57 by pmeising          #+#    #+#             */
-/*   Updated: 2023/01/13 20:58:23 by pmeising         ###   ########.fr       */
+/*   Updated: 2023/01/14 09:30:30 by pmeising         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,12 +120,7 @@ void	ft_calc_ray_dist(t_prgrm *vars)
 		== 'd')
 			hit = 1;
 	}
-	if (vars->ray->side == 0)
-		vars->ray->perpWallDist = (vars->ray->sideDist[0] - \
-		vars->ray->deltaDist[0]);
-	else
-		vars->ray->perpWallDist = (vars->ray->sideDist[1] - \
-		vars->ray->deltaDist[1]);
+	ft_calc_ray_dist_helper(vars);
 }
 
 void	ft_raycast(t_prgrm *vars)
