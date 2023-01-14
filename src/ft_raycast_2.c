@@ -6,7 +6,7 @@
 /*   By: pmeising <pmeising@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 20:29:57 by pmeising          #+#    #+#             */
-/*   Updated: 2023/01/14 09:30:30 by pmeising         ###   ########.fr       */
+/*   Updated: 2023/01/14 17:11:20 by pmeising         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,7 @@ void	ft_calc_line_height(t_prgrm *vars)
 	vars->ray->pos_end = line_height / 2 + screen_height / 2;
 	if (vars->ray->pos_end >= screen_height)
 		vars->ray->pos_end = screen_height - 1;
+	vars->ray->line_height = line_height;
 }
 
 /*
@@ -139,6 +140,7 @@ void	ft_raycast(t_prgrm *vars)
 		image = vars->img_2;
 		vars->qubit = 0;
 	}
+	// x = WIDTH / 2 - 10;
 	while (x >= 0 && x <= WIDTH)
 	{
 		ft_init_raycast(vars, x);

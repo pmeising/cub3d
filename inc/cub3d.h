@@ -6,7 +6,7 @@
 /*   By: pmeising <pmeising@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 15:48:27 by pmeising          #+#    #+#             */
-/*   Updated: 2023/01/14 10:48:53 by pmeising         ###   ########.fr       */
+/*   Updated: 2023/01/14 16:01:18 by pmeising         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@
 typedef struct	s_ray
 {
 	double	*rayDir;
+	int		line_height;
 	double	cameraX;
 	double	*deltaDist;
 	double	*sideDist;

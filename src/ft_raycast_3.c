@@ -6,7 +6,7 @@
 /*   By: pmeising <pmeising@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 20:34:40 by pmeising          #+#    #+#             */
-/*   Updated: 2023/01/14 09:52:35 by pmeising         ###   ########.fr       */
+/*   Updated: 2023/01/14 17:21:45 by pmeising         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,22 @@
 
 void	ft_put_image(t_prgrm *vars, t_img *img, int x)
 {
-	int	height;
-	int	y;
+	int		y;
+	double	tex_pos;
 
-	height = vars->ray->pos_end - vars->ray->pos_start;
 	y = 0;
-	find_texture_coord(vars, height);
+	find_texture_coord(vars, vars->ray->line_height);
+	tex_pos = (double)((double)vars->ray->pos_start - (double)HEIGHT / 2 + (double)vars->ray->line_height / 2) * (double)vars->ray->tex_y_step;
 	while (y < vars->ray->pos_start && y <= HEIGHT)
 	{
 		my_mlx_pixel_put(img, x, y, vars->ceiling_color);
 		y++;
 	}
+	vars->ray->texY = (int)tex_pos & (64 - 1);
 	while (y >= vars->ray->pos_start && y <= vars->ray->pos_end && y <= HEIGHT)
 	{
+		vars->ray->texY = (int)tex_pos & (64 - 1);
+		tex_pos += vars->ray->tex_y_step;
 		ft_put_wall(vars, img, x, y);
 		y++;
 	}
@@ -113,10 +116,7 @@ void	find_texture_coord(t_prgrm *vars, int height)
 	vars->ray->texX = (int)(vars->ray->WallX * (double)64);
 	if ((vars->ray->side == 0 && vars->ray->rayDir[0] > 0) || \
 		(vars->ray->side == 1 && vars->ray->rayDir[1] < 0))
-		vars->ray->texX = 64 - vars->ray->texX;
-	vars->ray->tex_y_step = 64 / (double)height;
-	vars->ray->texY = 0;
-	if (height > HEIGHT)
-		vars->ray->texY = (height - HEIGHT) * \
-			vars->ray->tex_y_step / 2;
+		vars->ray->texX = 64 - vars->ray->texX - 1;
+	vars->ray->tex_y_step = 1.0 * vars->img_wall_north->height[0] / vars->ray->line_height;
+	(void)height;
 }

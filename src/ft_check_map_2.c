@@ -6,7 +6,7 @@
 /*   By: pmeising <pmeising@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/03 16:26:53 by pmeising          #+#    #+#             */
-/*   Updated: 2023/01/13 19:21:36 by pmeising         ###   ########.fr       */
+/*   Updated: 2023/01/14 15:47:34 by pmeising         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,14 +68,14 @@ void	ft_init_vecs_2(t_prgrm *vars, char c)
 		vars->dir[0] = 1;
 		vars->dir[1] = 0;
 		vars->camera_vector[0] = 0;
-		vars->camera_vector[1] = -0.66;
+		vars->camera_vector[1] = -0.9;
 	}
 	else if (c == 'W')
 	{
 		vars->dir[0] = -1;
 		vars->dir[1] = 0;
 		vars->camera_vector[0] = 0;
-		vars->camera_vector[1] = 0.66;
+		vars->camera_vector[1] = 0.9;
 	}
 }
 
@@ -93,15 +93,15 @@ void	ft_init_vecs(t_prgrm *vars, char c)
 	if (c == 'N')
 	{
 		vars->dir[0] = 0;
-		vars->dir[1] = 1;
-		vars->camera_vector[0] = 0.66;
+		vars->dir[1] = -1;
+		vars->camera_vector[0] = -0.9;
 		vars->camera_vector[1] = 0;
 	}
 	else if (c == 'S')
 	{
 		vars->dir[0] = 0;
-		vars->dir[1] = -1;
-		vars->camera_vector[0] = -0.66;
+		vars->dir[1] = 1;
+		vars->camera_vector[0] = 0.9;
 		vars->camera_vector[1] = 0;
 	}
 	else if (c == 'E' || c == 'W')
