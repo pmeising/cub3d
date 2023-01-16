@@ -6,7 +6,7 @@
 #    By: pmeising <pmeising@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/21 16:41:10 by pmeising          #+#    #+#              #
-#    Updated: 2023/01/14 09:31:37 by pmeising         ###   ########.fr        #
+#    Updated: 2023/01/16 13:29:52 by pmeising         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,6 +41,7 @@ SRC			:=	${SRC_DIR}main.c \
 				${SRC_DIR}ft_parsing.c \
 				${SRC_DIR}ft_parsing_2.c \
 				${SRC_DIR}ft_free_funcs.c \
+				${SRC_DIR}ft_free_funcs_2.c \
 				${SRC_DIR}ft_check_map.c \
 				${SRC_DIR}ft_check_map_2.c \
 				${SRC_DIR}ft_raycast.c \

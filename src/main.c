@@ -6,7 +6,7 @@
 /*   By: pmeising <pmeising@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/20 19:15:36 by pmeising          #+#    #+#             */
-/*   Updated: 2023/01/14 10:59:14 by pmeising         ###   ########.fr       */
+/*   Updated: 2023/01/16 13:17:35 by pmeising         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ void	ft_check(t_prgrm *vars, void *con, int code)
 	}
 	else if (!con && code == 3)
 	{
-		perror("Malloc: ");
+		perror("Error\nMalloc");
 		ft_close_program(vars);
 	}	
 }

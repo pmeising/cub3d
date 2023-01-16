@@ -6,7 +6,7 @@
 /*   By: pmeising <pmeising@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/03 16:26:53 by pmeising          #+#    #+#             */
-/*   Updated: 2023/01/14 10:58:03 by pmeising         ###   ########.fr       */
+/*   Updated: 2023/01/16 13:18:54 by pmeising         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	ft_check_map_closed(t_prgrm *vars)
 				if (vars->map[i + 1][j] == '2' || vars->map[i - 1][j] == '2' \
 					|| vars->map[i][j + 1] == '2' || vars->map[i][j - 1] == '2')
 				{
-					printf("Unclosed walls at position %d:%d.\n", i + 1, j);
+					printf("Error\nUnclosed walls at pos: %d:%d.\n", i + 1, j);
 					return (1);
 				}
 			}
@@ -80,7 +80,7 @@ int	ft_has_playa_2(t_prgrm *vars, char c, int y, int x)
 	}
 	else if (c != '0' && c != '1' && c != '2' && c != 'D')
 	{
-		printf("Unidentified object found at: x:%d:y:%d\n", x, y);
+		printf("Error\nUnidentified object found at: x:%d:y:%d\n", x, y);
 		return (1);
 	}
 	return (0);
@@ -105,7 +105,7 @@ int	ft_has_playa(t_prgrm *vars)
 	}
 	if (vars->player_num != 1)
 	{
-		printf("\nA DOUBLE AGENT IS TRYING TO OVERTAKE YOU, ABORT MISSION.... \
+		printf("Error\nA DOUBLE AGENT IS TRYING TO OVERTAKE YOU, ABORT MISSION.... \
 			I REPEAT, ABORT MISSION!!!\n");
 		return (1);
 	}
