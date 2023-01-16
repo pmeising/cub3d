@@ -6,7 +6,7 @@
 /*   By: pmeising <pmeising@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 20:34:40 by pmeising          #+#    #+#             */
-/*   Updated: 2023/01/14 17:59:32 by pmeising         ###   ########.fr       */
+/*   Updated: 2023/01/16 12:41:44 by pmeising         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@ void	ft_put_image(t_prgrm *vars, t_img *img, int x)
 
 	y = 0;
 	find_texture_coord(vars, vars->ray->line_height);
-	tex_pos = (double)((double)vars->ray->pos_start - (double)HEIGHT / 2 + \
-	((double)vars->ray->line_height / 2) * (double)vars->ray->tex_y_step);
+	tex_pos = (double)((double)vars->ray->pos_start - (double)HEIGHT / 2 \
+	+ (double)vars->ray->line_height / 2) *(double)vars->ray->tex_y_step;
 	while (y < vars->ray->pos_start && y <= HEIGHT)
 	{
 		my_mlx_pixel_put(img, x, y, vars->ceiling_color);

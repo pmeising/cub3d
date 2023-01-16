@@ -6,7 +6,7 @@
 /*   By: pmeising <pmeising@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/03 16:24:59 by pmeising          #+#    #+#             */
-/*   Updated: 2023/01/14 17:52:10 by pmeising         ###   ########.fr       */
+/*   Updated: 2023/01/15 12:16:32 by pmeising         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,10 @@ void	ft_free_all_2(t_prgrm *vars)
 	ft_free(vars->img_wall_west);
 	mlx_destroy_image(vars->mlx, vars->img_wall_door->img);
 	ft_free(vars->img_wall_door);
-	ft_free(vars->ray->rayDir);
+	ft_free(vars->ray->raydir);
 	ft_free(vars->ray->map);
-	ft_free(vars->ray->deltaDist);
-	ft_free(vars->ray->sideDist);
+	ft_free(vars->ray->deltadist);
+	ft_free(vars->ray->sidedist);
 	ft_free(vars->ray->step);
 	ft_free(vars->ray);
 }
