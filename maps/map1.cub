@@ -1,10 +1,10 @@
-		NO ./Images/n_wall.xpm
-		SO       ./Images/s_wall.xpm
-		WE ./Images/w_wall.xpm
-		EA ./Images/e_wall.xpm
+		NO ./images/wall_n.xpm
+		SO       ./images/wall_s.xpm
+		WE ./images/wall_e.xpm
+		EA ./images/wall_w.xpm
 
-F 155,0,0
-C 0,0,255
+F 45,0,0
+C 0,0,65
 
         1111111111111111111111111
         1000000000110000000000001

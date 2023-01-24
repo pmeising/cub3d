@@ -6,7 +6,7 @@
 /*   By: pmeising <pmeising@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/20 19:15:36 by pmeising          #+#    #+#             */
-/*   Updated: 2023/01/16 13:17:35 by pmeising         ###   ########.fr       */
+/*   Updated: 2023/01/23 21:42:02 by pmeising         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@ void	ft_init_2(t_prgrm *vars)
 void	ft_init(t_prgrm *vars, char **argv, int argc)
 {
 	vars->argc = argc;
-	vars->window_height = 540;
-	vars->window_width = 960;
+	vars->window_height = HEIGHT;
+	vars->window_width = WIDTH;
 	vars->player_num = 0;
 	vars->path_to_map = ft_strdup(argv[1]);
 	vars->mlx = NULL;
@@ -74,15 +74,15 @@ int	main(int argc, char	**argv)
 {
 	t_prgrm	*vars;
 
-	vars = malloc(sizeof(t_prgrm));
 	if (argc == 2)
 	{
+		vars = malloc(sizeof(t_prgrm));
 		ft_init(vars, argv, argc);
 		ft_parsing(vars);
 		vars->mlx = mlx_init();
 		ft_check(vars, vars->mlx, 1);
-		vars->mlx_win = mlx_new_window(vars->mlx, vars->window_width, \
-			vars->window_height, "cub3D");
+		vars->mlx_win = mlx_new_window(vars->mlx, WIDTH, \
+			HEIGHT, "cub3D");
 		ft_check(vars, vars->mlx_win, 2);
 		ft_raycasting(vars);
 		ft_raycast(vars);
@@ -91,6 +91,8 @@ int	main(int argc, char	**argv)
 		mlx_loop(vars->mlx);
 		ft_close_program(vars);
 	}
+	else
+		printf("Error\nWrong number of arguments\n");
 	write(1, "\n", 1);
 	return (0);
 }

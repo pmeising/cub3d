@@ -6,7 +6,7 @@
 /*   By: pmeising <pmeising@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 15:48:27 by pmeising          #+#    #+#             */
-/*   Updated: 2023/01/14 17:59:58 by pmeising         ###   ########.fr       */
+/*   Updated: 2023/01/24 09:48:35 by pmeising         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@
 # include <math.h>
 # include <../minilibx-linux/mlx.h>
 # include <../libft_lib/libft.h>
-# define HEIGHT		540
-# define WIDTH		960
+# define HEIGHT		1070
+# define WIDTH		1900
 # define W_RED		0x00FF0000
 # define W_GREEN	0x0000FF00
 # define W_YELLOW	0x00FFFF00
@@ -112,11 +112,15 @@ int				ft_check_top_bottom(char *str, int count);
 void			ft_buffer_map(t_prgrm *vars);
 void			ft_buffer_helper(int dif, t_prgrm *vars, int i);
 unsigned int	ft_rgb_to_hex(char *color);
+void			ft_mirror_map_2(t_prgrm *vars);
 
 // free funcs
 void			ft_free(void *cont);
 void			ft_free_all(t_prgrm *vars);
+void			ft_free_all_2(t_prgrm *vars);
 int				ft_close_program(t_prgrm *vars);
+int				ft_close_program_2(t_prgrm *vars);
+void			ft_path_exist(t_prgrm *vars);
 
 // Raycasting
 void			ft_raycasting(t_prgrm *vars);

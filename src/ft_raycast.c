@@ -6,7 +6,7 @@
 /*   By: pmeising <pmeising@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 11:03:05 by pmeising          #+#    #+#             */
-/*   Updated: 2023/01/14 18:04:28 by pmeising         ###   ########.fr       */
+/*   Updated: 2023/01/16 15:08:50 by pmeising         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,16 +93,16 @@ void	ft_init_img(t_prgrm *vars)
 	vars->img_wall_door = malloc(sizeof(t_img) * 1);
 	ft_check(vars, vars->img_wall_door, 3);
 	vars->img_wall_north->img = mlx_xpm_file_to_image(vars->mlx, \
-	"./images/wall_1.xpm", vars->img_wall_north->width, \
+	vars->path_to_north, vars->img_wall_north->width, \
 	vars->img_wall_north->height);
 	vars->img_wall_south->img = mlx_xpm_file_to_image(vars->mlx, \
-	"./images/wall_2.xpm", vars->img_wall_south->width, \
+	vars->path_to_south, vars->img_wall_south->width, \
 	vars->img_wall_south->height);
 	vars->img_wall_east->img = mlx_xpm_file_to_image(vars->mlx, \
-	"./images/wall_3.xpm", vars->img_wall_east->width, \
+	vars->path_to_east, vars->img_wall_east->width, \
 	vars->img_wall_east->height);
 	vars->img_wall_west->img = mlx_xpm_file_to_image(vars->mlx, \
-	"./images/wall_4.xpm", vars->img_wall_west->width, \
+	vars->path_to_west, vars->img_wall_west->width, \
 	vars->img_wall_west->height);
 	ft_init_img_2(vars);
 }

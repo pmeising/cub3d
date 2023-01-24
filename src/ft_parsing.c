@@ -6,7 +6,7 @@
 /*   By: pmeising <pmeising@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 15:30:28 by pmeising          #+#    #+#             */
-/*   Updated: 2023/01/16 13:14:50 by pmeising         ###   ########.fr       */
+/*   Updated: 2023/01/24 09:48:26 by pmeising         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,12 +43,12 @@ void	ft_parsing_4(t_prgrm *vars, char *str)
 
 	i = 2;
 	len = ft_strlen(str);
-	temp = NULL;
 	if (ft_strnstr(str, "EA", len) != NULL)
 	{
 		temp = ft_strnstr(str, "EA", len);
 		i = ft_skip_space(temp, i);
 		vars->path_to_east = ft_strdup(&temp[i]);
+		vars->path_to_east[(int)ft_strlen(vars->path_to_east) - 1] = '\0';
 	}
 	if (ft_strnstr(str, "F", len) != NULL)
 	{
@@ -77,12 +77,14 @@ void	ft_parsing_3(t_prgrm *vars, char *str)
 		temp = ft_strnstr(str, "SO", len);
 		i = ft_skip_space(temp, i);
 		vars->path_to_south = ft_strdup(&temp[i]);
+		vars->path_to_south[(int)ft_strlen(vars->path_to_south) - 1] = '\0';
 	}
 	else if (ft_strnstr(str, "WE", len) != NULL)
 	{
 		temp = ft_strnstr(str, "WE", len);
 		i = ft_skip_space(temp, i);
 		vars->path_to_west = ft_strdup(&temp[i]);
+		vars->path_to_west[(int)ft_strlen(vars->path_to_west) - 1] = '\0';
 	}
 	else
 		ft_parsing_4(vars, str);
@@ -105,6 +107,7 @@ int	ft_parsing_2(t_prgrm *vars, char *s)
 		temp = ft_strnstr(s, "NO", len);
 		i = ft_skip_space(temp, i);
 		vars->path_to_north = ft_strdup(&temp[i]);
+		vars->path_to_north[(int)ft_strlen(vars->path_to_north) - 1] = '\0';
 	}
 	if (ft_strnstr(s, "SO", len) || ft_strnstr(s, "WE", len) || \
 		ft_strnstr(s, "EA", len) || ft_strnstr(s, "C", len) || \
@@ -139,5 +142,7 @@ void	ft_parsing(t_prgrm *vars)
 		ft_free (str);
 	}
 	ft_buffer_map(vars);
+	ft_mirror_map_2(vars);
+	ft_path_exist(vars);
 	ft_is_map_complete(vars);
 }

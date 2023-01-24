@@ -6,7 +6,7 @@
 /*   By: pmeising <pmeising@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/03 16:26:53 by pmeising          #+#    #+#             */
-/*   Updated: 2023/01/16 13:18:54 by pmeising         ###   ########.fr       */
+/*   Updated: 2023/01/16 15:30:09 by pmeising         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,7 @@ int	ft_has_playa_2(t_prgrm *vars, char c, int y, int x)
 	}
 	else if (c != '0' && c != '1' && c != '2' && c != 'D')
 	{
+		printf("c:'%c'\n", c);
 		printf("Error\nUnidentified object found at: x:%d:y:%d\n", x, y);
 		return (1);
 	}

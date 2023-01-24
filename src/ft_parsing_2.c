@@ -6,7 +6,7 @@
 /*   By: pmeising <pmeising@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 15:30:28 by pmeising          #+#    #+#             */
-/*   Updated: 2023/01/08 12:31:39 by pmeising         ###   ########.fr       */
+/*   Updated: 2023/01/24 09:53:15 by pmeising         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,5 +52,26 @@ void	ft_buffer_map(t_prgrm *vars)
 	{
 		ft_buffer_helper(dif, vars, i);
 		i++;
+	}
+}
+
+void	ft_mirror_map_2(t_prgrm *vars)
+{
+	char	*temp;
+	int		i;
+	int		j;
+
+	i = 0;
+	j = 0;
+	while (vars->map[j])
+		j++;
+	j--;
+	while (vars->map[i] && i < (vars->map_rows / 2))
+	{
+		temp = vars->map[i];
+		vars->map[i] = vars->map[j];
+		vars->map[j] = temp;
+		i++;
+		j--;
 	}
 }

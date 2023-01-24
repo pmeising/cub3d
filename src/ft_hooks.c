@@ -6,7 +6,7 @@
 /*   By: pmeising <pmeising@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/25 22:03:43 by pmeising          #+#    #+#             */
-/*   Updated: 2023/01/13 14:14:53 by pmeising         ###   ########.fr       */
+/*   Updated: 2023/01/24 09:49:55 by pmeising         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,10 @@
 */
 void	ft_hooks(t_prgrm *vars)
 {
-	mlx_hook(vars->mlx_win, 17, 0, ft_close_program, &vars);
+	mlx_hook(vars->mlx_win, 17, 0, ft_close_program_2, vars);
 }
 
-/*
+/*d
 *	Each key is assigned its own keycode. By this we can identify user
 *	actions.
 *	Keys we need for this project:

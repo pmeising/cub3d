@@ -6,7 +6,7 @@
 /*   By: pmeising <pmeising@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/03 16:24:59 by pmeising          #+#    #+#             */
-/*   Updated: 2023/01/16 13:29:18 by pmeising         ###   ########.fr       */
+/*   Updated: 2023/01/16 15:07:37 by pmeising         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,8 +102,14 @@ int	ft_close_program(t_prgrm *vars)
 		ft_free(vars);
 		exit(2);
 	}
+	if (vars->map_error == 3)
+	{
+		ft_free_all(vars);
+		free (vars);
+		exit(0);
+	}
 	ft_free_all(vars);
-	if (vars->map_error == 0)
+	if (vars->map_error == 0 || vars->map_error == 3)
 	{
 		mlx_destroy_window(vars->mlx, vars->mlx_win);
 		mlx_destroy_display(vars->mlx);
