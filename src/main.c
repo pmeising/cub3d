@@ -6,7 +6,7 @@
 /*   By: pmeising <pmeising@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/20 19:15:36 by pmeising          #+#    #+#             */
-/*   Updated: 2023/01/23 21:42:02 by pmeising         ###   ########.fr       */
+/*   Updated: 2023/01/24 10:16:04 by pmeising         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 void	ft_init_2(t_prgrm *vars)
 {
-	vars->old_camera_vector = malloc(sizeof(double) * 2);
-	vars->old_camera_vector[0] = 0;
-	vars->old_camera_vector[1] = 0;
+	vars->old_cam_vec = malloc(sizeof(double) * 2);
+	vars->old_cam_vec[0] = 0;
+	vars->old_cam_vec[1] = 0;
 	vars->qubit = 0;
 	vars->map_error = 0;
 }
@@ -43,9 +43,9 @@ void	ft_init(t_prgrm *vars, char **argv, int argc)
 	vars->old_dir = malloc(sizeof(double) * 2);
 	vars->old_dir[0] = 0;
 	vars->old_dir[1] = 0;
-	vars->camera_vector = malloc(sizeof(double) * 2);
-	vars->camera_vector[0] = 0;
-	vars->camera_vector[1] = 0;
+	vars->cam_vec = malloc(sizeof(double) * 2);
+	vars->cam_vec[0] = 0;
+	vars->cam_vec[1] = 0;
 	ft_init_2(vars);
 }
 

@@ -6,7 +6,7 @@
 /*   By: pmeising <pmeising@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 20:29:57 by pmeising          #+#    #+#             */
-/*   Updated: 2023/01/14 18:01:06 by pmeising         ###   ########.fr       */
+/*   Updated: 2023/01/24 10:16:04 by pmeising         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,9 +52,9 @@ void	ft_init_raycast_2(t_prgrm *vars)
 void	ft_init_raycast(t_prgrm *vars, int x)
 {
 	vars->ray->camerax = 2 * x / (double)WIDTH - 1;
-	vars->ray->raydir[0] = vars->dir[0] + vars->camera_vector[0] \
+	vars->ray->raydir[0] = vars->dir[0] + vars->cam_vec[0] \
 	* vars->ray->camerax;
-	vars->ray->raydir[1] = vars->dir[1] + vars->camera_vector[1] \
+	vars->ray->raydir[1] = vars->dir[1] + vars->cam_vec[1] \
 	* vars->ray->camerax;
 	vars->ray->map[0] = (int)vars->playa[0];
 	vars->ray->map[1] = (int)vars->playa[1];

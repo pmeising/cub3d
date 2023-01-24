@@ -6,7 +6,7 @@
 /*   By: pmeising <pmeising@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 20:34:40 by pmeising          #+#    #+#             */
-/*   Updated: 2023/01/16 12:41:44 by pmeising         ###   ########.fr       */
+/*   Updated: 2023/01/24 10:16:04 by pmeising         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,11 +48,11 @@ void	ft_helper_rotate(t_prgrm *vars, int i)
 	sin(i * SPEED);
 	vars->dir[1] = vars->old_dir[0] * sin(i * SPEED) + vars->dir[1] \
 	* cos(i * SPEED);
-	vars->old_camera_vector[0] = vars->camera_vector[0];
-	vars->camera_vector[0] = vars->camera_vector[0] * cos(i * SPEED) \
-	- vars->camera_vector[1] * sin(i * SPEED);
-	vars->camera_vector[1] = vars->old_camera_vector[0] * sin(i * SPEED) \
-	+ vars->camera_vector[1] * cos(i * SPEED);
+	vars->old_cam_vec[0] = vars->cam_vec[0];
+	vars->cam_vec[0] = vars->cam_vec[0] * cos(i * SPEED) \
+	- vars->cam_vec[1] * sin(i * SPEED);
+	vars->cam_vec[1] = vars->old_cam_vec[0] * sin(i * SPEED) \
+	+ vars->cam_vec[1] * cos(i * SPEED);
 	ft_raycast(vars);
 }
 

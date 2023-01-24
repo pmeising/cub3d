@@ -6,7 +6,7 @@
 /*   By: pmeising <pmeising@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 15:46:50 by pmeising          #+#    #+#             */
-/*   Updated: 2023/01/16 15:53:51 by pmeising         ###   ########.fr       */
+/*   Updated: 2023/01/24 10:16:04 by pmeising         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@ void	ft_helper_local(t_prgrm *vars)
 	ft_free(vars->playa);
 	ft_free(vars->dir);
 	ft_free(vars->old_dir);
-	ft_free(vars->camera_vector);
-	ft_free(vars->old_camera_vector);
+	ft_free(vars->cam_vec);
+	ft_free(vars->old_cam_vec);
 	ft_free(vars->path_to_map);
 	ft_free(vars->path_to_north);
 	ft_free(vars->path_to_south);

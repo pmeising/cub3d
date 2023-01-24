@@ -6,7 +6,7 @@
 /*   By: pmeising <pmeising@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 15:48:27 by pmeising          #+#    #+#             */
-/*   Updated: 2023/01/24 09:48:35 by pmeising         ###   ########.fr       */
+/*   Updated: 2023/01/24 10:19:50 by pmeising         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,8 +76,8 @@ typedef struct s_prgrm
 	double			*playa;
 	double			*dir;
 	double			*old_dir;
-	double			*camera_vector;
-	double			*old_camera_vector;
+	double			*cam_vec;
+	double			*old_cam_vec;
 	double			time;
 	double			old_time;
 	int				map_columns;
@@ -147,6 +147,7 @@ void			ft_resize_tex_north(t_prgrm *vars, t_img *img, int x, int y);
 void			ft_resize_tex_west(t_prgrm *vars, t_img *img, int x, int y);
 void			ft_resize_tex_east(t_prgrm *vars, t_img *img, int x, int y);
 void			ft_resize_door(t_prgrm *vars, t_img *img, int x, int y);
+void			ft_open_door(t_prgrm *vars);
 
 // utils
 void			ft_check(t_prgrm *vars, void *con, int code);
