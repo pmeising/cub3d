@@ -6,7 +6,7 @@
 /*   By: pmeising <pmeising@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 15:48:27 by pmeising          #+#    #+#             */
-/*   Updated: 2023/01/24 10:19:50 by pmeising         ###   ########.fr       */
+/*   Updated: 2023/02/01 22:44:22 by pmeising         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 # define W_GREEN	0x0000FF00
 # define W_YELLOW	0x00FFFF00
 # define W_BLUE		0x000000FF
+# define W_BLACK	0x00000000
 # define SPEED		0.4
 
 typedef struct s_ray
@@ -90,6 +91,7 @@ typedef struct s_prgrm
 	char			*floor_colour;
 	char			*ceiling_colour;
 	char			**map;
+	char			**map2;
 	void			*mlx;
 	void			*mlx_win;
 	unsigned int	floor_color;
@@ -154,4 +156,12 @@ void			ft_check(t_prgrm *vars, void *con, int code);
 void			ft_helper_rotate(t_prgrm *vars, int i);
 void			print_map(t_prgrm *vars);
 int				ft_movement(int keycode, t_prgrm *vars);
+
+// Bonuses
+void			ft_init_mini_map(t_prgrm *vars);
+void			ft_put_mini_map(t_prgrm *vars);
+void			ft_build_mini_map(t_prgrm *vars);
+void			ft_put_tile(t_prgrm *vars, int i, int j, int k);
+void			ft_cpy_map(t_prgrm *vars);
+
 #endif
